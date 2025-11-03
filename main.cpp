@@ -55,6 +55,8 @@
 #include <spdlog/spdlog.h>
 #include <string>
 #include <thread>
+#include <GetUnreadMessagesProcessor.h>
+#include <ReadMessageProcessor.h>
 
 static uint16_t gamePort = 8081;
 static uint16_t socialPort = 8082;
@@ -244,6 +246,12 @@ int main(int argc, char** argv) {
             SpectreRpcType("MultiplayerRpc.InitializePartyV1Request"));
         new IsInPartyHandler(
             SpectreRpcType("MultiplayerRpc.SyncPartyV1Request"));
+        new GetUnreadMessagesProcessor(
+    SpectreRpcType("MtnInboxServiceRpc.GetMessagesClientV1Request")
+);
+        new ReadMessageProcessor(
+            SpectreRpcType("MtnInboxServiceRpc.MarkMessageAsReadClientV1Request")
+        );
         std::thread gameThread = std::thread([] {
             ConnectionAcceptor(gamePort); // game
         });
