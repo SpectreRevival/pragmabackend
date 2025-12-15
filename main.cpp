@@ -55,6 +55,8 @@
 #include <spdlog/spdlog.h>
 #include <string>
 #include <thread>
+#include <EnterMatchmakingProcessor.h>
+#include <LoginToChatProcessor.h>
 
 static uint16_t gamePort = 8081;
 static uint16_t socialPort = 8082;
@@ -244,6 +246,10 @@ int main(int argc, char** argv) {
             SpectreRpcType("MultiplayerRpc.InitializePartyV1Request"));
         new IsInPartyHandler(
             SpectreRpcType("MultiplayerRpc.SyncPartyV1Request"));
+        new LoginToChatProcessor(
+    SpectreRpcType("MtnChatServiceRpc.LoginToChatV2Request")
+);
+
         std::thread gameThread = std::thread([] {
             ConnectionAcceptor(gamePort); // game
         });
