@@ -41,7 +41,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/vcpkg/archives
-          key: vcpkg-${{hashFiles('vcpkg.json')}}-${{hashFiles('vcpkg/**')}}
+          key: vcpkg-${{hashFiles('vcpkg/**')}}
           restore-keys: |
             vcpkg-
 
@@ -56,3 +56,6 @@ jobs:
 
       - name: Build ${{matrix.build_type}}
         run: /usr/bin/cmake --build out/build/x64-${{matrix.build_type}}-linux
+
+      - name: Run tests
+        run: out/build/x64-${{matrix.build_type}}-linux/tests/tests
