@@ -1,1 +1,0 @@
-{"requestBody":{"gameShardId":"00000000-0000-0000-0000-000000000001","providerAccountIds":[{"idProviderType":"STEAM","providerAccountId":"76561198300085392"}]},"responsePayload":{},"rpcType":"AccountRpc.GetPlayerIdentitiesByProviderAccountIdsV1Request"}

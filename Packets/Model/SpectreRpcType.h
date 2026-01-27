@@ -15,10 +15,10 @@ class SpectreRpcType {
 private:
 	int m_typeId;
 public:
-	SpectreRpcType() {};
+	SpectreRpcType() : m_typeId(0){}
 	SpectreRpcType(const SpectreRpcType& type) : m_typeId(type.m_typeId) {};
-	SpectreRpcType(int typeId) : m_typeId(typeId) {};
-	SpectreRpcType(std::string name) : m_typeId(typeIdToName.left.at(name)) {};
+	explicit SpectreRpcType(int typeId) : m_typeId(typeId) {};
+	explicit SpectreRpcType(const std::string& name) : m_typeId(typeIdToName.left.at(name)) {};
 
 	std::string GetName() const {
 		return typeIdToName.right.at(m_typeId);
@@ -26,6 +26,15 @@ public:
 
 	int GetId() const {
 		return m_typeId;
+	}
+
+	SpectreRpcType GetResponseType()
+	{
+		std::string resType = GetName();
+		if (resType.size() >= 7 && resType.compare(resType.size() - 7, 7, "Request") == 0)
+			resType.erase(resType.size() - 7);
+		resType += "Response";
+		return SpectreRpcType(resType);
 	}
 
 	bool operator==(const SpectreRpcType& other) const {

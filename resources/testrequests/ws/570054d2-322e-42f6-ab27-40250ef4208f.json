@@ -1,1 +1,0 @@
-{"requestBody":{"gameShardId":"00000000-0000-0000-0000-000000000001","playerPresence":{"isOnline":false,"lastUpdated":"0","mainPresenceId":0,"playerId":"","presenceContext":"In Menu"}},"responsePayload":{},"rpcType":"MtnPlayerPresenceServiceRpc.UpdatePresenceForPlayerV1Request"}

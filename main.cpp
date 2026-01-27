@@ -50,9 +50,9 @@
 #include <UpdatePartyPlayerProcessor.h>
 #include <EnterMatchmakingProcessor.h>
 
-#define GAME_PORT 8081
-#define SOCIAL_PORT 8082
-#define WS_PORT 80
+static unsigned short GAME_PORT = 8081;
+static unsigned short SOCIAL_PORT = 8082;
+static unsigned short WS_PORT = 80;
 
 namespace asio = boost::asio;
 namespace beast = boost::beast;
@@ -170,7 +170,13 @@ void ConnectionAcceptor(unsigned short port) {
 
 // the main accept loop
 // binds to 127.0.0.1:443, accepts a connection, spins a thread, repeat
-int main() {
+int main(int argc, char** argv) {
+	if (argc == 4)
+	{
+		GAME_PORT = std::stoi(std::string(argv[1]));
+		SOCIAL_PORT = std::stoi(std::string(argv[2]));
+		WS_PORT = std::stoi(std::string(argv[3]));
+	}
 	try {
 		SetupLogger();
 		logger->info("starting server...");

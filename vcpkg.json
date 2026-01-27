@@ -6,6 +6,7 @@
     "boost-beast",
     "boost-bimap",
     "boost-uuid",
+    "boost-process",
     "date",
     "gtest",
     "jwt-cpp",

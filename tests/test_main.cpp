@@ -1,21 +1,22 @@
 #include <gtest/gtest.h>
+#include <filesystem>
+#include <WebsocketRequestTest.h>
+
+static std::vector<std::string> g_ws_paths = []{
+    std::vector<std::string> paths;
+    for (auto& item : std::filesystem::directory_iterator("../resources/testrequests/ws"))
+        {
+        if (item.is_regular_file() && item.path().extension() == ".json")
+            paths.push_back(item.path().string());
+        }
+    return paths;
+}();
+
+INSTANTIATE_TEST_SUITE_P( WebsocketRequestTests, WebsocketRequestTest, ::testing::ValuesIn(g_ws_paths) );
 
 int main(int argc, char** argv)
 {
-    for (int i = 1; i < argc; ++i)
-    {
-        if (std::string(argv[i]) == "--gtest_list_tests")
-        {
-            ::testing::InitGoogleTest(&argc, argv);
-            return RUN_ALL_TESTS();
-        }
-    }
-    std::thread serverThread = std::thread([]{std::system(SERVER_RUN_CMD);});
     // Wait for the server to start up
-    std::this_thread::sleep_for(std::chrono::seconds(10));
     ::testing::InitGoogleTest(&argc, argv);
-    int retCode = RUN_ALL_TESTS();
-    std::system(SERVER_TASKKILL_CMD);
-    serverThread.join();
-    return retCode;
+    return RUN_ALL_TESTS();
 }
