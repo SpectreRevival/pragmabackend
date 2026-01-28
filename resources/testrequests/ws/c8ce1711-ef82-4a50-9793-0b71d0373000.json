@@ -1,1 +1,0 @@
-{"requestBody":{"partyId":"b0cfc843-4cbc-4e5f-9e59-0934ebad4f1f","requestExt":{"acceptableRegions":[],"lobbyMode":"standard_casual","pool":"standard_casual","profile":"","region":"","removePlayers":[],"standard":{"mode":"Standard"},"tag":"","useTeamMmr":false,"version":"171268"}},"responsePayload":{},"rpcType":"PartyRpc.UpdatePartyV1Request"}

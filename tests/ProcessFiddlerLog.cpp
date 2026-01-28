@@ -59,6 +59,7 @@ void ProcessWebsocketSession(json& session)
         test["requestBody"] = reqData["payload"];
         test["rpcType"] = reqData["type"];
         test["responsePayload"] = resData["response"]["payload"];
+        test["testAge"] = message["time"];
         outTestFile << test.dump();
         outTestFile.close();
     }
@@ -86,6 +87,7 @@ void ProcessHTTPSession(json& session)
     test["request"] = session["request"]["postData"]["text"];
     test["path"] = ExtractURLPath(session["request"]["url"].get<std::string>());
     test["response"] = session["response"]["content"]["text"];
+    test["testAge"] = session["startedDateTime"];
     outTestFile << test.dump();
     outTestFile.close();
 }

@@ -1,1 +1,0 @@
-{"requestBody":{"instancedItemUpdates":[{"ext":{"reserved":0,"setViewed":true},"instanceId":"CECDDD31-4EBA-42BC-8910-E6971C010EAB","tags":[],"updateEntryId":"mtn-noop-update"}]},"responsePayload":{},"rpcType":"InventoryRpc.UpdateItemsV0Request"}

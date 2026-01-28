@@ -1,1 +1,0 @@
-{"requestBody":{"instancedItemUpdates":[{"ext":{"reserved":0,"setViewed":true},"instanceId":"B291C752-10A2-47D6-84E2-D33736D0C550","tags":[],"updateEntryId":"mtn-noop-update"},{"ext":{"reserved":0,"setViewed":true},"instanceId":"4A85AF6B-8B4A-439E-A3D7-0CEDEFBA9F8A","tags":[],"updateEntryId":"mtn-noop-update"}]},"responsePayload":{},"rpcType":"InventoryRpc.UpdateItemsV0Request"}
