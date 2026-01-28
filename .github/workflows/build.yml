@@ -7,11 +7,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
     strategy:
       fail-fast: false
       matrix:
         build_type: [debug, release]
+        os: [ubuntu-latest, windows-latest]
       max-parallel: 1
     steps:
       - name: Clone repo
@@ -20,15 +21,21 @@ jobs:
           submodules: recursive
 
       - name: Install compiler
+        if: runner.os == 'Linux'
         run: |
           sudo apt update
           sudo apt install -y build-essential ninja-build curl zip unzip tar autoconf autoconf-archive automake libtool linux-libc-dev pkg-config software-properties-common lsb-release
           sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
           sudo apt-key adv --fetch-keys https://apt.kitware.com/keys/kitware-archive-latest.asc
           sudo apt-get update
-          sudo apt-get install -y cmake     
+          sudo apt-get install -y cmake
+
+      - name: Install cmake (windows only)
+        if: runner.os == 'Windows'
+        run: winget install -e --id Kitware.CMake --disable-interactivity --accept-source-agreements --accept-package-agreements
 
       - name: Create auth.json
+        shell: bash
         # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
         run: |
           echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > auth.json
@@ -41,40 +48,83 @@ jobs:
           restore-keys: |
             vcpkg-
 
-      - name: Configure ${{matrix.build_type}}
+      - name: Configure ${{matrix.build_type}} ${{matrix.os}}
+        if: runner.os == 'Linux'
         run: |
           /usr/bin/cmake . --preset x64-${{matrix.build_type}}-linux
 
-      - name: Build ${{matrix.build_type}}
+      - name: Configure ${{matrix.build_type}} ${{matrix.os}}
+        if: runner.os == 'Windows'
+        run: |
+          cmake . --preset x64-${{matrix.build_type}}-win
+
+      - name: Build ${{matrix.build_type}} ${{matrix.os}}
+        if: runner.os == 'Linux'
         run: /usr/bin/cmake --build out/build/x64-${{matrix.build_type}}-linux
 
+      - name: Build ${{matrix.build_type}} ${{matrix.os}}
+        if: runner.os == 'Windows'
+        run: cmake --build out/build/x64-${{matrix.build_type}}-win
+
       - name: Create artifact
+        if: runner.os == 'Linux'
         run: |
           mkdir package
           cp -r out/build/x64-${{matrix.build_type}}-linux/* package
 
       - name: Upload artifact
+        if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
           name: x64-${{matrix.build_type}}-linux
           path: package/
           retention-days: 1
 
+      - name: Create artifact
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          mkdir package
+          cp -r out/build/x64-${{matrix.build_type}}-win/* package
+
+      - name: Upload artifact
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: x64-${{matrix.build_type}}-win
+          path: package/
+          retention-days: 1
+
   test:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
     strategy:
       fail-fast: false
       matrix:
-        build_type: [ debug, release ]
+        build_type: [debug, release]
+        os: [ubuntu-latest, windows-latest]
       max-parallel: 1
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
+        if: runner.os == 'Linux'
         with:
           name: x64-${{matrix.build_type}}-linux
           path: build/
 
       - name: Run tests
+        if: runner.os == 'Linux'
         working-directory: build
         run: tests/tests
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        if: runner.os == 'Windows'
+        with:
+          name: x64-${{matrix.build_type}}-win
+          path: build/
+
+      - name: Run tests
+        if: runner.os == 'Windows'
+        working-directory: build
+        run: tests/tests.exe

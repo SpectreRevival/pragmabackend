@@ -66,14 +66,17 @@ void DeduplicateWebsocketRequests(std::string reqFolder)
 long long parseTimestamp(std::string s)
 {
     s = s.substr(0, 19);
-    std::chrono::sys_time<std::chrono::microseconds> tp;
+
+    std::tm tm{};
     std::istringstream ss(s);
-
-    ss >> std::chrono::parse("%Y-%m-%dT%H:%M:%S", tp);
-    if (ss.fail())
-        throw std::runtime_error("Failed to parse timestamp");
-
-    return std::chrono::duration_cast<std::chrono::milliseconds>(tp.time_since_epoch()).count();
+    ss >> std::get_time(&tm, "%Y-%m-%dT%H:%M:%S");
+    long long unixTime;
+#if _WIN32
+    unixTime = _mkgmtime(&tm);
+#else
+    unixTime = timegm(&tm);
+#endif
+    return unixTime;
 }
 
 
