@@ -69,7 +69,7 @@ long long parseTimestamp(std::string s)
     std::chrono::sys_time<std::chrono::microseconds> tp;
     std::istringstream ss(s);
 
-    ss >> parse("%Y-%m-%dT%H:%M:%S", tp);
+    ss >> std::chrono::parse("%Y-%m-%dT%H:%M:%S", tp);
     if (ss.fail())
         throw std::runtime_error("Failed to parse timestamp");
 
