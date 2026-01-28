@@ -22,41 +22,24 @@ jobs:
       - name: Install compiler
         run: |
           sudo apt update
-          sudo apt-get update
-          sudo apt-get install -y curl zip unzip tar
-          sudo apt install -y build-essential ninja-build
-          sudo apt-get install -y autoconf autoconf-archive automake libtool
-          sudo apt install -y linux-libc-dev pkg-config
-
-      - name: Install cmake
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y software-properties-common lsb-release
+          sudo apt install -y build-essential ninja-build curl zip unzip tar autoconf autoconf-archive automake libtool linux-libc-dev pkg-config software-properties-common lsb-release
           sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
           sudo apt-key adv --fetch-keys https://apt.kitware.com/keys/kitware-archive-latest.asc
           sudo apt-get update
-          sudo apt-get install -y cmake
-          mkdir ~/bincache
-
-      - name: Download vcpkg binary cache artifact
-        uses: actions/download-artifact@v4
-        with:
-          pattern: vcpkg-bincache
-          path: $HOME/bincache
-
-      - name: Extract vcpkg-bincache.zip if present
-        if: ${{ hashFiles('bincache/vcpkg-bincache.zip') != '' }}
-        run: |
-          echo "Extracting vcpkg-bincache.zip..."
-          mkdir ~/.cache
-          mkdir ~/.cache/vcpkg
-          mkdir ~/.cache/vcpkg/archives
-          unzip -o ~/bincache/vcpkg-bincache.zip -d ~/.cache/vcpkg/archives
+          sudo apt-get install -y cmake     
 
       - name: Create auth.json
         # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
         run: |
           echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > auth.json
+
+      - name: Cache vcpkg archives directory
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/vcpkg/archives
+          key: vcpkg-${{hashFiles('vcpkg.json')}}-${{hashFiles('vcpkg/**')}}
+          restore-keys: |
+            vcpkg-
 
       - name: Configure ${{matrix.build_type}}
         run: |
@@ -64,14 +47,3 @@ jobs:
 
       - name: Build ${{matrix.build_type}}
         run: /usr/bin/cmake --build out/build/x64-${{matrix.build_type}}-linux
-
-      - name: Zip vcpkg binary cache
-        run: |
-          cd ~/.cache/vcpkg/archives
-          zip -r ~/bincache/bincache.zip .
-
-      - name: Upload vcpkg binary cache
-        uses: actions/upload-artifact@v4
-        with:
-          name: vcpkg-bincache
-          path: $HOME/bincache/bincache.zip
