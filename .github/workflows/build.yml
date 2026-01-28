@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         build_type: [debug, release]
       max-parallel: 1
@@ -47,3 +47,34 @@ jobs:
 
       - name: Build ${{matrix.build_type}}
         run: /usr/bin/cmake --build out/build/x64-${{matrix.build_type}}-linux
+
+      - name: Create artifact
+        run: |
+          mkdir package
+          cp -r out/build/x64-${{matrix.build_type}}-linux/* package
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: x64-${{matrix.build_type}}-linux
+          path: package/
+          retention-days: 1
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [ debug, release ]
+      max-parallel: 1
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: x64-${{matrix.build_type}}-linux
+          path: build/
+
+      - name: Run tests
+        working-directory: build
+        run: tests/tests
