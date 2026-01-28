@@ -9,9 +9,11 @@
 namespace fs = std::filesystem;
 using namespace nlohmann;
 
-inline bool JsonMatchesSchema(const json& response, const json& payload)
+inline bool JsonMatchesSchema(const json& response, const json& expectedResponse)
 {
-    json diff = json::diff(response, payload);
+    json diff = json::diff(response, expectedResponse);
+    std::cout << "DIFF: " << std::endl;
+    std::cout << diff.dump() << std::endl;
     for (const auto& entry : diff)
     {
         // each entry has 3 fields: op, path, and value.
@@ -51,7 +53,7 @@ TEST_P(WebsocketRequestTest, WebsocketResponseValidation)
     ss << testFile.rdbuf();
     std::string testJsonStr = ss.str();
     json testJson = json::parse(testJsonStr);
-    TestWebsocketClient wsClient(80);
+    TestWebsocketClient wsClient(8083);
     SpectreRpcType reqType = SpectreRpcType(testJson["rpcType"].get<std::string>());
     boost::beast::flat_buffer res = wsClient.SendPacket(testJson["requestBody"], reqType);
     std::string resStr( boost::asio::buffers_begin(res.data()), boost::asio::buffers_end(res.data()) );
