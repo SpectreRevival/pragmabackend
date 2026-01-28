@@ -39,7 +39,6 @@ jobs:
           mkdir ~/bincache
 
       - name: Download vcpkg binary cache artifact
-        if: steps.check-artifact.outputs.exists == 'true'
         uses: actions/download-artifact@v4
         with:
           pattern: vcpkg-bincache
