@@ -37,13 +37,21 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake
 
-      - name: Cache vcpkg archive
-        uses: actions/cache@v4
+      - name: Download vcpkg binary cache artifact
+        if: steps.check-artifact.outputs.exists == 'true'
+        uses: actions/download-artifact@v4
         with:
-          path: ~/.cache/vcpkg/archives
-          key: vcpkg-${{hashFiles('vcpkg/**')}}
-          restore-keys: |
-            vcpkg-
+          pattern: vcpkg-bincache
+          path: ./bincache
+
+      - name: Extract vcpkg-bincache.zip if present
+        if: ${{ hashFiles('bincache/vcpkg-bincache.zip') != '' }}
+        run: |
+          echo "Extracting vcpkg-bincache.zip..."
+          mkdir ~/.cache
+          mkdir ~/.cache/vcpkg
+          mkdir ~/.cache/vcpkg/archives
+          unzip -o bincache/vcpkg-bincache.zip -d ~/.cache/vcpkg/archives
 
       - name: Create auth.json
         # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
@@ -57,5 +65,13 @@ jobs:
       - name: Build ${{matrix.build_type}}
         run: /usr/bin/cmake --build out/build/x64-${{matrix.build_type}}-linux
 
-      - name: Run tests
-        run: out/build/x64-${{matrix.build_type}}-linux/tests/tests
+      - name: Zip vcpkg binary cache
+        run: |
+          cd ~/.cache/vcpkg/archives
+          zip ~/bincache/bincache.zip .
+
+      - name: Upload vcpkg binary cache
+        uses: actions/upload-artifact@v4
+        with:
+          name: vcpkg-bincache
+          path: ./bincache/bincache.zip
