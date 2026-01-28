@@ -5,6 +5,7 @@
 #include "boost/beast/websocket/stream.hpp"
 #include "nlohmann/json_fwd.hpp"
 #include <SpectreRpcType.h>
+#include <thread>
 
 class TestWebsocketClient
 {
