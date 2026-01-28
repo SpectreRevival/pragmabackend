@@ -13,7 +13,6 @@ jobs:
       matrix:
         build_type: [debug, release]
         os: [ubuntu-latest, windows-latest]
-      max-parallel: 1
     steps:
       - name: Clone repo
         uses: actions/checkout@v4
@@ -103,7 +102,6 @@ jobs:
       matrix:
         build_type: [debug, release]
         os: [ubuntu-latest, windows-latest]
-      max-parallel: 1
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
