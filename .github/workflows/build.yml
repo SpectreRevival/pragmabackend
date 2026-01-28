@@ -75,4 +75,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vcpkg-bincache
-          path: ./bincache/bincache.zip
+          path: ~/bincache/bincache.zip
