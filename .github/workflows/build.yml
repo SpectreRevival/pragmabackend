@@ -43,7 +43,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: vcpkg-bincache
-          path: ~/bincache
+          path: $HOME/bincache
 
       - name: Extract vcpkg-bincache.zip if present
         if: ${{ hashFiles('bincache/vcpkg-bincache.zip') != '' }}
@@ -75,4 +75,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vcpkg-bincache
-          path: ~/bincache/bincache.zip
+          path: $HOME/bincache/bincache.zip
