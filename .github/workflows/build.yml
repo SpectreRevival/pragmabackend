@@ -36,6 +36,7 @@ jobs:
           sudo apt-key adv --fetch-keys https://apt.kitware.com/keys/kitware-archive-latest.asc
           sudo apt-get update
           sudo apt-get install -y cmake
+          mkdir bincache
 
       - name: Download vcpkg binary cache artifact
         if: steps.check-artifact.outputs.exists == 'true'
@@ -68,7 +69,7 @@ jobs:
       - name: Zip vcpkg binary cache
         run: |
           cd ~/.cache/vcpkg/archives
-          zip ~/bincache/bincache.zip .
+          zip -r ~/bincache/bincache.zip .
 
       - name: Upload vcpkg binary cache
         uses: actions/upload-artifact@v4
