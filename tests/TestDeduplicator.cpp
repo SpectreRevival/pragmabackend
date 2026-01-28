@@ -73,7 +73,7 @@ long long parseTimestamp(std::string s)
     if (ss.fail())
         throw std::runtime_error("Failed to parse timestamp");
 
-    return duration_cast<std::chrono::milliseconds>(tp.time_since_epoch()).count();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(tp.time_since_epoch()).count();
 }
 
 
