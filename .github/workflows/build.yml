@@ -43,7 +43,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: vcpkg-bincache
-          path: ./bincache
+          path: ~/bincache
 
       - name: Extract vcpkg-bincache.zip if present
         if: ${{ hashFiles('bincache/vcpkg-bincache.zip') != '' }}
@@ -52,7 +52,7 @@ jobs:
           mkdir ~/.cache
           mkdir ~/.cache/vcpkg
           mkdir ~/.cache/vcpkg/archives
-          unzip -o bincache/vcpkg-bincache.zip -d ~/.cache/vcpkg/archives
+          unzip -o ~/bincache/vcpkg-bincache.zip -d ~/.cache/vcpkg/archives
 
       - name: Create auth.json
         # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
