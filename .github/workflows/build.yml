@@ -29,6 +29,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake
 
+      - name: Install Visual Studio 2026 Build Tools
+        if: runner.os == 'Windows'
+        run: |
+          curl -L -o vs_buildtools.exe https://aka.ms/vs/2026/release/vs_buildtools.exe
+          .\vs_buildtools.exe --quiet --wait --norestart ^
+            --add Microsoft.VisualStudio.Workload.VCTools ^
+            --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 ^
+            --add Microsoft.VisualStudio.Component.VC.CMake.Project
+
       - name: Install cmake (windows only)
         if: runner.os == 'Windows'
         run: winget install -e --id Kitware.CMake --disable-interactivity --accept-source-agreements --accept-package-agreements
@@ -54,7 +63,9 @@ jobs:
 
       - name: Configure ${{matrix.build_type}} ${{matrix.os}}
         if: runner.os == 'Windows'
+        shell: cmd
         run: |
+          call "C:\Program Files\Microsoft Visual Studio\18\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
           cmake . --preset x64-${{matrix.build_type}}-win
 
       - name: Build ${{matrix.build_type}} ${{matrix.os}}
