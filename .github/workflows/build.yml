@@ -33,10 +33,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           curl -L -o vs_buildtools.exe https://aka.ms/vs/2026/release/vs_buildtools.exe
-          .\vs_buildtools.exe --quiet --wait --norestart ^
-            --add Microsoft.VisualStudio.Workload.VCTools ^
-            --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 ^
-            --add Microsoft.VisualStudio.Component.VC.CMake.Project
+          .\vs_buildtools.exe --quiet --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.VC.CMake.Project
 
       - name: Install cmake (windows only)
         if: runner.os == 'Windows'
