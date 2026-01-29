@@ -68,6 +68,22 @@ file(GLOB_RECURSE PACKETS_PROTOBUF_FILES CMAKE_CONFIGURE_DEPENDS "${CMAKE_CURREN
 set(GENERATED_PROTO_SRCS "")
 set(GENERATED_PROTO_HDRS "")
 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_compile_options(-Wno-unused-command-line-argument)
+    foreach(flag_var
+            CMAKE_CXX_FLAGS
+            CMAKE_CXX_FLAGS_DEBUG
+            CMAKE_CXX_FLAGS_RELEASE
+            CMAKE_CXX_FLAGS_RELWITHDEBINFO
+            CMAKE_CXX_FLAGS_MINSIZEREL
+    )
+        string(REPLACE "/Zc:__cplusplus" "" ${flag_var} "${${flag_var}}")
+        string(REPLACE "/Zc:wchar_t" "" ${flag_var} "${${flag_var}}")
+        string(REPLACE "/Zc:strictStrings" "" ${flag_var} "${${flag_var}}")
+        string(REPLACE "/Zc:preprocessor" "" ${flag_var} "${${flag_var}}")
+    endforeach()
+endif()
+
 foreach(proto_file IN LISTS PACKETS_PROTOBUF_FILES PERSISTENCE_PROTOBUF_FILES)
     get_filename_component(proto_name ${proto_file} NAME_WE)
     set(proto_src_abs "${CMAKE_CURRENT_BINARY_DIR}/${proto_name}.pb.cc")
