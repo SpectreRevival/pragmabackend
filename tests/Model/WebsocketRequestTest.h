@@ -4,30 +4,11 @@
 #include <fstream>
 #include <TestWebsocketClient.h>
 #include <BackendEnvironment.h>
+#include <JsonTestUtil.h>
 
 #include "boost/asio/buffers_iterator.hpp"
 namespace fs = std::filesystem;
 using namespace nlohmann;
-
-inline bool JsonMatchesSchema(const json& response, const json& expectedResponse)
-{
-    json diff = json::diff(expectedResponse, response);
-    std::cout << "DIFF: " << std::endl;
-    std::cout << diff.dump() << std::endl;
-    for (const auto& entry : diff)
-    {
-        // each entry has 3 fields: op, path, and value.
-        if (entry["op"] != "replace")
-        {
-            return false;
-        }
-        if (entry["value"] != "*")
-        {
-            return false;
-        }
-    }
-    return true;
-}
 
 class WebsocketRequestTest : public ::testing::TestWithParam<std::string>
 {
@@ -70,5 +51,6 @@ TEST_P(WebsocketRequestTest, WebsocketResponseValidation)
     ASSERT_TRUE(responseFull["response"].contains("type"));
     ASSERT_TRUE(SpectreRpcType(responseFull["response"]["type"].get<std::string>()) == reqType.GetResponseType());
     ASSERT_TRUE(responseFull["response"].contains("payload"));
-    ASSERT_TRUE(JsonMatchesSchema(responseFull["response"]["payload"], testJson["responsePayload"]));
+    ASSERT_TRUE(JsonMatchesSchema(responseFull["response"]["payload"], testJson["responsePayload"],
+        testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true));
 }

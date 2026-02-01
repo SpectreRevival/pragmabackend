@@ -1,1 +1,44 @@
-{"requestBody":{"currentTimestampMillis":"1740507440512","isoLanguageCodes":["en-US"],"publicationId":"eb050886-132c-4161-ad84-492622f0444e"},"responsePayload":{"publication":{"messages":[{"contentDescriptor":"Battlepass Live","endTimestampMillis":"1741087533980","fullImage":{"internalName":"Image_Standard_LevelingUp_Full"},"fullMessage":{"translatedMessage":"Our Battle Pass is live with more than 70 levels of premium content! It also contains SP—unlock items from the store, or save it to buy the next Battle Pass!"},"fullTabTitle":{"translatedMessage":"Battle Pass Live"},"fullTitle":{"translatedMessage":"The Battle Pass is Live!"},"id":"25cdb46d-93b4-4007-92ac-4e9eecfea8fb","previewImage":{"internalName":"Image_Standard_LevelingUp_Preview"},"previewTitle":{"translatedMessage":"Battle Pass Live"},"startTimestampMillis":"1740493501744","updatedTimestampMillis":"1740498449697"},{"actionInternalLink":"Battlepass","contentDescriptor":"Leveling Battle Pass","endTimestampMillis":"1741087547937","fullImage":{"internalName":"Image_Standard_UnlockingBPRewards_Full"},"fullMessage":{"translatedMessage":"Earn credits, pick whatever rewards you want! What you unlock is up to you, always."},"fullTabTitle":{"translatedMessage":"Leveling Battle Pass"},"fullTitle":{"translatedMessage":"Leveling Battle Pass"},"id":"cac375ed-bd3b-4520-8429-c70194efd0b8","previewImage":{"internalName":"Image_Standard_UnlockingBPRewards_Preview"},"previewTitle":{"translatedMessage":"Leveling Battle Pass"},"startTimestampMillis":"1740493501000","updatedTimestampMillis":"1740498449697"},{"contentDescriptor":"Cyberlord Knife Promo","endTimestampMillis":"1740636000111","fullImage":{"internalName":"Image_Standard_CyberLordKnife_Full"},"fullMessage":{"translatedMessage":"Flashpoint is here—and to celebrate, players log in to Spectre: Divide between February 25 and 26 will unlock our Masterpiece Cyberlord Knife for free! "},"fullTabTitle":{"translatedMessage":"Cyberlord Knife Promo"},"fullTitle":{"translatedMessage":"Cyberlord Knife Promo"},"id":"5e439259-d77f-4484-bffa-ccb2bc042ff9","previewImage":{"internalName":"Image_Standard_CyberLordKnife_Preview"},"previewTitle":{"translatedMessage":"Cyberlord Knife Promo"},"startTimestampMillis":"1740493501000","updatedTimestampMillis":"1740498449697"},{"actionExternalUrl":"https://playspectre.com/twitch-drops","actionLabel":{"translatedMessage":"Read full details here."},"contentDescriptor":"Twitch Drops are Live!","endTimestampMillis":"1741087584258","fullImage":{"internalName":"Image_Standard_MatchStart_Full"},"fullMessage":{"translatedMessage":"Twitch Drops are currently live! Get the Drone Gun Charm, FiveStars Spray, and Communa spray by watching eligible streamers on Twitch!"},"fullTabTitle":{"translatedMessage":"Twitch Drops are Live!"},"fullTitle":{"translatedMessage":"Twitch Drops Live!"},"id":"4a99ea2c-4e3a-4d04-b4ba-e64f4cb8e620","previewImage":{"internalName":"Image_Standard_MatchStart_Preview"},"previewTitle":{"translatedMessage":"Twitch Drops are live!"},"startTimestampMillis":"1740493501000","updatedTimestampMillis":"1740498449697"},{"contentDescriptor":"Comic Page - 1","endTimestampMillis":"1741087595806","fullImage":{"internalName":"Image_Standard_S1Comic_01_Full"},"fullMessage":{"translatedMessage":"One side is an undefeated champion; the other is an underdog ready to sweep the competition. Which District will you fight for–Communa or Five Stars?"},"fullTabTitle":{"translatedMessage":"Comic Page - 1"},"fullTitle":{"translatedMessage":"Comic Page - 1"},"id":"1d90409c-fc1a-4af1-aeae-0789c5f2cccd","previewImage":{"internalName":"Image_Standard_S1Comic_01_Preview"},"previewTitle":{"translatedMessage":"Comic Page - 1"},"startTimestampMillis":"1740493501000","updatedTimestampMillis":"1740498449697"},{"contentDescriptor":"Comic Page - 2","endTimestampMillis":"1741087603740","fullImage":{"internalName":"Image_Standard_S1Comic_02_Full"},"fullMessage":{"translatedMessage":"One side is an undefeated champion; the other is an underdog ready to sweep the competition. Which District will you fight for–Communa or Five Stars?"},"fullTabTitle":{"translatedMessage":"Comic Page - 2"},"fullTitle":{"translatedMessage":"Comic Page - 2"},"id":"0ef9fb8c-cc20-4d5b-a61e-83f46644793e","previewImage":{"internalName":"Image_Standard_S1Comic_02_Preview"},"previewTitle":{"translatedMessage":"Comic Page - 2"},"startTimestampMillis":"1740493501000","updatedTimestampMillis":"1740498449697"}],"onLoadAction":"MTN_PLAYER_NEWS_ON_LOAD_ACTION_FULL_VIEW_ON_LOGIN","publicationId":"eb050886-132c-4161-ad84-492622f0444e"}},"rpcType":"MtnNewsServiceRpc.GetNewsPlayerV1Request","testAge":1740507440.167}
+{
+  "requestBody": {
+    "currentTimestampMillis": "1740507440512",
+    "isoLanguageCodes": [
+      "en-US"
+    ],
+    "publicationId": "eb050886-132c-4161-ad84-492622f0444e"
+  },
+  "responsePayload": {
+    "publication": {
+      "messages": [
+        {
+          "contentDescriptor": "Battlepass Live",
+          "endTimestampMillis": "1741087533980",
+          "fullImage": {
+            "internalName": "Image_Standard_LevelingUp_Full"
+          },
+          "fullMessage": {
+            "translatedMessage": "Our Battle Pass is live with more than 70 levels of premium content! It also contains SP—unlock items from the store, or save it to buy the next Battle Pass!"
+          },
+          "fullTabTitle": {
+            "translatedMessage": "Battle Pass Live"
+          },
+          "fullTitle": {
+            "translatedMessage": "The Battle Pass is Live!"
+          },
+          "id": "25cdb46d-93b4-4007-92ac-4e9eecfea8fb",
+          "previewImage": {
+            "internalName": "Image_Standard_LevelingUp_Preview"
+          },
+          "previewTitle": {
+            "translatedMessage": "Battle Pass Live"
+          },
+          "startTimestampMillis": "1740493501744",
+          "updatedTimestampMillis": "1740498449697"
+        }
+      ],
+      "onLoadAction": "MTN_PLAYER_NEWS_ON_LOAD_ACTION_FULL_VIEW_ON_LOGIN",
+      "publicationId": "eb050886-132c-4161-ad84-492622f0444e"
+    }
+  },
+  "rpcType": "MtnNewsServiceRpc.GetNewsPlayerV1Request",
+  "testAge": 1740507440.167
+}

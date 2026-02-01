@@ -1,1 +1,283 @@
-{"requestBody":{"type":"PC","version":"1"},"responsePayload":{"config":{"currentNewsPublicationId":"eb050886-132c-4161-ad84-492622f0444e","defaultLobbyMode":"standard_casual","defaultMap":"Greenbelt_P","defaultModeConfig":"Standard","defaultRegion":"uscentral-1","features":[{"enabled":true,"featureName":"global_chat_enabled"},{"enabled":true,"featureName":"DisableStreamerMode"},{"enabled":true,"featureName":"EnableResetAllSettings"},{"enabled":true,"featureName":"EnableGamesight"},{"enabled":true,"featureName":"EnableCopyPragmaIdButton"},{"enabled":true,"featureName":"UseHathoraUdpPingFlow"},{"enabled":true,"featureName":"RegionSelectorEnabled"}],"lastUpdatedCurrentNewsPublicationId":"1740499256858","lastUpdatedDefaultLobbyMode":"1740339370829","lastUpdatedDefaultMap":"1740339370829","lastUpdatedDefaultModeConfig":"1740339370829","lastUpdatedDefaultRegion":"1740339370829","lastUpdatedFeatures":"1740339370829","lastUpdatedMapList":"1740339370829","lastUpdatedModeConfigs":"1740339370829","lastUpdatedModeList":"1740339370829","lastUpdatedMotd":"1740339370829","lastUpdatedRegionList":"1740339370829","lastUpdatedSettings":"0","lastUpdatedStore":"1740339370829","lastUpdatedTweakValues":"1740339370829","mapList":["Junction_P","ShootingRange_P","Tutorial_P","Metro_P","Greenbelt_P","Commons_P","Canal_P"],"modeConfigs":[{"features":[{"enabled":true,"featureName":"enable_match_health_penalties"},{"enabled":true,"featureName":"enable_match_health_tracking"}],"inherit":"","mapList":[],"name":"SponsorSelect","ruleset":"","tags":[],"tweakValues":[]},{"features":[{"enabled":true,"featureName":"enable_match_health_penalties"},{"enabled":true,"featureName":"enable_match_health_tracking"}],"inherit":"","mapList":[],"name":"Defusal","ruleset":"","tags":[],"tweakValues":[]},{"features":[],"inherit":"Defusal","mapList":["Junction_P","Greenbelt_P","Metro_P","Commons_P","Canal_P"],"name":"Standard","ruleset":"Defusal_DualLife","tags":[{"name":"casual","priority":1.0},{"name":"ranked","priority":1.0}],"tweakValues":[]},{"features":[{"enabled":true,"featureName":"enable_kick_penalty"},{"enabled":false,"featureName":"enable_matchmaking_penalty"}],"inherit":"","mapList":["ShootingRange_P","Tutorial_P"],"name":"ShootingRange","ruleset":"Defusal_DualLife","tags":[{"name":"tutorial","priority":1.0}],"tweakValues":[]},{"features":[{"enabled":true,"featureName":"enable_kick_penalty"},{"enabled":false,"featureName":"enable_matchmaking_penalty"}],"inherit":"","mapList":["Tutorial_P","ShootingRange_P"],"name":"Tutorial","ruleset":"Defusal_DualLife","tags":[{"name":"tutorial","priority":1.0}],"tweakValues":[]},{"features":[],"inherit":"","mapList":["Greenbelt_P","Junction_P","Metro_P","Commons_P","Canal_P"],"name":"Custom","ruleset":"Defusal_DualLife","tags":[{"name":"custom","priority":1.0}],"tweakValues":[]}],"modeList":["Defusal_DualLife"],"motd":[{"endTime":"0","id":"0","message":"We've been trying to reach you about your car's extended warranty two. 2","startTime":"0","title":"First!"}],"regionList":["apnorth-1","uscentral-1","eucentral-1","apwest-1","uscentral-2","saeast-1","uswest-2","afsouth-1","useast-1","uswest-1","eueast-1","apsouth-1","meeast-1"],"settings":[{"data":"S1PC02252025","settingId":"activeConfigVersion"},{"data":"171268","settingId":"maximumBuild"},{"data":"171268","settingId":"minimumBuild"}],"store":{"purchaseGracePeriodInSeconds":300.0},"tweakValues":[{"name":"CustomMatchRequiredAttackers","value":0.0},{"name":"CustomMatchRequiredDefenders","value":0.0},{"name":"CustomMatchMaxObservers","value":2.0},{"name":"CasualMatchWinThresholdForRanked","value":5.0},{"name":"MinSpecWarningDisplayCount","value":2.0},{"name":"MinSpecCPUBenchmark","value":150.0},{"name":"MinSpecGPUBenchmark","value":60.0},{"name":"RegionSelectorAutomaticPingAcceptThreshold","value":85.0}]},"craftingEntriesCatalogFingerprint":"1+-1049204432+2025-03-11T20:00"},"rpcType":"MtnConfigServiceRpc.GetConfigForClientV1Request","testAge":1740507427.099}
+{
+  "requestBody": {
+    "type": "PC",
+    "version": "1"
+  },
+  "responsePayload": {
+    "config": {
+      "currentNewsPublicationId": "eb050886-132c-4161-ad84-492622f0444e",
+      "defaultLobbyMode": "standard_casual",
+      "defaultMap": "Greenbelt_P",
+      "defaultModeConfig": "Standard",
+      "defaultRegion": "*",
+      "features": [
+        {
+          "enabled": "*",
+          "featureName": "global_chat_enabled"
+        },
+        {
+          "enabled": "*",
+          "featureName": "DisableStreamerMode"
+        },
+        {
+          "enabled": "*",
+          "featureName": "EnableResetAllSettings"
+        },
+        {
+          "enabled": "*",
+          "featureName": "EnableGamesight"
+        },
+        {
+          "enabled": "*",
+          "featureName": "EnableCopyPragmaIdButton"
+        },
+        {
+          "enabled": "*",
+          "featureName": "UseHathoraUdpPingFlow"
+        },
+        {
+          "enabled": "*",
+          "featureName": "RegionSelectorEnabled"
+        }
+      ],
+      "lastUpdatedCurrentNewsPublicationId": "*",
+      "lastUpdatedDefaultLobbyMode": "*",
+      "lastUpdatedDefaultMap": "*",
+      "lastUpdatedDefaultModeConfig": "*",
+      "lastUpdatedDefaultRegion": "*",
+      "lastUpdatedFeatures": "*",
+      "lastUpdatedMapList": "*",
+      "lastUpdatedModeConfigs": "*",
+      "lastUpdatedModeList": "*",
+      "lastUpdatedMotd": "*",
+      "lastUpdatedRegionList": "*",
+      "lastUpdatedSettings": "*",
+      "lastUpdatedStore": "*",
+      "lastUpdatedTweakValues": "*",
+      "mapList": [
+        "Junction_P",
+        "ShootingRange_P",
+        "Tutorial_P",
+        "Metro_P",
+        "Greenbelt_P",
+        "Commons_P",
+        "Canal_P"
+      ],
+      "modeConfigs": [
+        {
+          "features": [
+            {
+              "enabled": "*",
+              "featureName": "enable_match_health_penalties"
+            },
+            {
+              "enabled": "*",
+              "featureName": "enable_match_health_tracking"
+            }
+          ],
+          "inherit": "",
+          "mapList": [],
+          "name": "SponsorSelect",
+          "ruleset": "",
+          "tags": [],
+          "tweakValues": []
+        },
+        {
+          "features": [
+            {
+              "enabled": "*",
+              "featureName": "enable_match_health_penalties"
+            },
+            {
+              "enabled": "*",
+              "featureName": "enable_match_health_tracking"
+            }
+          ],
+          "inherit": "",
+          "mapList": [],
+          "name": "Defusal",
+          "ruleset": "",
+          "tags": [],
+          "tweakValues": []
+        },
+        {
+          "features": [],
+          "inherit": "Defusal",
+          "mapList": [
+            "Junction_P",
+            "Greenbelt_P",
+            "Metro_P",
+            "Commons_P",
+            "Canal_P"
+          ],
+          "name": "Standard",
+          "ruleset": "Defusal_DualLife",
+          "tags": [
+            {
+              "name": "casual",
+              "priority": 1.0
+            },
+            {
+              "name": "ranked",
+              "priority": 1.0
+            }
+          ],
+          "tweakValues": []
+        },
+        {
+          "features": [
+            {
+              "enabled": "*",
+              "featureName": "enable_kick_penalty"
+            },
+            {
+              "enabled": "*",
+              "featureName": "enable_matchmaking_penalty"
+            }
+          ],
+          "inherit": "",
+          "mapList": [
+            "ShootingRange_P",
+            "Tutorial_P"
+          ],
+          "name": "ShootingRange",
+          "ruleset": "Defusal_DualLife",
+          "tags": [
+            {
+              "name": "tutorial",
+              "priority": 1.0
+            }
+          ],
+          "tweakValues": []
+        },
+        {
+          "features": [
+            {
+              "enabled": "*",
+              "featureName": "enable_kick_penalty"
+            },
+            {
+              "enabled": "*",
+              "featureName": "enable_matchmaking_penalty"
+            }
+          ],
+          "inherit": "",
+          "mapList": [
+            "Tutorial_P",
+            "ShootingRange_P"
+          ],
+          "name": "Tutorial",
+          "ruleset": "Defusal_DualLife",
+          "tags": [
+            {
+              "name": "tutorial",
+              "priority": 1.0
+            }
+          ],
+          "tweakValues": []
+        },
+        {
+          "features": [],
+          "inherit": "",
+          "mapList": [
+            "Greenbelt_P",
+            "Junction_P",
+            "Metro_P",
+            "Commons_P",
+            "Canal_P"
+          ],
+          "name": "Custom",
+          "ruleset": "Defusal_DualLife",
+          "tags": [
+            {
+              "name": "custom",
+              "priority": 1.0
+            }
+          ],
+          "tweakValues": []
+        }
+      ],
+      "modeList": [
+        "Defusal_DualLife"
+      ],
+      "motd": [
+        {
+          "endTime": "0",
+          "id": "0",
+          "message": "We've been trying to reach you about your car's extended warranty two. 2",
+          "startTime": "0",
+          "title": "First!"
+        }
+      ],
+      "regionList": [
+        "apnorth-1",
+        "uscentral-1",
+        "eucentral-1",
+        "apwest-1",
+        "uscentral-2",
+        "saeast-1",
+        "uswest-2",
+        "afsouth-1",
+        "useast-1",
+        "uswest-1",
+        "eueast-1",
+        "apsouth-1",
+        "meeast-1"
+      ],
+      "settings": [
+        {
+          "data": "S1PC02252025",
+          "settingId": "activeConfigVersion"
+        },
+        {
+          "data": "*",
+          "settingId": "maximumBuild"
+        },
+        {
+          "data": "*",
+          "settingId": "minimumBuild"
+        }
+      ],
+      "store": {
+        "purchaseGracePeriodInSeconds": "*"
+      },
+      "tweakValues": [
+        {
+          "name": "CustomMatchRequiredAttackers",
+          "value": "*"
+        },
+        {
+          "name": "CustomMatchRequiredDefenders",
+          "value": "*"
+        },
+        {
+          "name": "CustomMatchMaxObservers",
+          "value": "*"
+        },
+        {
+          "name": "CasualMatchWinThresholdForRanked",
+          "value": "*"
+        },
+        {
+          "name": "MinSpecWarningDisplayCount",
+          "value": "*"
+        },
+        {
+          "name": "MinSpecCPUBenchmark",
+          "value": "*"
+        },
+        {
+          "name": "MinSpecGPUBenchmark",
+          "value": "*"
+        },
+        {
+          "name": "RegionSelectorAutomaticPingAcceptThreshold",
+          "value": "*"
+        }
+      ]
+    },
+    "craftingEntriesCatalogFingerprint": "*"
+  },
+  "rpcType": "MtnConfigServiceRpc.GetConfigForClientV1Request",
+  "testAge": 1740507427.099
+}

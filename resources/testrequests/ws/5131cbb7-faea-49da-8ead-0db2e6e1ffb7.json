@@ -1,1 +1,27 @@
-{"requestBody":{"type":"hathora"},"responsePayload":{"endpoints":[{"host":"chicago.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"uscentral-1","type":"hathora"},{"host":"london.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"eucentral-1","type":"hathora"},{"host":"tokyo.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"apnorth-1","type":"hathora"},{"host":"losangeles.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"uswest-1","type":"hathora"},{"host":"washingtondc.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"useast-1","type":"hathora"},{"host":"dallas.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"uscentral-2","type":"hathora"},{"host":"singapore.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"apwest-1","type":"hathora"},{"host":"sydney.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"apsouth-1","type":"hathora"},{"host":"saopaulo.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"saeast-1","type":"hathora"},{"host":"seattle.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"uswest-2","type":"hathora"},{"host":"dubai.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"meeast-1","type":"hathora"},{"host":"johannesburg.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"afsouth-1","type":"hathora"},{"host":"frankfurt.ping.hathora.dev","ipv4":"","ipv6":"","port":443.0,"regionName":"eueast-1","type":"hathora"}]},"rpcType":"MtnBeaconServiceRpc.GetBeaconEndpointsV1Request","testAge":1740507427.3}
+{
+  "requestBody": {
+    "type": "hathora"
+  },
+  "responsePayload": {
+    "endpoints": [
+      {
+        "host": "chicago.ping.hathora.dev",
+        "ipv4": "",
+        "ipv6": "",
+        "port": 80,
+        "regionName": "uscentral-1",
+        "type": "hathora"
+      },
+      {
+        "host": "london.ping.hathora.dev",
+        "ipv4": "",
+        "ipv6": "",
+        "port": 80,
+        "regionName": "eucentral-1",
+        "type": "hathora"
+      }
+    ]
+  },
+  "rpcType": "MtnBeaconServiceRpc.GetBeaconEndpointsV1Request",
+  "testAge": 1740507427.3
+}

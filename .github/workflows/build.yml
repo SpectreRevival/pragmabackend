@@ -33,10 +33,10 @@ jobs:
         if: runner.os == 'Windows'
         run: winget install -e --id Kitware.CMake --disable-interactivity --accept-source-agreements --accept-package-agreements
 
-      - name: Remove mingw (windows only)
+      - name: Remove mingw from path (windows only)
         if: runner.os == 'Windows'
         shell: bash
-        run: rm -rf C:\mingw64
+        run: export PATH=$(echo "$PATH" | tr ':' '\n' | grep -v 'mingw' | grep -v 'msys' | paste -sd ':' -)
 
       - name: Create auth.json
         shell: bash

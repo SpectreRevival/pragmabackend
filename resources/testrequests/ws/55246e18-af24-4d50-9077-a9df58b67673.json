@@ -1,1 +1,2376 @@
-{"requestBody":{},"responsePayload":{"full":{"instanced":[{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_SMG_Suppressed_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"b4763ebb-d058-4736-a89e-ba07761059a6"},{"catalogId":"SpectreLiveSceneCaptureItemDef:LSCID_PlayerPortrait_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":true},"instanceId":"90dfe9af-6c8d-406f-96b2-8827fbc949f1"},{"catalogId":"SpectreSponsorUnlockItemDefinition:SponsorUnlock_AreaControl","ext":{"reserved":0.0,"sponsorUnlockData":{"sponsorName":"Area Control"},"viewed":true},"instanceId":"4822ac5e-f17f-4c1a-977d-e4e59e8533f2"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_Sniper_SemiAuto_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"ca37a62a-28da-4de2-98ce-214c4210f026"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_MG_RapidFire_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"0276e54f-481d-46f2-99e0-261c7de223c6"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_001","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"746b4efc-8cb7-43b8-b0e3-1e254d747222"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_SMG_Tactical_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"bf3f13de-f9de-4080-a69e-80b567fd2aa6"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_AR_Heavy_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"562fd867-1dfb-4ade-ac7b-0dc7a12ac151"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_007_B","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"f39e597c-bd23-4c3c-ad28-d3c544376686"},{"catalogId":"SpectreSprayItemDef:SprayID_Default_01","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":true},"instanceId":"489df6b8-0961-452c-b0ec-fc12e6dc4f2d"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_SidePart_01","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"9900df6c-9423-45bb-8c13-20d9aa84634f"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_006","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"0e991f18-b684-48f6-8070-ed34d6d28c51"},{"catalogId":"CharacterCosmeticItemOutfit:OutfitID_F_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"ac5035e3-6572-484b-a5d8-1ffcc1f367f1"},{"catalogId":"SpectreSponsorProgressionItemDef:ProgID_Sponsor_Soldier","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.xp":"0"}},"reserved":0.0,"viewed":false},"instanceId":"75c9e5e0-af2a-45e3-814a-4bda6770c4dc"},{"catalogId":"CharacterCosmeticItemOutfit:OutfitID_Bones","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":false},"instanceId":"2936add6-6a20-476f-b8f6-ac90c1362858"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_005","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"4bd85d62-ca79-4131-8cf1-60011343c5b1"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_004","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"7caa7d6d-0136-48bd-bbff-55689f572eac"},{"catalogId":"SpectreMultiKillCaptureItemDef:MKC_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":true},"instanceId":"91fe00d8-c2a2-4d97-ad76-a76829b5d731"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_Knife_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]},{"channelId":"VFX","ownedAlterations":["Off"]}]},"reserved":0.0,"viewed":true},"instanceId":"1a18b1f8-9098-4623-ad2a-06e3fca7f98f"},{"catalogId":"SpectreSponsorProgressionItemDef:ProgID_Sponsor_Momentum","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.xp":"0"}},"reserved":0.0,"viewed":false},"instanceId":"cca28dd0-25a4-4395-8aad-0ded8ea89492"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0013","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"c90099ed-ddf0-4d9c-ac96-1277a9bfb8c4"},{"catalogId":"SpectreQuestItemDef:Quest_Weekly_1_Quests_7","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.dailyquestcompleted":"0"}},"reserved":0.0,"viewed":false},"instanceId":"319bf452-963a-40f8-9190-915c68fc0488"},{"catalogId":"SpectreSponsorProgressionItemDef:ProgID_Sponsor_Hacker","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.xp":"0"}},"reserved":0.0,"viewed":false},"instanceId":"380401b6-82db-4575-afe4-c10ec9d5cdee"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_010","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"98f429d3-af15-4f4e-99b1-3180a96b609e"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0019","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"f82ff30a-f0dc-4a75-ad60-1edb62547a51"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0015","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"3bf59bf7-32e8-4693-861c-c416361b21ff"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0012","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"c789941e-35ca-446d-b75e-9314944b0a42"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_001","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"c2bc07dd-a1db-48d1-9877-6d576e4a907e"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_SMG_RapidFire_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"e957a9b6-e12e-47e8-89a0-f8dc6eabd431"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_008","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"d33f4014-2d2c-407f-b635-f14ea3d93699"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_AR_Burst_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"a3dfc486-5786-473b-b499-62ae237a0fde"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_Shotgun_Heavy_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"d746fcb0-b8cf-4fa8-9c70-5eb2c83da27e"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_005","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"a0f679c7-c9a5-4eab-b437-d738be7d07b4"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_002","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"a96bc5f8-a36b-40cf-bb02-31578d192a72"},{"catalogId":"SpectreQuestItemDef:Quest_Weekly_3_Headshots_80","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.headshots":"0"}},"reserved":0.0,"viewed":false},"instanceId":"f44ca42b-09e6-4283-9d44-5ed4896514d9"},{"catalogId":"CharacterCosmeticItemOutfit:OutfitID_F_DefaultAlt","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"12c77811-d0b7-4ec2-a621-7362120dbba8"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_011","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"c7a934c0-dee7-418c-b188-f16f9389b70a"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_007","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"67fb1607-b825-443a-9c87-c31e9b4a98cd"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_003","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"a9d27177-0db7-48ba-959f-ecc1c6c8bcab"},{"catalogId":"SpectreSponsorUnlockItemDefinition:SponsorUnlock_Guardian","ext":{"reserved":0.0,"sponsorUnlockData":{"sponsorName":"Bloom Technologies"},"viewed":true},"instanceId":"7769b5c5-fdf7-4586-9513-1e635adcffb2"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_003_B","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"6b9c7e65-f791-421b-8918-45b8424d97b3"},{"catalogId":"SpectreQuestItemDef:Quest_Weekly_2_CrewScore_50","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.crewscoreearned":"0"}},"reserved":0.0,"viewed":false},"instanceId":"d71be643-5982-4c00-b0e3-c782d8420227"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_AR_Standard_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"5089208d-9694-48ff-ab9c-9a5df91a8942"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_004_B","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"a702a929-7b6d-45cc-b550-c23f584d9e6c"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0017","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"cfe5736d-ff7c-4fb8-8806-261b151265d0"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_AR_Suppressed_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"2ae52337-c694-4f8a-946d-effe77f4af28"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_008_B","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"7db00e1d-b23b-4e4a-8de2-5e02117c1edb"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0011","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"a030e18f-f11f-479e-bf23-b3f001609fd2"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_005_B","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"61dbbd7d-8c69-4b7e-87a2-4c99edc21103"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_DutchBraids_01","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"26bd426a-d495-44f0-9f1a-3feceacf088a"},{"catalogId":"SpectreQuestItemDef:Quest_Daily_2_BuyWeapons_50","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.weaponpurchased":"0"}},"reserved":0.0,"viewed":false},"instanceId":"78e3a08c-d501-46eb-a54d-d9d8c968f767"},{"catalogId":"SpectreQuestItemDef:Quest_Daily_3_UseUtility_50","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.abilitiesused":"0"}},"reserved":0.0,"viewed":false},"instanceId":"7f656ebd-556c-4e35-a1bd-f6828e09fca3"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_002","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"42beb9ed-bbd7-4ad2-bcc6-dc6eef990e4c"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_Pistol_Suppressed_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"c17f13f5-5af0-4a83-920e-66dee9a0e2a1"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_009","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"9d5da043-aeb0-4d40-9a36-cbc1ccb2ae55"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0014","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"0fa09c4e-fe8a-4ddc-bacf-586de40f5031"},{"catalogId":"CharacterCosmeticItemSimple:HAccessoryID_Bones","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":false},"instanceId":"509ea8c0-b843-4014-9cb3-34687b26dc69"},{"catalogId":"SpectreSprayItemDef:SprayID_Event_2024_Halloween_01","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":false},"instanceId":"8c9aaf53-004d-486a-b621-c6619fd62fd3"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0016","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"5f021dba-65c9-48f9-ae02-3b6eebb1a430"},{"catalogId":"SpectreSponsorProgressionItemDef:ProgID_Sponsor_Vanguard","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.xp":"0"}},"reserved":0.0,"viewed":false},"instanceId":"bb59c27f-759e-4e44-8682-6370dacbfacb"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_004","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"a275a1b1-04e7-4ad8-8a53-4e7dee57e075"},{"catalogId":"SpectreSponsorProgressionItemDef:ProgID_Sponsor_AreaControl","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.xp":"0"}},"reserved":0.0,"viewed":false},"instanceId":"3fa68be5-ea37-47c1-a205-7ef4b983ce62"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0018","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"44b140d9-8b02-4611-9313-d8cb14e26fd0"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_Shotgun_Auto_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"53aa7351-ec3b-4b43-a648-3f4a6c93b5f2"},{"catalogId":"SpectreSponsorUnlockItemDefinition:SponsorUnlock_Lookout","ext":{"reserved":0.0,"sponsorUnlockData":{"sponsorName":"Lookout"},"viewed":true},"instanceId":"a6f80a22-f039-4209-af42-e5d3918bd245"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_AR_SemiAuto_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"e8f5a65d-a05d-407d-93e5-f440a4d6b2ae"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_Bones","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":false},"instanceId":"aa830cf6-fb8f-4798-957f-174faa05f709"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_AR_Tactical_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"55b8ac4d-0c73-4844-83ea-69e5a66644e4"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0020","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"a98f9664-2387-4931-b6a2-8f0e7983b856"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_Sniper_BoltAction_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"3a3627e7-e9aa-4cba-8e87-cb9f7c04b683"},{"catalogId":"SpectreSponsorProgressionItemDef:ProgID_Sponsor_Recon","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.xp":"0"}},"reserved":0.0,"viewed":false},"instanceId":"8457edbe-51f5-43ce-8300-3be152be3126"},{"catalogId":"SpectreSponsorProgressionItemDef:ProgID_Sponsor_Lookout","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.xp":"0"}},"reserved":0.0,"viewed":false},"instanceId":"123e27be-0f97-4bcc-b683-cffbbb8079a3"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_002_B","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"711af3ec-f1e0-4c0b-ae88-4bd2c51eb23f"},{"catalogId":"CharacterCosmeticItemOutfit:OutfitID_M_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"40268935-f961-4783-934f-c46b3e7dc1db"},{"catalogId":"SpectreSponsorProgressionItemDef:ProgID_Sponsor_Guardian","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.xp":"0"}},"reserved":0.0,"viewed":false},"instanceId":"c22878ca-7d62-4019-a4be-628bf4b5a142"},{"catalogId":"CharacterCosmeticItemSimple:HStylingID_DefaultStyling_006","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"d7228c05-8ab5-442b-9352-80ba4ae5a7cb"},{"catalogId":"SpectreQuestItemDef:Quest_Daily_1_FirstKill_1","ext":{"activeProgressionData":{"areObjectivesCompleted":false,"currentObjectiveId":"0","currentObjectiveIndex":0.0,"isBundlePurchased":false,"isPremiumUnlocked":false,"numLevelsPurchased":0.0,"progressByStat":{"playerstat.firstkills":"0"}},"reserved":0.0,"viewed":false},"instanceId":"ddd52962-4544-462b-8997-cc3e48249b6d"},{"catalogId":"MtnManualItem:ProgressionTracker","ext":{"reserved":0.0,"trackedProgression":{"activeDailyQuests":["ddd52962-4544-462b-8997-cc3e48249b6d","78e3a08c-d501-46eb-a54d-d9d8c968f767","7f656ebd-556c-4e35-a1bd-f6828e09fca3"],"activeEndorsement":"75c9e5e0-af2a-45e3-814a-4bda6770c4dc","activeEventQuests":[],"activeWeeklyQuests":["319bf452-963a-40f8-9190-915c68fc0488","d71be643-5982-4c00-b0e3-c782d8420227","f44ca42b-09e6-4283-9d44-5ed4896514d9"],"lastRolloverTimestamp":"1740269321817"},"viewed":false},"instanceId":"e592466e-1bbf-4282-815b-3c4689e25283"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_Pistol_SemiAuto_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"e9924f92-614c-4431-b142-73b53453eab5"},{"catalogId":"CharacterCosmeticItemSimple:HairID_Hair_0001","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9"]}]},"reserved":0.0,"viewed":true},"instanceId":"6238aefd-fc64-4a7e-a017-b3792857f4a0"},{"catalogId":"CharacterCosmeticItemOutfit:OutfitID_M_DefaultAlt","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Color","ownedAlterations":["Option1"]}]},"reserved":0.0,"viewed":true},"instanceId":"8bb8b534-3488-4d49-886e-65bec362abae"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_MG_HighCal_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"e9d28ce9-940e-498d-9be1-a1d0555e0544"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_Pistol_Auto_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"8c7beeb1-710b-464a-b4df-84a098298c69"},{"catalogId":"SpectreSponsorUnlockItemDefinition:SponsorUnlock_Soldier","ext":{"reserved":0.0,"sponsorUnlockData":{"sponsorName":"Soldier"},"viewed":true},"instanceId":"77cea447-a89d-4c49-ba98-09b0c0f3cf78"},{"catalogId":"SpectreWeaponCosmeticItemDef:WeaponID_Pistol_HighCal_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"Mesh","ownedAlterations":["On"]}]},"reserved":0.0,"viewed":true},"instanceId":"79d2e9ae-83e8-4598-ba05-b0fd75239490"},{"catalogId":"SpectreBannerItemDef:BannerID_Default","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":true},"instanceId":"4f30362e-0f4a-4389-8c43-4c588924ca09"},{"catalogId":"CharacterCosmeticItemHead:HeadID_Face_003","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[{"channelId":"SkinTone","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"Voice","ownedAlterations":["Option1","Option2","Option3","Option4","Option5"]},{"channelId":"LipColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyebrowColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8","Option9","Option10"]},{"channelId":"EyeColor","ownedAlterations":["Option1","Option2","Option3","Option4","Option5","Option6","Option7","Option8"]}]},"reserved":0.0,"viewed":true},"instanceId":"56490170-5353-4a9d-8f5f-14b0bbb91b63"}],"stackables":[],"version":"0"}},"rpcType":"InventoryRpc.GetInventoryV2Request","testAge":1740507427.066}
+{
+  "requestBody": {},
+  "responsePayload": {
+    "full": {
+      "instanced": [
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_SMG_Suppressed_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "b4763ebb-d058-4736-a89e-ba07761059a6"
+        },
+        {
+          "catalogId": "SpectreLiveSceneCaptureItemDef:LSCID_PlayerPortrait_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": []
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "90dfe9af-6c8d-406f-96b2-8827fbc949f1"
+        },
+        {
+          "catalogId": "SpectreSponsorUnlockItemDefinition:SponsorUnlock_AreaControl",
+          "ext": {
+            "reserved": 0.0,
+            "sponsorUnlockData": {
+              "sponsorName": "Area Control"
+            },
+            "viewed": true
+          },
+          "instanceId": "4822ac5e-f17f-4c1a-977d-e4e59e8533f2"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_Sniper_SemiAuto_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "ca37a62a-28da-4de2-98ce-214c4210f026"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_MG_RapidFire_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "0276e54f-481d-46f2-99e0-261c7de223c6"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_001",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "746b4efc-8cb7-43b8-b0e3-1e254d747222"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_SMG_Tactical_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "bf3f13de-f9de-4080-a69e-80b567fd2aa6"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_AR_Heavy_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "562fd867-1dfb-4ade-ac7b-0dc7a12ac151"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_007_B",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "f39e597c-bd23-4c3c-ad28-d3c544376686"
+        },
+        {
+          "catalogId": "SpectreSprayItemDef:SprayID_Default_01",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": []
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "489df6b8-0961-452c-b0ec-fc12e6dc4f2d"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_SidePart_01",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "9900df6c-9423-45bb-8c13-20d9aa84634f"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_006",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "0e991f18-b684-48f6-8070-ed34d6d28c51"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemOutfit:OutfitID_F_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "ac5035e3-6572-484b-a5d8-1ffcc1f367f1"
+        },
+        {
+          "catalogId": "SpectreSponsorProgressionItemDef:ProgID_Sponsor_Soldier",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.xp": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "75c9e5e0-af2a-45e3-814a-4bda6770c4dc"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemOutfit:OutfitID_Bones",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": []
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "2936add6-6a20-476f-b8f6-ac90c1362858"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_005",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "4bd85d62-ca79-4131-8cf1-60011343c5b1"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_004",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "7caa7d6d-0136-48bd-bbff-55689f572eac"
+        },
+        {
+          "catalogId": "SpectreMultiKillCaptureItemDef:MKC_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": []
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "91fe00d8-c2a2-4d97-ad76-a76829b5d731"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_Knife_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                },
+                {
+                  "channelId": "VFX",
+                  "ownedAlterations": [
+                    "Off"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "1a18b1f8-9098-4623-ad2a-06e3fca7f98f"
+        },
+        {
+          "catalogId": "SpectreSponsorProgressionItemDef:ProgID_Sponsor_Momentum",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.xp": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "cca28dd0-25a4-4395-8aad-0ded8ea89492"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0013",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "c90099ed-ddf0-4d9c-ac96-1277a9bfb8c4"
+        },
+        {
+          "catalogId": "SpectreQuestItemDef:Quest_Weekly_1_Quests_7",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.dailyquestcompleted": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "319bf452-963a-40f8-9190-915c68fc0488"
+        },
+        {
+          "catalogId": "SpectreSponsorProgressionItemDef:ProgID_Sponsor_Hacker",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.xp": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "380401b6-82db-4575-afe4-c10ec9d5cdee"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_010",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "98f429d3-af15-4f4e-99b1-3180a96b609e"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0019",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "f82ff30a-f0dc-4a75-ad60-1edb62547a51"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0015",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "3bf59bf7-32e8-4693-861c-c416361b21ff"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0012",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "c789941e-35ca-446d-b75e-9314944b0a42"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_001",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "c2bc07dd-a1db-48d1-9877-6d576e4a907e"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_SMG_RapidFire_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "e957a9b6-e12e-47e8-89a0-f8dc6eabd431"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_008",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "d33f4014-2d2c-407f-b635-f14ea3d93699"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_AR_Burst_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "a3dfc486-5786-473b-b499-62ae237a0fde"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_Shotgun_Heavy_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "d746fcb0-b8cf-4fa8-9c70-5eb2c83da27e"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_005",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "a0f679c7-c9a5-4eab-b437-d738be7d07b4"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_002",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "a96bc5f8-a36b-40cf-bb02-31578d192a72"
+        },
+        {
+          "catalogId": "SpectreQuestItemDef:Quest_Weekly_3_Headshots_80",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.headshots": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "f44ca42b-09e6-4283-9d44-5ed4896514d9"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemOutfit:OutfitID_F_DefaultAlt",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "12c77811-d0b7-4ec2-a621-7362120dbba8"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_011",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "c7a934c0-dee7-418c-b188-f16f9389b70a"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_007",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "67fb1607-b825-443a-9c87-c31e9b4a98cd"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_003",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "a9d27177-0db7-48ba-959f-ecc1c6c8bcab"
+        },
+        {
+          "catalogId": "SpectreSponsorUnlockItemDefinition:SponsorUnlock_Guardian",
+          "ext": {
+            "reserved": 0.0,
+            "sponsorUnlockData": {
+              "sponsorName": "Bloom Technologies"
+            },
+            "viewed": true
+          },
+          "instanceId": "7769b5c5-fdf7-4586-9513-1e635adcffb2"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_003_B",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "6b9c7e65-f791-421b-8918-45b8424d97b3"
+        },
+        {
+          "catalogId": "SpectreQuestItemDef:Quest_Weekly_2_CrewScore_50",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.crewscoreearned": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "d71be643-5982-4c00-b0e3-c782d8420227"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_AR_Standard_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "5089208d-9694-48ff-ab9c-9a5df91a8942"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_004_B",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "a702a929-7b6d-45cc-b550-c23f584d9e6c"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0017",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "cfe5736d-ff7c-4fb8-8806-261b151265d0"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_AR_Suppressed_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "2ae52337-c694-4f8a-946d-effe77f4af28"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_008_B",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "7db00e1d-b23b-4e4a-8de2-5e02117c1edb"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0011",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "a030e18f-f11f-479e-bf23-b3f001609fd2"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_005_B",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "61dbbd7d-8c69-4b7e-87a2-4c99edc21103"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_DutchBraids_01",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "26bd426a-d495-44f0-9f1a-3feceacf088a"
+        },
+        {
+          "catalogId": "SpectreQuestItemDef:Quest_Daily_2_BuyWeapons_50",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.weaponpurchased": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "78e3a08c-d501-46eb-a54d-d9d8c968f767"
+        },
+        {
+          "catalogId": "SpectreQuestItemDef:Quest_Daily_3_UseUtility_50",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.abilitiesused": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "7f656ebd-556c-4e35-a1bd-f6828e09fca3"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_002",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "42beb9ed-bbd7-4ad2-bcc6-dc6eef990e4c"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_Pistol_Suppressed_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "c17f13f5-5af0-4a83-920e-66dee9a0e2a1"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_009",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "9d5da043-aeb0-4d40-9a36-cbc1ccb2ae55"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0014",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "0fa09c4e-fe8a-4ddc-bacf-586de40f5031"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HAccessoryID_Bones",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": []
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "509ea8c0-b843-4014-9cb3-34687b26dc69"
+        },
+        {
+          "catalogId": "SpectreSprayItemDef:SprayID_Event_2024_Halloween_01",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": []
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "8c9aaf53-004d-486a-b621-c6619fd62fd3"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0016",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "5f021dba-65c9-48f9-ae02-3b6eebb1a430"
+        },
+        {
+          "catalogId": "SpectreSponsorProgressionItemDef:ProgID_Sponsor_Vanguard",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.xp": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "bb59c27f-759e-4e44-8682-6370dacbfacb"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_004",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "a275a1b1-04e7-4ad8-8a53-4e7dee57e075"
+        },
+        {
+          "catalogId": "SpectreSponsorProgressionItemDef:ProgID_Sponsor_AreaControl",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.xp": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "3fa68be5-ea37-47c1-a205-7ef4b983ce62"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0018",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "44b140d9-8b02-4611-9313-d8cb14e26fd0"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_Shotgun_Auto_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "53aa7351-ec3b-4b43-a648-3f4a6c93b5f2"
+        },
+        {
+          "catalogId": "SpectreSponsorUnlockItemDefinition:SponsorUnlock_Lookout",
+          "ext": {
+            "reserved": 0.0,
+            "sponsorUnlockData": {
+              "sponsorName": "Lookout"
+            },
+            "viewed": true
+          },
+          "instanceId": "a6f80a22-f039-4209-af42-e5d3918bd245"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_AR_SemiAuto_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "e8f5a65d-a05d-407d-93e5-f440a4d6b2ae"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_Bones",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "aa830cf6-fb8f-4798-957f-174faa05f709"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_AR_Tactical_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "55b8ac4d-0c73-4844-83ea-69e5a66644e4"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0020",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "a98f9664-2387-4931-b6a2-8f0e7983b856"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_Sniper_BoltAction_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "3a3627e7-e9aa-4cba-8e87-cb9f7c04b683"
+        },
+        {
+          "catalogId": "SpectreSponsorProgressionItemDef:ProgID_Sponsor_Recon",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.xp": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "8457edbe-51f5-43ce-8300-3be152be3126"
+        },
+        {
+          "catalogId": "SpectreSponsorProgressionItemDef:ProgID_Sponsor_Lookout",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.xp": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "123e27be-0f97-4bcc-b683-cffbbb8079a3"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_002_B",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "711af3ec-f1e0-4c0b-ae88-4bd2c51eb23f"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemOutfit:OutfitID_M_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "40268935-f961-4783-934f-c46b3e7dc1db"
+        },
+        {
+          "catalogId": "SpectreSponsorProgressionItemDef:ProgID_Sponsor_Guardian",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.xp": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "c22878ca-7d62-4019-a4be-628bf4b5a142"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HStylingID_DefaultStyling_006",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "d7228c05-8ab5-442b-9352-80ba4ae5a7cb"
+        },
+        {
+          "catalogId": "SpectreQuestItemDef:Quest_Daily_1_FirstKill_1",
+          "ext": {
+            "activeProgressionData": {
+              "areObjectivesCompleted": false,
+              "currentObjectiveId": "0",
+              "currentObjectiveIndex": 0.0,
+              "isBundlePurchased": false,
+              "isPremiumUnlocked": false,
+              "numLevelsPurchased": 0.0,
+              "progressByStat": {
+                "playerstat.firstkills": "0"
+              }
+            },
+            "reserved": 0.0,
+            "viewed": false
+          },
+          "instanceId": "ddd52962-4544-462b-8997-cc3e48249b6d"
+        },
+        {
+          "catalogId": "MtnManualItem:ProgressionTracker",
+          "ext": {
+            "reserved": 0.0,
+            "trackedProgression": {
+              "activeDailyQuests": [
+                "ddd52962-4544-462b-8997-cc3e48249b6d",
+                "78e3a08c-d501-46eb-a54d-d9d8c968f767",
+                "7f656ebd-556c-4e35-a1bd-f6828e09fca3"
+              ],
+              "activeEndorsement": "75c9e5e0-af2a-45e3-814a-4bda6770c4dc",
+              "activeEventQuests": [],
+              "activeWeeklyQuests": [
+                "319bf452-963a-40f8-9190-915c68fc0488",
+                "d71be643-5982-4c00-b0e3-c782d8420227",
+                "f44ca42b-09e6-4283-9d44-5ed4896514d9"
+              ],
+              "lastRolloverTimestamp": "1740269321817"
+            },
+            "viewed": false
+          },
+          "instanceId": "e592466e-1bbf-4282-815b-3c4689e25283"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_Pistol_SemiAuto_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "e9924f92-614c-4431-b142-73b53453eab5"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemSimple:HairID_Hair_0001",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "6238aefd-fc64-4a7e-a017-b3792857f4a0"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemOutfit:OutfitID_M_DefaultAlt",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Color",
+                  "ownedAlterations": [
+                    "Option1"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "8bb8b534-3488-4d49-886e-65bec362abae"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_MG_HighCal_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "e9d28ce9-940e-498d-9be1-a1d0555e0544"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_Pistol_Auto_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "8c7beeb1-710b-464a-b4df-84a098298c69"
+        },
+        {
+          "catalogId": "SpectreSponsorUnlockItemDefinition:SponsorUnlock_Soldier",
+          "ext": {
+            "reserved": 0.0,
+            "sponsorUnlockData": {
+              "sponsorName": "Soldier"
+            },
+            "viewed": true
+          },
+          "instanceId": "77cea447-a89d-4c49-ba98-09b0c0f3cf78"
+        },
+        {
+          "catalogId": "SpectreWeaponCosmeticItemDef:WeaponID_Pistol_HighCal_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "Mesh",
+                  "ownedAlterations": [
+                    "On"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "79d2e9ae-83e8-4598-ba05-b0fd75239490"
+        },
+        {
+          "catalogId": "SpectreBannerItemDef:BannerID_Default",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": []
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "4f30362e-0f4a-4389-8c43-4c588924ca09"
+        },
+        {
+          "catalogId": "CharacterCosmeticItemHead:HeadID_Face_003",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": [
+                {
+                  "channelId": "SkinTone",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "Voice",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5"
+                  ]
+                },
+                {
+                  "channelId": "LipColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyebrowColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8",
+                    "Option9",
+                    "Option10"
+                  ]
+                },
+                {
+                  "channelId": "EyeColor",
+                  "ownedAlterations": [
+                    "Option1",
+                    "Option2",
+                    "Option3",
+                    "Option4",
+                    "Option5",
+                    "Option6",
+                    "Option7",
+                    "Option8"
+                  ]
+                }
+              ]
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "56490170-5353-4a9d-8f5f-14b0bbb91b63"
+        }
+      ],
+      "stackables": [],
+      "version": "0"
+    }
+  },
+  "ignoreReplace": true,
+  "rpcType": "InventoryRpc.GetInventoryV2Request",
+  "testAge": 1740507427.066
+}
