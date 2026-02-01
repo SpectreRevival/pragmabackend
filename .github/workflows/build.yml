@@ -56,10 +56,13 @@ jobs:
         run: |
           /usr/bin/cmake . --preset x64-${{matrix.build_type}}-linux
 
-      - name: Configure ${{matrix.build_type}} ${{matrix.os}}
-        if: runner.os == 'Windows'
-        run: |
-          cmake . --preset x64-${{matrix.build_type}}-win -DCMAKE_CXX_COMPILER="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe"
+      - name: Configure and build ${{matrix.build_type}} ${{matrix.os}}
+        if: runner.os == 'Windows' && matrix.build_type == 'debug'
+        run: cmake -S . -B out/build/x64-debug-win -A x64 -T host=x64 -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows
+
+      - name: Configure and build ${{matrix.build_type}} ${{matrix.os}}
+        if: runner.os == 'Windows' && matrix.build_type == 'release'
+        run: cmake -S . -B out/build/x64-release-win -A x64 -T host=x64 -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows
 
       - name: Build ${{matrix.build_type}} ${{matrix.os}}
         if: runner.os == 'Linux'
