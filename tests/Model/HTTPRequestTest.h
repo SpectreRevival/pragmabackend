@@ -52,6 +52,7 @@ TEST_P(HTTPRequestTest, HTTPResponseValidation)
         std::cerr << "Unrecognized http verb: " << testJson["method"] << std::endl;
         GTEST_FATAL_FAILURE_("Unrecognized http verb");
     }
+    ASSERT_TRUE(res.body().size() > 0);
     json resJson = json::parse(res.body());
     json expectedResponse = json::parse(testJson["response"].get<std::string>());
     EXPECT_TRUE(JsonMatchesSchema(resJson, expectedResponse,

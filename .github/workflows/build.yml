@@ -33,11 +33,6 @@ jobs:
         if: runner.os == 'Windows'
         run: winget install -e --id Kitware.CMake --disable-interactivity --accept-source-agreements --accept-package-agreements
 
-      - name: Remove mingw from path (windows only)
-        if: runner.os == 'Windows'
-        shell: bash
-        run: export PATH=$(echo "$PATH" | tr ':' '\n' | grep -v 'mingw' | grep -v 'msys' | paste -sd ':' -)
-
       - name: Create auth.json
         shell: bash
         # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
@@ -55,7 +50,7 @@ jobs:
       - name: Configure ${{matrix.build_type}} ${{matrix.os}}
         if: runner.os == 'Linux'
         run: |
-          /usr/bin/cmake . --preset x64-${{matrix.build_type}}-linux
+          /usr/bin/cmake . --preset x64-${{matrix.build_type}}-linux -DCMAKE_CXX_COMPILER="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe" -DCMAKE_C_COMPILER="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe"
 
       - name: Configure ${{matrix.build_type}} ${{matrix.os}}
         if: runner.os == 'Windows'
