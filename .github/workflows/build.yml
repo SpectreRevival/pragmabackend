@@ -152,7 +152,7 @@ jobs:
 
       - name: Run tests
         working-directory: build
-        run: build/tests/tests
+        run: build/x64-${{matrix.build_type}}-linux/tests/tests
 
   test-windows:
     needs: build-windows
@@ -170,4 +170,4 @@ jobs:
 
       - name: Run tests
         working-directory: build
-        run: build/tests/tests.exe
+        run: build/x64-${{matrix.build_type}}-win/tests/tests.exe
