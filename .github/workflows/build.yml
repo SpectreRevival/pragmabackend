@@ -6,13 +6,12 @@ on:
     branches: ["*"]
 
 jobs:
-  build:
-    runs-on: ${{matrix.os}}
+  build-ubuntu:
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         build_type: [debug, release]
-        os: [ubuntu-latest, windows-latest]
     steps:
       - name: Clone repo
         uses: actions/checkout@v4
@@ -20,7 +19,6 @@ jobs:
           submodules: recursive
 
       - name: Install compiler
-        if: runner.os == 'Linux'
         run: |
           sudo apt update
           sudo apt install -y build-essential ninja-build curl zip unzip tar autoconf autoconf-archive automake libtool linux-libc-dev pkg-config software-properties-common lsb-release
@@ -28,14 +26,6 @@ jobs:
           sudo apt-key adv --fetch-keys https://apt.kitware.com/keys/kitware-archive-latest.asc
           sudo apt-get update
           sudo apt-get install -y cmake
-
-      - name: Install cmake (windows only)
-        if: runner.os == 'Windows'
-        run: winget install -e --id Kitware.CMake --disable-interactivity --accept-source-agreements --accept-package-agreements
-
-      - name: Install windows SDK
-        if: runner.os == 'Windows'
-        run: choco install windows-sdk-10-version-2004-all -y
 
       - name: Create auth.json
         shell: bash
@@ -52,52 +42,21 @@ jobs:
             vcpkg-
 
       - name: Configure ${{matrix.build_type}} ${{matrix.os}}
-        if: runner.os == 'Linux'
         run: |
           /usr/bin/cmake . --preset x64-${{matrix.build_type}}-linux
 
-      - name: Configure and build ${{matrix.build_type}} ${{matrix.os}}
-        if: runner.os == 'Windows' && matrix.build_type == 'debug'
-        run: cmake -S . -B out/build/x64-debug-win -A x64 -T host=x64 -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
-
-      - name: Configure and build ${{matrix.build_type}} ${{matrix.os}}
-        if: runner.os == 'Windows' && matrix.build_type == 'release'
-        run: cmake -S . -B out/build/x64-release-win -A x64 -T host=x64 -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
-
       - name: Build ${{matrix.build_type}} ${{matrix.os}}
-        if: runner.os == 'Linux'
         run: /usr/bin/cmake --build out/build/x64-${{matrix.build_type}}-linux
 
-      - name: Build ${{matrix.build_type}} ${{matrix.os}}
-        if: runner.os == 'Windows'
-        run: cmake --build out/build/x64-${{matrix.build_type}}-win
-
       - name: Create artifact
-        if: runner.os == 'Linux'
         run: |
           mkdir package
           cp -r out/build/x64-${{matrix.build_type}}-linux/* package
 
       - name: Upload artifact
-        if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
           name: x64-${{matrix.build_type}}-linux
-          path: package/
-          retention-days: 1
-
-      - name: Create artifact
-        if: runner.os == 'Windows'
-        shell: bash
-        run: |
-          mkdir package
-          cp -r out/build/x64-${{matrix.build_type}}-win/* package
-
-      - name: Upload artifact
-        if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v4
-        with:
-          name: x64-${{matrix.build_type}}-win
           path: package/
           retention-days: 1
 
@@ -108,35 +67,101 @@ jobs:
           rm -rf ./vcpkg/downloads
           rm -rf ./vcpkg/packages
 
-  test:
-    needs: build
-    runs-on: ${{matrix.os}}
+  build-windows:
+      runs-on: windows-latest
+      strategy:
+        fail-fast: false
+        matrix:
+          build_type: [debug, release]
+      steps:
+        - name: Clone repo
+          uses: actions/checkout@v4
+          with:
+            submodules: recursive
+
+        - name: Install cmake (windows only)
+          run: winget install -e --id Kitware.CMake --disable-interactivity --accept-source-agreements --accept-package-agreements
+
+        - name: Install windows SDK
+          run: choco install windows-sdk-10-version-2004-all -y
+
+        - name: Create auth.json
+          shell: bash
+          # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
+          run: |
+            echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > auth.json
+
+        - name: Cache vcpkg archives directory
+          uses: actions/cache@v4
+          with:
+            path: ${{ env.LOCALAPPDATA }}\vcpkg\archives
+            key: vcpkg-${{hashFiles('vcpkg.json')}}-${{hashFiles('vcpkg/**')}}
+            restore-keys: |
+              vcpkg-
+
+        - name: Configure and build ${{matrix.build_type}}
+          if: matrix.build_type == 'debug'
+          run: cmake -S . -B out/build/x64-debug-win -A x64 -T host=x64 -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
+
+        - name: Configure and build ${{matrix.build_type}}
+          if: matrix.build_type == 'release'
+          run: cmake -S . -B out/build/x64-release-win -A x64 -T host=x64 -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
+
+        - name: Build ${{matrix.build_type}}
+          run: cmake --build out/build/x64-${{matrix.build_type}}-win
+
+        - name: Create artifact
+          shell: bash
+          run: |
+            mkdir package
+            cp -r out/build/x64-${{matrix.build_type}}-win/* package
+
+        - name: Upload artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: x64-${{matrix.build_type}}-win
+            path: package/
+            retention-days: 1
+
+        - name: Clean up vcpkg folder
+          shell: bash
+          run: |
+            rm -rf ./vcpkg/buildtrees
+            rm -rf ./vcpkg/downloads
+            rm -rf ./vcpkg/packages
+
+  test-ubuntu:
+    needs: build-ubuntu
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         build_type: [debug, release]
-        os: [ubuntu-latest, windows-latest]
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
-        if: runner.os == 'Linux'
         with:
           name: x64-${{matrix.build_type}}-linux
           path: build/
 
       - name: Run tests
-        if: runner.os == 'Linux'
         working-directory: build
-        run: tests/tests
+        run: build/tests/tests
 
+  test-windows:
+    needs: build-windows
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [debug, release]
+    steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
-        if: runner.os == 'Windows'
         with:
           name: x64-${{matrix.build_type}}-win
           path: build/
 
       - name: Run tests
-        if: runner.os == 'Windows'
         working-directory: build
-        run: tests/tests.exe
+        run: build/tests/tests.exe
