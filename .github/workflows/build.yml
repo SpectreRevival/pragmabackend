@@ -50,12 +50,12 @@ jobs:
       - name: Configure ${{matrix.build_type}} ${{matrix.os}}
         if: runner.os == 'Linux'
         run: |
-          /usr/bin/cmake . --preset x64-${{matrix.build_type}}-linux -DCMAKE_CXX_COMPILER="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe" -DCMAKE_C_COMPILER="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe"
+          /usr/bin/cmake . --preset x64-${{matrix.build_type}}-linux
 
       - name: Configure ${{matrix.build_type}} ${{matrix.os}}
         if: runner.os == 'Windows'
         run: |
-          cmake . --preset x64-${{matrix.build_type}}-win
+          cmake . --preset x64-${{matrix.build_type}}-win -DCMAKE_CXX_COMPILER="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe" -DCMAKE_C_COMPILER="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe"
 
       - name: Build ${{matrix.build_type}} ${{matrix.os}}
         if: runner.os == 'Linux'
