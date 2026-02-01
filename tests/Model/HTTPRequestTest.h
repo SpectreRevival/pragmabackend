@@ -53,7 +53,7 @@ TEST_P(HTTPRequestTest, HTTPResponseValidation)
         GTEST_FATAL_FAILURE_("Unrecognized http verb");
     }
     json resJson = json::parse(res.body());
-    json expectedResponse = json::parse(resJson["response"].get<std::string>());
+    json expectedResponse = json::parse(testJson["response"].get<std::string>());
     EXPECT_TRUE(JsonMatchesSchema(resJson, expectedResponse,
         testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true));
 }
