@@ -19,7 +19,7 @@ bool GetResponseToReqId(int reqId, json& session, json& res)
             continue;
         }
         std::string msgData = message["data"];
-        if (msgData.find("requestId\":" + reqIdStr))
+        if (msgData.find("requestId\":" + reqIdStr) != std::string::npos)
         {
             res = json::parse(msgData);
             return true;

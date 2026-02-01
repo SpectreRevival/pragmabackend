@@ -11,7 +11,7 @@ using namespace nlohmann;
 
 inline bool JsonMatchesSchema(const json& response, const json& expectedResponse)
 {
-    json diff = json::diff(response, expectedResponse);
+    json diff = json::diff(expectedResponse, response);
     std::cout << "DIFF: " << std::endl;
     std::cout << diff.dump() << std::endl;
     for (const auto& entry : diff)
@@ -55,6 +55,10 @@ TEST_P(WebsocketRequestTest, WebsocketResponseValidation)
     json testJson = json::parse(testJsonStr);
     TestWebsocketClient wsClient(8083);
     SpectreRpcType reqType = SpectreRpcType(testJson["rpcType"].get<std::string>());
+    std::cout << "Test info: " << std::endl;
+    std::cout << "RPC type: " << reqType.GetName() << std::endl;
+    std::cout << "Request payload: " << testJson["requestBody"].dump() << std::endl;
+    std::cout << "Expected response payload: " << testJson["responsePayload"].dump() << std::endl;
     boost::beast::flat_buffer res = wsClient.SendPacket(testJson["requestBody"], reqType);
     std::string resStr( boost::asio::buffers_begin(res.data()), boost::asio::buffers_end(res.data()) );
     json responseFull;
