@@ -49,6 +49,7 @@
 #include <SetReadyProcessor.h>
 #include <UpdatePartyPlayerProcessor.h>
 #include <EnterMatchmakingProcessor.h>
+#include <FetchPlayerLoadoutsProcessor.h>
 
 static unsigned short GAME_PORT = 8081;
 static unsigned short SOCIAL_PORT = 8082;
@@ -200,10 +201,9 @@ int main(int argc, char** argv) {
 			SpectreRpcType("MtnLoadoutServiceRpc.FetchPlayerOutfitLoadoutsV1Request"),
 			FieldKey::PLAYER_OUTFIT_LOADOUT
 		);
-		new FieldFetchProcessor<WeaponLoadouts>(
-			SpectreRpcType("MtnLoadoutServiceRpc.FetchPlayerWeaponLoadoutsV1Request"),
-			FieldKey::PLAYER_WEAPON_LOADOUT
-		);
+		new FetchPlayerLoadoutsProcessor(
+			SpectreRpcType("MtnLoadoutServiceRpc.FetchPlayerWeaponLoadoutsV1Request")
+			);
 		new SaveWeaponLoadoutProcessor(
 			SpectreRpcType("MtnLoadoutServiceRpc.SaveWeaponLoadoutV1Request")
 		);
