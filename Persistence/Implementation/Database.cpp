@@ -65,8 +65,14 @@ void Database::SetField(FieldKey key, const pbuf::Message* object, const std::st
 	return SetField(setStatement, key, object, 2);
 }
 
-bool IsFieldPopulated(sql::Statement& command) {
-	return command.executeStep();
+bool Database::IsFieldPopulated(FieldKey key, const std::string& dbKey)
+{
+	sql::Statement query = FormatStatement(
+		"SELECT {col} FROM {table} WHERE " + GetKeyFieldName() + " = ? COLLATE NOCASE",
+		key
+	);
+	query.bind(1, dbKey);
+	return query.executeStep();
 }
 
 const std::string& Database::GetFieldName(FieldKey key) {

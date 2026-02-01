@@ -178,7 +178,7 @@ public:
 		defaultFieldValues[key] = std::make_unique<const T>(defaultFieldData);
 	}
 
-	bool IsFieldPopulated(FieldKey key);
+	bool IsFieldPopulated(FieldKey key, const std::string& dbKey);
 
 	void SetField(sql::Statement& statement, FieldKey key, const pbuf::Message* object, uint32_t dataBindIndex);
 	void SetField(FieldKey key, const pbuf::Message* object, const std::string& ddbKey);

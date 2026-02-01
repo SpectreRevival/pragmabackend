@@ -50,6 +50,7 @@
 #include <UpdatePartyPlayerProcessor.h>
 #include <EnterMatchmakingProcessor.h>
 #include <FetchPlayerLoadoutsProcessor.h>
+#include <IsInPartyHandler.h>
 
 static unsigned short GAME_PORT = 8081;
 static unsigned short SOCIAL_PORT = 8082;
@@ -241,6 +242,12 @@ int main(int argc, char** argv) {
 		new EnterMatchmakingProcessor(
 			SpectreRpcType("PartyRpc.EnterMatchmakingV1Request")
 		);
+		new IsInPartyHandler(
+			SpectreRpcType("MultiplayerRpc.InitializePartyV1Response")
+			);
+		new IsInPartyHandler(
+			SpectreRpcType("MultiplayerRpc.SyncPartyV1Request")
+			);
 		std::thread gameThread = std::thread([] {
 			ConnectionAcceptor(GAME_PORT); // game
 			});
