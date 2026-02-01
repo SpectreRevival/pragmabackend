@@ -90,11 +90,17 @@ jobs:
           # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
           run: |
             echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > auth.json
+            
+        - name: Resolve LOCALAPPDATA
+          id: localappdata
+          shell: pwsh
+          run: |
+            echo "value=$env:LOCALAPPDATA" >> $env:GITHUB_OUTPUT
 
         - name: Cache vcpkg archives directory
           uses: actions/cache@v4
           with:
-            path: ${{ env.LOCALAPPDATA }}\vcpkg\archives
+            path: ${{ steps.localappdata.outputs.value }}\vcpkg\archives
             key: vcpkg-${{hashFiles('vcpkg.json')}}-${{hashFiles('vcpkg/**')}}
             restore-keys: |
               vcpkg-
