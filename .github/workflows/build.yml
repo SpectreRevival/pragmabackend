@@ -101,6 +101,13 @@ jobs:
           path: package/
           retention-days: 1
 
+      - name: Clean up vcpkg folder
+        shell: bash
+        run: |
+          rm -rf ./vcpkg/buildtrees
+          rm -rf ./vcpkg/downloads
+          rm -rf ./vcpkg/packages
+
   test:
     needs: build
     runs-on: ${{matrix.os}}
