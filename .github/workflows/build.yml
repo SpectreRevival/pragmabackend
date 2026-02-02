@@ -151,7 +151,6 @@ jobs:
           path: build/
 
       - name: Run tests
-        working-directory: build
         run: |
           ls build
           ls build/x64-${{matrix.build_type}}-linux
@@ -173,7 +172,6 @@ jobs:
           path: build/
 
       - name: Run tests
-        working-directory: build
         run: |
           dir build
           dir build/x64-${{matrix.build_type}}-win
