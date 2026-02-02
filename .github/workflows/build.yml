@@ -152,6 +152,7 @@ jobs:
 
       - name: Run tests
         run: |
+          chmod +x build/tests/tests
           build/tests/tests
 
   test-windows:
