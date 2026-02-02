@@ -153,7 +153,8 @@ jobs:
       - name: Run tests
         run: |
           chmod +x build/tests/tests
-          build/tests/tests
+          cd build/tests
+          ./tests
 
   test-windows:
     needs: build-windows
@@ -171,6 +172,5 @@ jobs:
 
       - name: Run tests
         run: |
-          dir build
-          dir build/tests
-          build/tests/tests.exe
+          cd build\tests\Debug
+          ./tests.exe
