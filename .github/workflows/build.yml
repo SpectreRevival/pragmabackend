@@ -51,6 +51,8 @@ jobs:
       - name: Create artifact
         run: |
           mkdir package
+          chmod +x out/build/x64-${{matrix.build_type}}-linux/pragmabackend
+          chmod +x out/build/x64-${{matrix.build_type}}-linux/tests/tests
           cp -r out/build/x64-${{matrix.build_type}}-linux/* package
 
       - name: Upload artifact
@@ -120,7 +122,7 @@ jobs:
           shell: bash
           run: |
             mkdir package
-            cp -r out/build/x64-${{matrix.build_type}}-win/* package
+            cp -r out/build/x64-${{matrix.build_type}}-win/* package*
 
         - name: Upload artifact
           uses: actions/upload-artifact@v4
@@ -152,10 +154,6 @@ jobs:
 
       - name: Run tests
         run: |
-          chmod +x build/tests/tests
-          ls build/
-          ls build/tests
-          cd build/tests
           ./tests
 
   test-windows:
@@ -175,8 +173,5 @@ jobs:
       - name: Run tests
         shell: cmd
         run: |
-          dir /w build/
-          dir /w build/tests
-          dir /w build/tests/Debug
           cd build\tests\Debug
           .\tests.exe
