@@ -153,6 +153,8 @@ jobs:
       - name: Run tests
         run: |
           chmod +x build/tests/tests
+          ls build/
+          ls build/tests
           cd build/tests
           ./tests
 
@@ -173,5 +175,8 @@ jobs:
       - name: Run tests
         shell: cmd
         run: |
+          dir /w build/
+          dir /w build/tests
+          dir /w build/tests/Debug
           cd build\tests\Debug
           .\tests.exe
