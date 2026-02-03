@@ -171,6 +171,7 @@ jobs:
           path: build/
 
       - name: Run tests
+        shell: cmd
         run: |
           cd build\tests\Debug
-          ./tests.exe
+          .\tests.exe
