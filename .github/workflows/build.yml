@@ -154,6 +154,8 @@ jobs:
 
       - name: Run tests
         run: |
+          chmod +x build/tests/tests
+          chmod +x build/pragmabackend
           cd build/tests
           ./tests
 
