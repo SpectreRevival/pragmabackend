@@ -145,7 +145,7 @@ public:
 	sql::Statement FormatStatement(std::string command, FieldKey key);
 
 	template<typename T>
-	void AddPrototype(FieldKey key) {
+	void AddPrototype(Fielb   dKey key) {
 		static_assert(std::is_base_of<pbuf::Message, T>::value, "Type provided to AddPrototype must inherit from protobuf::Message");
 		classNames.insert({ key, std::string(T::descriptor()->name()) });
 		sql::Statement colQuery(m_dbRaw, "PRAGMA table_info(" + GetTableName() + ");");
