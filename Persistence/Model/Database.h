@@ -147,7 +147,7 @@ public:
 	template<typename T>
 	void AddPrototype(FieldKey key) {
 		static_assert(std::is_base_of<pbuf::Message, T>::value, "Type provided to AddPrototype must inherit from protobuf::Message");
-		classNames.insert({ key, T::descriptor()->name() });
+		classNames.insert({ key, std::string(T::descriptor()->name()) });
 		sql::Statement colQuery(m_dbRaw, "PRAGMA table_info(" + GetTableName() + ");");
 		bool colExists = false;
 		while (colQuery.executeStep()) {
@@ -158,7 +158,7 @@ public:
 			}
 		}
 		if (!colExists) {
-			m_dbRaw.exec("ALTER TABLE " + GetTableName() + " ADD COLUMN " + T::descriptor()->name() + " BLOB;");
+			m_dbRaw.exec("ALTER TABLE " + GetTableName() + " ADD COLUMN " + std::string(T::descriptor()->name()) + " BLOB;");
 		}
 	}
 

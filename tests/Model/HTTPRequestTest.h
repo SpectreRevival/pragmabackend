@@ -28,7 +28,7 @@ class HTTPRequestTest : public ::testing::TestWithParam<std::string>
     }
 };
 
-TEST_P(HTTPRequestTest, HTTPResponseValidation)
+TEST_P(HTTPRequestTest, ResponseValidation)
 {
     std::ifstream testFile(GetParam());
     std::stringstream ss;

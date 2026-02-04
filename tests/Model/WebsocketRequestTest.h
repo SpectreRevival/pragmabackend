@@ -27,7 +27,7 @@ class WebsocketRequestTest : public ::testing::TestWithParam<std::string>
     }
 };
 
-TEST_P(WebsocketRequestTest, WebsocketResponseValidation)
+TEST_P(WebsocketRequestTest, ResponseValidation)
 {
     std::ifstream testFile(GetParam());
     std::stringstream ss;
