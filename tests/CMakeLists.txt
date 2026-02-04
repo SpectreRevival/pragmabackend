@@ -25,6 +25,9 @@ endif ()
 target_include_directories(tests PUBLIC "${CMAKE_SOURCE_DIR}/Packets/Model")
 target_include_directories(tests PUBLIC "${CMAKE_SOURCE_DIR}/Persistence/Model")
 
+find_package(Poco REQUIRED COMPONENTS Util)
+target_link_libraries(tests PRIVATE Poco::Util)
+
 add_executable(ProcessFiddlerLog ProcessFiddlerLog.cpp)
 add_dependencies(ProcessFiddlerLog tests)
 find_package(nlohmann_json CONFIG REQUIRED)

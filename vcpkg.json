@@ -41,6 +41,12 @@
       ]
     },
     "sqlitecpp",
-    "stduuid"
+    "stduuid",
+    {
+      "name": "poco",
+      "features": [
+        "util"
+      ]
+    }
   ]
 }
