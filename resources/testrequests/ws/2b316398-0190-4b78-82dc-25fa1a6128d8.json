@@ -10,29 +10,29 @@
     "publication": {
       "messages": [
         {
-          "contentDescriptor": "Battlepass Live",
+          "contentDescriptor": "*",
           "endTimestampMillis": "1741087533980",
           "fullImage": {
-            "internalName": "Image_Standard_LevelingUp_Full"
+            "internalName": "Image_Standard_Spectators_Full"
           },
           "fullMessage": {
-            "translatedMessage": "Our Battle Pass is live with more than 70 levels of premium content! It also contains SP—unlock items from the store, or save it to buy the next Battle Pass!"
+            "translatedMessage": "*"
           },
           "fullTabTitle": {
-            "translatedMessage": "Battle Pass Live"
+            "translatedMessage": "*"
           },
           "fullTitle": {
-            "translatedMessage": "The Battle Pass is Live!"
+            "translatedMessage": "*"
           },
           "id": "25cdb46d-93b4-4007-92ac-4e9eecfea8fb",
           "previewImage": {
-            "internalName": "Image_Standard_LevelingUp_Preview"
+            "internalName": "Image_Standard_ReportABug_Preview"
           },
           "previewTitle": {
-            "translatedMessage": "Battle Pass Live"
+            "translatedMessage": "*"
           },
-          "startTimestampMillis": "1740493501744",
-          "updatedTimestampMillis": "1740498449697"
+          "startTimestampMillis": "*",
+          "updatedTimestampMillis": "*"
         }
       ],
       "onLoadAction": "MTN_PLAYER_NEWS_ON_LOAD_ACTION_FULL_VIEW_ON_LOGIN",

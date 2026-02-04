@@ -37,9 +37,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/vcpkg/archives
-          key: vcpkg-${{hashFiles('vcpkg.json')}}-${{hashFiles('vcpkg/**')}}
+          key: vcpkg-${{hashFiles('vcpkg/**')}}-${{hashFiles('vcpkg.json')}}
           restore-keys: |
-            vcpkg-
+            vcpkg-${{hashFiles('vcpkg/**')}}
 
       - name: Configure ${{matrix.build_type}} ${{matrix.os}}
         run: |
@@ -103,9 +103,9 @@ jobs:
           uses: actions/cache@v4
           with:
             path: ${{ steps.localappdata.outputs.value }}\vcpkg\archives
-            key: vcpkg-${{hashFiles('vcpkg.json')}}-${{hashFiles('vcpkg/**')}}
+            key: vcpkg-${{hashFiles('vcpkg/**')}}-${{hashFiles('vcpkg.json')}}
             restore-keys: |
-              vcpkg-
+              vcpkg-${{hashFiles('vcpkg/**')}}
 
         - name: Configure and build ${{matrix.build_type}}
           if: matrix.build_type == 'debug'
