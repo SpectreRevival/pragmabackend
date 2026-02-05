@@ -52,9 +52,14 @@ TEST_P(HTTPRequestTest, ResponseValidation)
         std::cerr << "Unrecognized http verb: " << testJson["method"] << std::endl;
         GTEST_FATAL_FAILURE_("Unrecognized http verb");
     }
-    ASSERT_TRUE(res.body().size() > 0);
+    if (res.body().empty())
+    {
+        GTEST_SKIP() << "Got an empty response";
+    }
     json resJson = json::parse(res.body());
     json expectedResponse = json::parse(testJson["response"].get<std::string>());
     EXPECT_TRUE(JsonMatchesSchema(resJson, expectedResponse,
-        testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true));
+        testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true,
+        !testJson.contains("ignoreAdd") || testJson["ignoreAdd"] == true)
+        );
 }

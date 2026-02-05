@@ -22,7 +22,7 @@ void GetLoginDataProcessor::Process(SpectreWebsocketRequest& request, SpectreWeb
 	loginDataRes += GetPlayerDataProcessor::GetPlayerDataAsString(*playerData);
 	auto now = std::chrono::system_clock::now();
 	auto crewResetTime = now + std::chrono::days(7);
-	loginDataRes += ",\"noCrew\":-1.0,\"nextCrewAutomationDate\":\"2025-03-04T09:00\",\"crewAutomationInProgress\":false,\"currentServiceTimestampMillis\":\"" 
+	loginDataRes += ",\"noCrew\":-1.0,\"nextCrewAutomationDate\":\"2025-03-04T09:00\",\"crewAutomationInProcess\":false,\"currentServiceTimestampMillis\":\""
 		+ std::to_string(duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count())
 		+ "\"},\"inventoryData\":{\"issuedLimitedGrantTrackingIds\":[],\"inventoryContent\":";
 	loginDataRes += *GameDataStore::Get().InventoryStore_buf();

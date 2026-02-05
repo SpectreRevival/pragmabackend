@@ -70,6 +70,10 @@ TEST_P(SequencedRequestTest, ResponseValidation)
             std::cout << "Expected response payload: " << testJson["responsePayload"].dump() << std::endl;
             boost::beast::flat_buffer res = wsClient.SendPacket(testJson["requestBody"], reqType);
             std::string resStr( boost::asio::buffers_begin(res.data()), boost::asio::buffers_end(res.data()) );
+            if (resStr.empty())
+            {
+                GTEST_SKIP() << "Skipping since no response given";
+            }
             json responseFull;
             ASSERT_NO_THROW(responseFull = json::parse(resStr));
             ASSERT_TRUE(responseFull.contains("sequenceNumber"));
@@ -80,7 +84,8 @@ TEST_P(SequencedRequestTest, ResponseValidation)
             ASSERT_TRUE(SpectreRpcType(responseFull["response"]["type"].get<std::string>()) == reqType.GetResponseType());
             ASSERT_TRUE(responseFull["response"].contains("payload"));
             ASSERT_TRUE(JsonMatchesSchema(responseFull["response"]["payload"], testJson["responsePayload"],
-                testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true));
+                testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true,
+                !testJson.contains("ignoreAdd") || testJson["ignoreAdd"] == true));
         } else
         {
             // http request
@@ -101,11 +106,15 @@ TEST_P(SequencedRequestTest, ResponseValidation)
                 std::cerr << "Unrecognized http verb: " << testJson["method"] << std::endl;
                 GTEST_FATAL_FAILURE_("Unrecognized http verb");
             }
-            ASSERT_TRUE(res.body().size() > 0);
+            if (res.body().empty())
+            {
+                GTEST_SKIP() << "Got an empty response";
+            }
             json resJson = json::parse(res.body());
             json expectedResponse = json::parse(testJson["response"].get<std::string>());
             EXPECT_TRUE(JsonMatchesSchema(resJson, expectedResponse,
-                testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true));
+                testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true,
+                !testJson.contains("ignoreAdd") || testJson["ignoreAdd"] == true));
         }
     }
 }

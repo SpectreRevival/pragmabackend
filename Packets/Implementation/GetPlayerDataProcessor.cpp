@@ -45,12 +45,12 @@ std::string GetPlayerDataProcessor::GetPlayerDataAsString(const PlayerData& play
 		throw;
 	}
 	finalPlayerDataComponent += playerDataComponent.c_str() + endIndex + 1;
-	finalPlayerDataComponent += ",\"serverData\":\"{}\"";
 	return finalPlayerDataComponent;
 }
 
 void GetPlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
 	std::unique_ptr<PlayerData> data = PlayerDatabase::Get().GetField<PlayerData>(FieldKey::PLAYER_DATA, sock.GetPlayerId());
+	data->set_serverdata("{}");
 	std::string fullPayload = "{\"data\":";
 	fullPayload += GetPlayerDataAsString(*data) + "}";
 	sock.SendPacket(fullPayload, packet.GetRequestId(), packet.GetResponseType());

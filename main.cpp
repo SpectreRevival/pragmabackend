@@ -243,7 +243,7 @@ int main(int argc, char** argv) {
 			SpectreRpcType("PartyRpc.EnterMatchmakingV1Request")
 		);
 		new IsInPartyHandler(
-			SpectreRpcType("MultiplayerRpc.InitializePartyV1Response")
+			SpectreRpcType("MultiplayerRpc.InitializePartyV1Request")
 			);
 		new IsInPartyHandler(
 			SpectreRpcType("MultiplayerRpc.SyncPartyV1Request")

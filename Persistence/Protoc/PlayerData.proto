@@ -19,9 +19,8 @@ message PlayerData {
 	PlayerServiceData playerServiceData = 14;
 	optional string nextNewDayRolloverTimestamp = 15;
 	optional string lastLogin = 16;
+	string serverData = 17;
 }
-
-message ServerData {}
 
 message PlayerConfig {
 	bool unlockAllPlayModes = 1;

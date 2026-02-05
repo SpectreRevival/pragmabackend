@@ -20,6 +20,7 @@ http::response<http::string_body> HTTPFetch(unsigned short port, std::string pat
     http::write(stream, req);
     beast::flat_buffer buffer;
     http::response<http::string_body> res;
+    stream.expires_after(std::chrono::milliseconds(5000));
     http::read(stream, buffer, res);
     stream.socket().shutdown(tcp::socket::shutdown_both);
     return res;
