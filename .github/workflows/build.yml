@@ -54,6 +54,13 @@ jobs:
           chmod +x out/build/x64-${{matrix.build_type}}-linux/pragmabackend
           chmod +x out/build/x64-${{matrix.build_type}}-linux/tests/tests
           cp -r out/build/x64-${{matrix.build_type}}-linux/* package
+          rm package/*.h
+          rm package/*.cc
+          rm package/*.log
+          rm -rf package/*CMakeFiles
+          rm -rf package/vcpkg_installed
+          rm package/build.ninja
+          rm package/*.cmake
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -120,6 +127,19 @@ jobs:
           run: |
             mkdir package
             cp -r out/build/x64-${{matrix.build_type}}-win/* package*
+            rm package/*.h
+            rm package/*.cc
+            rm -rf package/.cmake
+            rm -rf package/*CMakeFiles
+            rm package/*.cmake
+            rm -rf package/*.dir
+            rm package/*.pdb
+            rm -rf package/vcpkg_installed
+            cp package/Debug/*.dll package/
+            cp package/Debug/*.lib package/
+            cp package/Debug/pragmabackend.exe package/
+            cp package/tests/Debug/.dll package/tests
+            cp package/tests/Debug/*.exe package/tests
 
         - name: Upload artifact
           uses: actions/upload-artifact@v4
@@ -173,5 +193,5 @@ jobs:
       - name: Run tests
         shell: cmd
         run: |
-          cd build\tests\Debug
+          cd build\tests\
           .\tests.exe
