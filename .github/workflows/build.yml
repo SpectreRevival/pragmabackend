@@ -64,6 +64,7 @@ jobs:
           rm package/build.ninja
           rm package/*.cmake
           rm package/CMakeCache.txt
+          rm package/auth.json
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -151,6 +152,7 @@ jobs:
             rm -rf package/tests/*.dir
             rm -rf package/tests/CMakeFiles
             rm -rf package/tests/Debug
+            rm package/auth.json
 
         - name: Upload artifact
           uses: actions/upload-artifact@v4
@@ -200,6 +202,11 @@ jobs:
         with:
           name: x64-${{matrix.build_type}}-win
           path: build/
+
+      - name: Create auth.json
+        shell: bash
+        run: |
+          echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > build/auth.json
 
       - name: Run tests
         shell: cmd
