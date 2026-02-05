@@ -140,7 +140,7 @@ jobs:
             cp package/Debug/*.dll package/
             cp package/Debug/*.lib package/
             cp package/Debug/pragmabackend.exe package/
-            cp package/tests/Debug/.dll package/tests
+            cp package/tests/Debug/*.dll package/tests
             cp package/tests/Debug/*.exe package/tests
             rm -rf package/x64
             rm -rf package/Debug
