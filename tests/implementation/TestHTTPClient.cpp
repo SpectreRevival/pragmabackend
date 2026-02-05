@@ -8,13 +8,13 @@ http::response<http::string_body> HTTPFetch(unsigned short port, std::string pat
 {
     boost::asio::io_context ioc;
     boost::asio::ip::tcp::resolver resolver(ioc);
-    auto const results = resolver.resolve("localhost", std::to_string(port));
+    auto const results = resolver.resolve("127.0.0.1", std::to_string(port));
     beast::tcp_stream stream(ioc);
     stream.connect(results);
     http::request<http::string_body> req{
     method, path, 11
     };
-    req.set(http::field::host, "localhost");
+    req.set(http::field::host, "127.0.0.1");
     req.body() = packet;
     req.prepare_payload();
     http::write(stream, req);

@@ -18,14 +18,14 @@ nextRequestId(0)
     ws->set_option(boost::beast::websocket::stream_base::decorator(
     [port](boost::beast::websocket::request_type& req)
     {
-        req.set(boost::beast::http::field::host, "localhost:" + std::to_string(port));
+        req.set(boost::beast::http::field::host, "127.0.0.1:" + std::to_string(port));
         req.set(boost::beast::http::field::authorization, "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImQzSnRPcTZqeTNfSHF1d1Rzcnp0ODF3aDNCTGlBLTRmLXFNOG1qLTAtWVE9IiwidHlwIjoiSldUIn0.eyJiYWNrZW5kVHlwZSI6IkdBTUUiLCJkaXNjcmltaW5hdG9yIjoiNjE5NyIsImRpc3BsYXlOYW1lIjoiT2htIiwiZXhwIjoxNzY5NjIxNzU0LCJleHBpcmVzSW5NaWxsaXMiOiI4NjQwMDAwMCIsImV4dFNlc3Npb25JbmZvIjoie1wicGVybWlzc2lvbnNcIjowLFwiYWNjb3VudFRhZ3NcIjpbXCJjYW5hcnlcIl19IiwiZ2FtZVNoYXJkSWQiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDEiLCJpYXQiOjE3Njk1MzUzNTQsImlkUHJvdmlkZXIiOiJTVEVBTSIsImlzcyI6InByYWdtYSIsImp0aSI6ImVmMmY3NWZiLTA2NGItNGY3Yi05ZDc0LWNmODhjYzExMjE1MiIsInByYWdtYVBsYXllcklkIjoiNmRjOWQwNjktOTdmZS01NDQwLWJkYmItZWViZWVjMTA0N2U5IiwicHJhZ21hU29jaWFsSWQiOiI2ZGM5ZDA2OS05N2ZlLTU0NDAtYmRiYi1lZWJlZWMxMDQ3ZTkiLCJyZWZyZXNoSW5NaWxsaXMiOiIzNjIwMzAwMCIsInNlc3Npb25UeXBlIjoiUExBWUVSIiwic3ViIjoiNmRjOWQwNjktOTdmZS01NDQwLWJkYmItZWViZWVjMTA0N2U5In0.lwGR64O4ruZRmnad10daIPkGRn8kfusjX0kpz7GXLKEJg0gkjJiPVk33v4wVtLVjG0X_uU-tKpCqcw0LiFFhue9PyWANw82q_SHHA3ld5WmLoPuZG45vxhYEBm9LQ2Y2Xy3tE6-K-xoltcqMRLpfpuqhLhMvkzEjE3P5dBkM-wr2CNvfds76L4t2t-Tec-qrq1ie_64ChqP6a16UZcNJUKX7E6rwoyNl3nr9HyIVaDSLfPkMTk4t2l3BwjwQ0Qq-RJ0-_QDukT_1gHBQc_JVLn1Vg50mSvuLKk61heC7BnvwywTmUrJpxoGwbmHH_tJa0hc5mkFZrqovnUIql-ORSQ");
         req.set(boost::beast::http::field::sec_websocket_extensions, "permessage-deflate; client_max_window_bits");
     }
     ));
-    auto const results = resolver.resolve("localhost", std::to_string(port));
+    auto const results = resolver.resolve("127.0.0.1", std::to_string(port));
     boost::asio::connect(ws->next_layer(), results.begin(), results.end());
-    ws->handshake("localhost:" + std::to_string(port), "/");
+    ws->handshake("127.0.0.1:" + std::to_string(port), "/");
 }
 
 std::shared_ptr<boost::beast::websocket::stream<boost::asio::ip::tcp::socket>> TestWebsocketClient::GetRawSocket()

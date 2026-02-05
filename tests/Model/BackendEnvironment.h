@@ -10,7 +10,7 @@ public:
         std::filesystem::remove(std::filesystem::path(SERVER_RUN_DIR) / "playerdata.sqlite");
         const Poco::Process::Args args = {"8081", "8082", "8083"};
         server = std::make_unique<Poco::ProcessHandle>(Poco::Process::launch(SERVER_FILE_PATH, args, SERVER_RUN_DIR));
-        std::this_thread::sleep_for(std::chrono::seconds(3));
+        std::this_thread::sleep_for(std::chrono::seconds(7));
     }
 
     void TearDown() override {
