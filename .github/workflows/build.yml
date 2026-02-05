@@ -132,8 +132,10 @@ jobs:
             cp -r out/build/x64-${{matrix.build_type}}-win/* package*
             rm package/*.h
             rm package/*.cc
+            rm package/*.vcxproj*
+            rm package/*.log
             rm -rf package/.cmake
-            rm -rf package/*CMakeFiles
+            rm -rf package/CMakeFiles
             rm package/*.cmake
             rm -rf package/*.dir
             rm -rf package/vcpkg_installed
@@ -144,6 +146,11 @@ jobs:
             cp package/tests/Debug/*.exe package/tests
             rm -rf package/x64
             rm -rf package/Debug
+            rm package/tests/*.vcxproj*
+            rm package/tests/*.cmake
+            rm -rf package/tests/*.dir
+            rm -rf package/tests/CMakeFiles
+            rm -rf package/tests/Debug
 
         - name: Upload artifact
           uses: actions/upload-artifact@v4
