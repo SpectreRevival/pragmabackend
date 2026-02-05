@@ -58,9 +58,12 @@ jobs:
           rm package/*.cc
           rm package/*.log
           rm -rf package/*CMakeFiles
+          rm -rf package/tests/CMakeFiles
+          rm -rf package/tests/*.cmake
           rm -rf package/vcpkg_installed
           rm package/build.ninja
           rm package/*.cmake
+          rm package/CMakeCache.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -133,13 +136,14 @@ jobs:
             rm -rf package/*CMakeFiles
             rm package/*.cmake
             rm -rf package/*.dir
-            rm package/*.pdb
             rm -rf package/vcpkg_installed
             cp package/Debug/*.dll package/
             cp package/Debug/*.lib package/
             cp package/Debug/pragmabackend.exe package/
             cp package/tests/Debug/.dll package/tests
             cp package/tests/Debug/*.exe package/tests
+            rm -rf package/x64
+            rm -rf package/Debug
 
         - name: Upload artifact
           uses: actions/upload-artifact@v4
