@@ -1,6 +1,6 @@
 #pragma once
 #include <gtest/gtest.h>
-#include <poco/Process.h>
+#include <Poco/Process.h>
 
 class BackendEnvironment : public ::testing::Environment {
 public:
