@@ -1,6 +1,8 @@
 #pragma once
 #include <gtest/gtest.h>
 #include <Poco/Process.h>
+#include <filesystem>
+#include <thread>
 
 class BackendEnvironment : public ::testing::Environment {
 public:
@@ -9,7 +11,14 @@ public:
     void SetUp() override {
         std::filesystem::remove(std::filesystem::path(SERVER_RUN_DIR) / "playerdata.sqlite");
         const Poco::Process::Args args = {"8081", "8082", "8083"};
-        server = std::make_unique<Poco::ProcessHandle>(Poco::Process::launch(SERVER_FILE_PATH, args, SERVER_RUN_DIR));
+        server = std::make_unique<Poco::ProcessHandle>(Poco::Process::launch(
+            SERVER_FILE_PATH,
+            args,
+            SERVER_RUN_DIR,
+            nullptr,
+            nullptr,
+            nullptr
+        ));
         std::this_thread::sleep_for(std::chrono::seconds(7));
     }
 
