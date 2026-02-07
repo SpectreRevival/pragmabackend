@@ -1,4 +1,4 @@
-name: build.yml
+name: Build and test backend server
 on:
   push:
     branches: [master]

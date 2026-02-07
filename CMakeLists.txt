@@ -101,3 +101,9 @@ target_sources(pragmabackend_core PRIVATE ${GENERATED_PROTO_SRCS})
 target_include_directories(pragmabackend_core PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(tests)
+
+if(MSVC)
+    add_compile_options(/W4 /WX /permissive-)
+else ()
+    add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+endif ()
