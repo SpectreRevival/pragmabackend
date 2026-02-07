@@ -13,7 +13,7 @@ list(REMOVE_ITEM TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/ProcessFiddlerLog.cpp")
 list(REMOVE_ITEM TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/TestDeduplicator.cpp")
 
 target_sources(tests PRIVATE ${TEST_FILES})
-add_dependencies(tests pragmabackend_core)
+add_dependencies(tests pragmabackend)
 target_link_libraries(tests PRIVATE pragmabackend_core)
 target_include_directories(tests PUBLIC Model)
 target_include_directories(tests PUBLIC "${CMAKE_SOURCE_DIR}/Packets/Model")

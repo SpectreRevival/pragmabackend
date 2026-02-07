@@ -1,1 +1,118 @@
-{"requestBody":{"instancedItemUpdates":[{"ext":{"reserved":0,"setViewed":true},"instanceId":"B291C752-10A2-47D6-84E2-D33736D0C550","tags":[],"updateEntryId":"mtn-noop-update"},{"ext":{"reserved":0,"setViewed":true},"instanceId":"4A85AF6B-8B4A-439E-A3D7-0CEDEFBA9F8A","tags":[],"updateEntryId":"mtn-noop-update"}]},"responsePayload":{"delta":{"instanced":[{"catalogId":"SpectreWeaponCharmItemDef:CharmID_Misc_Community_06","final":{"catalogId":"SpectreWeaponCharmItemDef:CharmID_Misc_Community_06","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":true},"instanceId":"b291c752-10a2-47d6-84e2-d33736d0c550"},"initial":{"catalogId":"SpectreWeaponCharmItemDef:CharmID_Misc_Community_06","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":true},"instanceId":"b291c752-10a2-47d6-84e2-d33736d0c550"},"operation":"UPDATED","tags":[]},{"catalogId":"SpectreWeaponCharmItemDef:CharmID_Track_Kit09_District","final":{"catalogId":"SpectreWeaponCharmItemDef:CharmID_Track_Kit09_District","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":true},"instanceId":"4a85af6b-8b4a-439e-a3d7-0cedefba9f8a"},"initial":{"catalogId":"SpectreWeaponCharmItemDef:CharmID_Track_Kit09_District","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":true},"instanceId":"4a85af6b-8b4a-439e-a3d7-0cedefba9f8a"},"operation":"UPDATED","tags":[]}],"stackables":[]},"segment":{"instanced":[{"catalogId":"SpectreWeaponCharmItemDef:CharmID_Misc_Community_06","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":true},"instanceId":"b291c752-10a2-47d6-84e2-d33736d0c550"},{"catalogId":"SpectreWeaponCharmItemDef:CharmID_Track_Kit09_District","ext":{"instancedCustomizationData":{"instancedAlterationChannels":[]},"reserved":0.0,"viewed":true},"instanceId":"4a85af6b-8b4a-439e-a3d7-0cedefba9f8a"}],"previousVersion":"11","removedInstanced":[],"removedStackables":[],"stackables":[],"version":"12"}},"rpcType":"InventoryRpc.UpdateItemsV0Request","testAge":1740506574.458}
+{
+  "requestBody": {
+    "instancedItemUpdates": [
+      {
+        "ext": {
+          "reserved": 0,
+          "setViewed": true
+        },
+        "instanceId": "0342E5D0-5ADD-4D30-AB33-10AE34A3B260",
+        "tags": [],
+        "updateEntryId": "mtn-noop-update"
+      },
+      {
+        "ext": {
+          "reserved": 0,
+          "setViewed": true
+        },
+        "instanceId": "2a19efa3-1578-454c-b2b1-db11f2a1f2ab",
+        "tags": [],
+        "updateEntryId": "mtn-noop-update"
+      }
+    ]
+  },
+  "responsePayload": {
+    "delta": {
+      "instanced": [
+        {
+          "catalogId": "SpectreWeaponCharmItemDef:CharmID_Misc_Community_06",
+          "final": {
+            "catalogId": "SpectreWeaponCharmItemDef:CharmID_Misc_Community_06",
+            "ext": {
+              "instancedCustomizationData": {
+                "instancedAlterationChannels": []
+              },
+              "reserved": 0.0,
+              "viewed": true
+            },
+            "instanceId": "0342e5d0-5add-4d30-ab33-10ae34a3b260"
+          },
+          "initial": {
+            "catalogId": "SpectreWeaponCharmItemDef:CharmID_Misc_Community_06",
+            "ext": {
+              "instancedCustomizationData": {
+                "instancedAlterationChannels": []
+              },
+              "reserved": 0.0,
+              "viewed": false
+            },
+            "instanceId": "0342e5d0-5add-4d30-ab33-10ae34a3b260"
+          },
+          "operation": "UPDATED",
+          "tags": []
+        },
+        {
+          "catalogId": "SpectreWeaponCharmItemDef:CharmID_Track_Kit09_District",
+          "final": {
+            "catalogId": "SpectreWeaponCharmItemDef:CharmID_Track_Kit09_District",
+            "ext": {
+              "instancedCustomizationData": {
+                "instancedAlterationChannels": []
+              },
+              "reserved": 0.0,
+              "viewed": true
+            },
+            "instanceId": "2a19efa3-1578-454c-b2b1-db11f2a1f2ab"
+          },
+          "initial": {
+            "catalogId": "SpectreWeaponCharmItemDef:CharmID_Track_Kit09_District",
+            "ext": {
+              "instancedCustomizationData": {
+                "instancedAlterationChannels": []
+              },
+              "reserved": 0.0,
+              "viewed": false
+            },
+            "instanceId": "2a19efa3-1578-454c-b2b1-db11f2a1f2ab"
+          },
+          "operation": "UPDATED",
+          "tags": []
+        }
+      ],
+      "stackables": []
+    },
+    "segment": {
+      "instanced": [
+        {
+          "catalogId": "SpectreWeaponCharmItemDef:CharmID_Misc_Community_06",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": []
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "0342e5d0-5add-4d30-ab33-10ae34a3b260"
+        },
+        {
+          "catalogId": "SpectreWeaponCharmItemDef:CharmID_Track_Kit09_District",
+          "ext": {
+            "instancedCustomizationData": {
+              "instancedAlterationChannels": []
+            },
+            "reserved": 0.0,
+            "viewed": true
+          },
+          "instanceId": "2a19efa3-1578-454c-b2b1-db11f2a1f2ab"
+        }
+      ],
+      "previousVersion": "0",
+      "removedInstanced": [],
+      "removedStackables": [],
+      "stackables": [],
+      "version": "1"
+    }
+  },
+  "rpcType": "InventoryRpc.UpdateItemsV0Request",
+  "testAge": 1740506574.458
+}

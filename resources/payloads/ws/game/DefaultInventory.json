@@ -7411,7 +7411,7 @@
 					"instancedCustomizationData": {
 						"instancedAlterationChannels": []
 					},
-					"viewed": true
+					"viewed": false
 				}
 			},
 			{
@@ -7906,7 +7906,7 @@
 					"instancedCustomizationData": {
 						"instancedAlterationChannels": []
 					},
-					"viewed": true
+					"viewed": false
 				}
 			},
 			{
