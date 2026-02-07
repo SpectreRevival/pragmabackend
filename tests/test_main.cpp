@@ -8,7 +8,7 @@
 
 static std::vector<std::string> g_ws_paths = []{
     std::vector<std::string> paths;
-    for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::resourcesFolderPath() / "testrequests" / "ws"))
+    for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "ws"))
         {
         if (item.is_regular_file() && item.path().extension() == ".json")
             paths.push_back(item.path().string());
@@ -19,7 +19,7 @@ static std::vector<std::string> g_ws_paths = []{
 static std::vector<std::string> g_http_paths = []
 {
     std::vector<std::string> paths;
-    for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::resourcesFolderPath() / "testrequests" / "http"))
+    for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "http"))
     {
         if (item.is_regular_file() && item.path().extension() == ".json")
         {
@@ -32,7 +32,7 @@ static std::vector<std::string> g_http_paths = []
 static std::vector<fs::path> g_sequenced_dirs = []
 {
     std::vector<fs::path> sequencedDirs;
-    for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::resourcesFolderPath() / "testrequests" / "sequenced"))
+    for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "sequenced"))
     {
         if (item.is_directory())
         {

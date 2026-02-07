@@ -21,18 +21,18 @@ void RegisterStaticHTTPHandlerFromFile(std::string route, std::string filename) 
 #pragma warning(pop)
 
 void RegisterStaticHTTPHandlers() {
-    for (const auto& file : fs::recursive_directory_iterator(ResourcesUtilities::resourcesFolderPath() / "payloads" / "static" / "game")) {
+    for (const auto& file : fs::recursive_directory_iterator(ResourcesUtilities::GetResourcesFolder() / "payloads" / "static" / "game")) {
         if (!fs::is_regular_file(file)) continue;
         std::string route = (fs::absolute(file.path().parent_path()) / file.path().stem()).string();
-        std::string prefixString = fs::absolute(ResourcesUtilities::resourcesFolderPath() / "payloads" / "static" / "game").string();
+        std::string prefixString = fs::absolute(ResourcesUtilities::GetResourcesFolder() / "payloads" / "static" / "game").string();
         route.erase(route.find(prefixString), prefixString.size());
         std::replace(route.begin(), route.end(), '\\', '/');
         RegisterStaticHTTPHandlerFromFile(route, file.path().string());
     }
-    for (const auto& file : fs::recursive_directory_iterator(ResourcesUtilities::resourcesFolderPath() / "payloads" / "static" / "social")) {
+    for (const auto& file : fs::recursive_directory_iterator(ResourcesUtilities::GetResourcesFolder() / "payloads" / "static" / "social")) {
         if (!fs::is_regular_file(file)) continue;
         std::string route = (fs::absolute(file.path().parent_path()) / file.path().stem()).string();
-        std::string prefixString = fs::absolute(ResourcesUtilities::resourcesFolderPath() / "payloads" / "static" / "social").string();
+        std::string prefixString = fs::absolute(ResourcesUtilities::GetResourcesFolder() / "payloads" / "static" / "social").string();
         route.erase(route.find(prefixString), prefixString.size());
         std::replace(route.begin(), route.end(), '\\', '/');
         RegisterStaticHTTPHandlerFromFile(route, file.path().string());

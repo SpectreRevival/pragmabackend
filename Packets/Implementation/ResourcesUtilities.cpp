@@ -30,7 +30,7 @@ std::filesystem::path ResourcesUtilities::GetExecutableWorkingDirectory()
         return ResourcesUtilities::GetCurrentExecutablePath().parent_path();
 }
 
-std::filesystem::path ResourcesUtilities::resourcesFolderPath() {
+std::filesystem::path ResourcesUtilities::GetResourcesFolder() {
         static std::filesystem::path resFolderPath = []
         {
                 fs::path current = fs::absolute(GetExecutableWorkingDirectory());
