@@ -6,6 +6,8 @@
 #include <unistd.h>
 #endif
 
+namespace fs = std::filesystem;
+
 std::filesystem::path ResourcesUtilities::GetCurrentExecutablePath()
 {
 #if defined(_WIN32)
@@ -31,20 +33,21 @@ std::filesystem::path ResourcesUtilities::GetExecutableWorkingDirectory()
 std::filesystem::path ResourcesUtilities::resourcesFolderPath() {
         static std::filesystem::path resFolderPath = []
         {
-                ;
-                std::filesystem::path curWorkingDir = GetExecutableWorkingDirectory();
-                if (std::filesystem::is_directory(curWorkingDir / "resources"))
+                fs::path current = fs::absolute(GetExecutableWorkingDirectory());
+
+                while (true)
                 {
-                        return curWorkingDir / "resources";
-                }
-                else if (std::filesystem::is_directory(curWorkingDir / "../" / "resources"))
-                {
-                        return curWorkingDir / "../" / "resources";
-                }
-                else
-                {
-                        std::cerr << "Failed to find resources directory" << std::endl;
-                        throw std::runtime_error("Failed to find resources directory");
+                        fs::path candidate = current / "resources";
+                        if (fs::is_directory(candidate))
+                                return candidate;
+
+                        if (current == current.root_path())
+                        {
+                                std::cerr << "Failed to find resources directory" << std::endl;
+                                throw std::runtime_error("Failed to find resources directory");
+                        }
+
+                        current = current.parent_path();
                 }
         }();
         return resFolderPath;
