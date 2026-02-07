@@ -9,8 +9,10 @@ jobs:
   enforce-style:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Clone repo
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install clang-tidy
         run: |
