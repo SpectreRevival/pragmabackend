@@ -19,6 +19,11 @@ jobs:
           sudo apt update
           sudo apt install -y clang-tidy clang-tools
 
+      - name: Install llvm
+        uses: llvm/actions/install-llvm@v1
+        with:
+          version: "18"
+
       - name: Install compiler
         run: |
           sudo apt update
@@ -40,7 +45,5 @@ jobs:
         run: |
           /usr/bin/cmake . --preset x64-debug-linux -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
-      - name: Run clang-tidy
-        run: |
-          cd out/build/x64-debug-linux
-          python3 /usr/lib/llvm-*/share/clang/run-clang-tidy.py -p . -warnings-as-errors='*'
+      - name: Run clang tidy
+        run: run-clang-tidy -p out/build/x64-debug-linux
