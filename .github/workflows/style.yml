@@ -17,7 +17,7 @@ jobs:
       - name: Install clang-tidy
         run: |
           sudo apt update
-          sudo apt install -y clang-tidy
+          sudo apt install -y clang-tidy clang-tools
 
       - name: Install compiler
         run: |
@@ -43,4 +43,4 @@ jobs:
       - name: Run clang-tidy
         run: |
           cd out/build/x64-debug-linux
-          run-clang-tidy.py -p . -warnings-as-errors='*'
+          python3 /usr/lib/llvm-*/share/clang/run-clang-tidy.py -p . -warnings-as-errors='*'
