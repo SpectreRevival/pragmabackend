@@ -1,33 +1,30 @@
 #pragma once
 #include <gtest/gtest.h>
-#include <Poco/Process.h>
 #include <filesystem>
 #include <thread>
+#include <process.hpp>
 
 class BackendEnvironment : public ::testing::Environment {
 public:
-    std::unique_ptr<Poco::ProcessHandle> server;
+    std::unique_ptr<TinyProcessLib::Process> server;
 
     void SetUp() override {
         std::filesystem::remove(std::filesystem::path(SERVER_RUN_DIR) / "playerdata.sqlite");
-        const Poco::Process::Args args = {"8081", "8082", "8083"};
-        server = std::make_unique<Poco::ProcessHandle>(Poco::Process::launch(
-            SERVER_FILE_PATH,
-            args,
-            SERVER_RUN_DIR,
-            nullptr,
-            nullptr,
-            nullptr
-        ));
+        server = std::make_unique<TinyProcessLib::Process>(SERVER_RUN_CMD, SERVER_RUN_DIR,         [](const char *bytes, size_t n) {
+            std::cout << std::string(bytes, n);
+        },
+        [](const char *bytes, size_t n) {
+            std::cerr << std::string(bytes, n);
+        });
         std::this_thread::sleep_for(std::chrono::seconds(7));
     }
 
     void TearDown() override {
         if (server)
         {
-            Poco::Process::kill(*server);
-            server.reset();
+            server->kill();
             std::this_thread::sleep_for(std::chrono::seconds(1)); // wait for windows to release file handle
+            server.reset();
         }
         std::filesystem::remove(std::filesystem::path(SERVER_RUN_DIR) / "playerdata.sqlite");
     }

@@ -42,11 +42,6 @@
     },
     "sqlitecpp",
     "stduuid",
-    {
-      "name": "poco",
-      "features": [
-        "util"
-      ]
-    }
+    "tiny-process-library"
   ]
 }
