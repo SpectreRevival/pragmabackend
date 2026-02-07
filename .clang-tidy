@@ -1,5 +1,6 @@
 # Generated from CLion Inspection settings
 ---
+WarningsAsErrors: "*"
 Checks: '-*,
 bugprone-argument-comment,
 bugprone-assert-side-effect,
