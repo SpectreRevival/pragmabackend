@@ -40,5 +40,8 @@ jobs:
         run: |
           /usr/bin/cmake . --preset x64-debug-linux -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
+      - name: Generate protos
+        run: cmake --build out/build/x64-debug-linux --target generate_protos
+
       - name: Run clang tidy
         run: run-clang-tidy -p out/build/x64-debug-linux
