@@ -32,7 +32,7 @@ public:
             {
                 std::cerr << std::string(bytes, n);
             });
-        std::this_thread::sleep_for(std::chrono::seconds(7));
+        std::this_thread::sleep_for(std::chrono::seconds(3));
     }
 
     void TearDown() override
