@@ -19,11 +19,6 @@ jobs:
           sudo apt update
           sudo apt install -y clang-tidy clang-tools
 
-      - name: Install llvm
-        uses: llvm/actions/install-llvm@v1
-        with:
-          version: "18"
-
       - name: Install compiler
         run: |
           sudo apt update
