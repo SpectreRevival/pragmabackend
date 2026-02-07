@@ -163,7 +163,7 @@ public:
 	}
 
 	template<typename T>
-	void AddPrototype(FieldKey key, std::string defaultFieldValuePath) {
+	void AddPrototype(FieldKey key, fs::path defaultFieldValuePath) {
 		AddPrototype<T>(key);
 		std::ifstream defaultFile(defaultFieldValuePath);
 		std::stringstream buf;

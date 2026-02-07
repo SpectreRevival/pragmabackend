@@ -4,6 +4,7 @@
 #include <RegexPayloadProcessorWS.h>
 #include <spdlog/spdlog.h>
 #include <string>
+#include <ResourcesUtilities.h>
 
 void RegisterStaticHandlerFromFile(std::string filename, SpectreRpcType rpcType) {
 	std::ifstream resfile(filename);
@@ -34,19 +35,19 @@ void RegisterRegexHandlerFromFiles(SpectreRpcType rpcType, std::unordered_map<re
 #pragma warning(push)
 #pragma warning(disable: 4101)
 void RegisterStaticWSHandlers() {
-	for (const auto& file : fs::recursive_directory_iterator("resources/payloads/static/ws/game")) {
+	for (const auto& file : fs::recursive_directory_iterator(ResourcesUtilities::resourcesFolderPath() / "payloads" / "static" / "ws" / "game")) {
 		if (!fs::is_regular_file(file)) continue;
 		std::string rpcType = file.path().filename().stem().string();
 		RegisterStaticHandlerFromFile(fs::absolute(file.path()).string(), SpectreRpcType(rpcType));
 	}
-	for (const auto& file : fs::recursive_directory_iterator("resources/payloads/static/ws/social")) {
+	for (const auto& file : fs::recursive_directory_iterator(ResourcesUtilities::resourcesFolderPath() / "payloads" / "static" / "ws" / "social")) {
 		if (!fs::is_regular_file(file)) continue;
 		std::string rpcType = file.path().filename().stem().string();
 		RegisterStaticHandlerFromFile(fs::absolute(file.path()).string(), SpectreRpcType(rpcType));
 	}
 	RegisterRegexHandlerFromFiles(SpectreRpcType("MtnBeaconServiceRpc.GetBeaconEndpointsV1Request"), {
-		{regex("hathora-udp\""), "resources/payloads/ws/game/beacon/hathora-udp.json"},
-		{regex("hathora\""), "resources/payloads/ws/game/beacon/hathora.json"}
+		{regex("hathora-udp\""), (ResourcesUtilities::resourcesFolderPath() / "payloads" / "ws" / "game" / "beacon" / "hathora-udp.json").string()},
+		{regex("hathora\""), (ResourcesUtilities::resourcesFolderPath() / "payloads" / "ws" / "game" / "beacon" / "hathora.json").string()}
 	});
 }
 #pragma warning(pop)

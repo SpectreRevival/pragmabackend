@@ -3,10 +3,11 @@
 #include <spdlog/spdlog.h>
 #include <fstream>
 #include <sstream>
+#include <ResourcesUtilities.h>
 
 namespace pbu = google::protobuf::util;
 
-GameDataStore GameDataStore::inst("resources/payloads/ws/game/DefaultInventoryStore.json");
+GameDataStore GameDataStore::inst((ResourcesUtilities::resourcesFolderPath() / "payloads" / "ws" / "game" / "DefaultInventoryStore.json").string());
 
 static std::string InventoryStoreToPayload(InventoryContent* invStore) {
 	std::string jsonstr;
