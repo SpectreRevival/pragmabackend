@@ -48,40 +48,31 @@ jobs:
 
   clang-format:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
-      - name: Clone repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install clang-tidy
+      - name: Install clang-format
+        run: sudo apt-get update && sudo apt-get install -y clang-format
+
+      - name: Run clang-format
         run: |
-          sudo apt update
-          sudo apt install -y clang-tidy clang-tools
+          FILES=$(
+            find . \
+            -regex './\(Persistence\|Packets\|tests\)/.*/Implementation/.*\.cpp' -o \
+            -regex './\(Persistence\|Packets\|tests\)/.*/Model/.*\.h' \
+            | grep -vE 'out/|vcpkg_installed/|vcpkg/'
+          )
+          clang-format -i $FILES
 
-      - name: Install compiler
+      - name: Commit changes
         run: |
-          sudo apt update
-          sudo apt install -y build-essential ninja-build curl zip unzip tar autoconf autoconf-archive automake libtool linux-libc-dev pkg-config software-properties-common lsb-release
-          sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
-          sudo apt-key adv --fetch-keys https://apt.kitware.com/keys/kitware-archive-latest.asc
-          sudo apt-get update
-          sudo apt-get install -y cmake
-
-      - name: Cache vcpkg archives directory
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/vcpkg/archives
-          key: vcpkg-${{hashFiles('vcpkg/**')}}-${{hashFiles('vcpkg.json')}}
-          restore-keys: |
-            vcpkg-${{hashFiles('vcpkg/**')}}
-
-      - name: Configure
-        run: |
-          /usr/bin/cmake . --preset x64-debug-linux -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-
-      - name: Generate protos
-        run: cmake --build out/build/x64-debug-linux --target generate_protos
-
-      - name: Run clang tidy
-        run: run-clang-tidy -p out/build/x64-debug-linux
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "Apply clang-format"
+          git push
