@@ -18,8 +18,8 @@ SortIncludes: true
 NamespaceIndentation: All
 
 # Align and spacing rules
-AlignConsecutiveAssignments: true
-AlignConsecutiveDeclarations: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
 SpaceBeforeParens: ControlStatements
 ColumnLimit: 0
 
