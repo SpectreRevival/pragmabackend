@@ -6,7 +6,6 @@
 #include <chrono>
 #include <date/date.h>
 
-
 GetLoginDataProcessor::GetLoginDataProcessor(const SpectreRpcType& rpcType)
     : WebsocketPacketProcessor(rpcType) {
 }

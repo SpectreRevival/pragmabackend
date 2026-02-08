@@ -6,9 +6,8 @@ PartyDetailsNotification::PartyDetailsNotification(const std::string& partyId, S
     payload = PartyDatabase::Get().GetPartyRes(partyId);
 }
 
-PartyDetailsNotification::PartyDetailsNotification(PartyResponse  partyRes, const SpectreRpcType notificationType)
+PartyDetailsNotification::PartyDetailsNotification(PartyResponse partyRes, const SpectreRpcType notificationType)
     : Notification(notificationType), payload(std::move(partyRes)) {
-    
 }
 
 PartyDetailsNotification::PartyDetailsNotification(const Party& party, const SpectreRpcType notificationType)

@@ -105,31 +105,31 @@ std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>> GameDa
     return std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>>(
         &inventoryStore,
         // Turns class method into static lambda
-        [this](auto && pH1) { RefreshInventoryStoreCache(std::forward<decltype(pH1)>(pH1)); });
+        [this](auto&& pH1) { RefreshInventoryStoreCache(std::forward<decltype(pH1)>(pH1)); });
 }
 
 std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>> GameDataStore::InventoryStore() {
     std::unique_lock storeLock(inventoryStoreLock);
     return std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>>(
         &inventoryStore,
-        [this](auto && pH1) { UnlockInventoryStore(std::forward<decltype(pH1)>(pH1)); });
+        [this](auto&& pH1) { UnlockInventoryStore(std::forward<decltype(pH1)>(pH1)); });
 }
 
 std::unique_ptr<std::string, std::function<void(std::string*)>> GameDataStore::InventoryStore_buf() {
     std::unique_lock storeLock(inventoryStoreLock);
     return std::unique_ptr<std::string, std::function<void(std::string*)>>(
         &inventoryStore_bufCache,
-        [this](auto && pH1) { UnlockInventoryStore2(std::forward<decltype(pH1)>(pH1)); });
+        [this](auto&& pH1) { UnlockInventoryStore2(std::forward<decltype(pH1)>(pH1)); });
 }
 
 GameDataStore& GameDataStore::Get() {
     return inst;
 }
 
-void GameDataStore::UnlockInventoryStore2(std::string*  /*unused*/) {
+void GameDataStore::UnlockInventoryStore2(std::string* /*unused*/) {
     inventoryStoreLock.unlock();
 }
 
-void GameDataStore::UnlockInventoryStore(InventoryContent*  /*unused*/) {
+void GameDataStore::UnlockInventoryStore(InventoryContent* /*unused*/) {
     inventoryStoreLock.unlock();
 }

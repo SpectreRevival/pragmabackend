@@ -63,7 +63,7 @@ class Database {
     }
 
   public:
-    Database(const fs::path& dbPath, std::string  tableName, std::string  keyFieldName, const std::string& keyFieldType);
+    Database(const fs::path& dbPath, std::string tableName, std::string keyFieldName, const std::string& keyFieldType);
 
     sql::Database* GetRaw();
     sql::Database& GetRawRef();

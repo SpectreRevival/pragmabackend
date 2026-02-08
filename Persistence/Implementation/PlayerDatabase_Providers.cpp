@@ -67,7 +67,7 @@ bool PlayerDatabase::IsBanned(const std::string& playerId) {
 
     if (untilMs == 0) return true;
     const auto nowMs = std::chrono::duration_cast<std::chrono::milliseconds>(
-                            std::chrono::system_clock::now().time_since_epoch())
-                            .count();
+                           std::chrono::system_clock::now().time_since_epoch())
+                           .count();
     return nowMs < untilMs;
 }

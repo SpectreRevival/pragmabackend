@@ -33,8 +33,9 @@ void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWe
                 reqFormatted += curChar;
                 index += 2;
                 break;
-            }                 reqFormatted += curChar;
-           
+            }
+            reqFormatted += curChar;
+
         } else {
             reqFormatted += curChar;
         }
