@@ -7,9 +7,9 @@ target_link_libraries(tests PRIVATE GTest::gtest)
 target_link_libraries(tests PRIVATE Boost::process)
 
 file(GLOB_RECURSE TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/*.cpp")
-list(REMOVE_ITEM TEST_FILES "Implementation/test_main.cpp")
-list(REMOVE_ITEM TEST_FILES "Implementation/ProcessFiddlerLog.cpp")
-list(REMOVE_ITEM TEST_FILES "Implementation/TestDeduplicator.cpp")
+list(REMOVE_ITEM TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/Implementation/test_main.cpp")
+list(REMOVE_ITEM TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/Implementation/ProcessFiddlerLog.cpp")
+list(REMOVE_ITEM TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/Implementation/TestDeduplicator.cpp")
 
 target_sources(tests PRIVATE ${TEST_FILES})
 add_dependencies(tests pragmabackend)
