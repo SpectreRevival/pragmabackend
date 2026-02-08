@@ -60,7 +60,7 @@ bool PlayerDatabase::IsBanned(const std::string& playerId) {
     SQLite::Statement query(*raw, "SELECT banned_until FROM bans WHERE player_id=?;");
     query.bind(1, playerId);
     if (!query.executeStep()) return false;
-    long long untilMs = 0;
+    int64_t untilMs = 0;
     if (!query.getColumn(0).isNull()) {
         untilMs = query.getColumn(0).getInt64();
     }

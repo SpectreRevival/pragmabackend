@@ -25,7 +25,7 @@ std::string SteamValidator::HttpGet(const std::string& host, const std::string& 
     http::response<http::string_body> res;
     http::read(stream, buffer, res);
     boost::system::error_code ec;
-    stream.socket().shutdown(tcp::socket::shutdown_both, ec);
+    (void)stream.socket().shutdown(tcp::socket::shutdown_both, ec);
     return res.body();
 }
 

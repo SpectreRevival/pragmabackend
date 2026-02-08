@@ -239,7 +239,7 @@ std::string AuthenticateHandler::CreatePlayerFromSteam(const std::string& steam6
     dn->set_displayname(displayName.empty() ? "Player" : displayName);
     char disc[5];
     std::mt19937 rng{std::random_device{}()};
-    std::snprintf(disc, 5, "%04d", std::uniform_int_distribution<int>(0, 9999)(rng));
+    (void)std::snprintf(disc, 5, "%04d", std::uniform_int_distribution<int>(0, 9999)(rng));
     dn->set_discriminator(disc);
     PlayerDatabase::Get().SetField(FieldKey::PROFILE_DATA, pd.get(), uuid);
     std::unique_ptr<PlayerData> pdata = PlayerDatabase::Get().GetField<PlayerData>(FieldKey::PLAYER_DATA, uuid);
@@ -286,8 +286,8 @@ std::string AuthenticateHandler::BuildJwt(
     const std::string& socialId,
     const std::string& displayName,
     const std::string& discriminator) {
-    const auto now = static_cast<long long>(time(nullptr));
-    const auto exp = now + static_cast<long long>(24 * 3600); // 24 hrs
+    const auto now = static_cast<int64_t>(time(nullptr));
+    const auto exp = now + static_cast<int64_t>(24 * 3600); // 24 hrs
 
     nlohmann::json header = {
         {"kid", "d3JtOq6jy3_HquwTsrzt81wh3BLiA-4f-qM8mj-0-YQ="},

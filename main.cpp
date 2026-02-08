@@ -53,9 +53,9 @@
 #include <string>
 #include <thread>
 
-static unsigned short gamePort = 8081;
-static unsigned short socialPort = 8082;
-static unsigned short wsPort = 80;
+static uint16_t gamePort = 8081;
+static uint16_t socialPort = 8082;
+static uint16_t wsPort = 80;
 
 namespace asio = boost::asio;
 namespace beast = boost::beast;
