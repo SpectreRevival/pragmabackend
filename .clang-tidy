@@ -1,6 +1,7 @@
 # Generated from CLion Inspection settings
 ---
 WarningsAsErrors: "*"
+HeaderFilterRegex: '^(?!.*(\.pb\.h|\.pb\.cc|vcpkg_installed|installed|protobuf|google/protobuf)).*$'
 Checks: '-*,
 bugprone-argument-comment,
 bugprone-assert-side-effect,
