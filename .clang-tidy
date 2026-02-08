@@ -28,7 +28,7 @@ Checks: >
   -cppcoreguidelines-narrowing-conversions,
   -cppcoreguidelines-pro-bounds-pointer-arithmetic,
   -cppcoreguidelines-magic-numbers,
-  -readability-identifier-naming,
+  -readability-identifier-length,
   -cppcoreguidelines-pro-bounds-constant-array-index,
   -modernize-return-braced-init-list
 CheckOptions:
