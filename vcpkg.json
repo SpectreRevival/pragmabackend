@@ -9,7 +9,12 @@
     "boost-process",
     "date",
     "gtest",
-    "jwt-cpp",
+    {
+      "name": "jwt-cpp",
+      "features": [
+        "picojson"
+      ]
+    },
     "nlohmann-json",
     "openssl",
     "picojson",

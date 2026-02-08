@@ -4,7 +4,6 @@
 #include <PlayerData.pb.h>
 #include <PlayerDatabase.h>
 #include <ProfileData.pb.h>
-#include <ResourcesUtilities.h>
 #include <SteamValidator.h>
 #include <WeaponLoadout.pb.h>
 #include <boost/asio/ip/tcp.hpp>
@@ -14,92 +13,19 @@
 #include <boost/uuid/string_generator.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
-#include <cstddef>
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include <openssl/bio.h>
-#include <openssl/evp.h>
-#include <openssl/pem.h>
 #include <random>
-#include <spdlog/spdlog.h>
 #include <string>
-#include <vector>
+#include <jwt-cpp/jwt.h>
 
-#if defined(_WIN32)
-extern "C" {
-#include <openssl/applink.c>
-}
-#endif
+#include "ResourcesUtilities.h"
+#include "../../out/build/x64-release-win/vcpkg_installed/x64-windows/include/jwt-cpp/traits/nlohmann-json/traits.h"
 
 using tcp = boost::asio::ip::tcp;
 
-static std::string ReadAll(const std::string& path) {
-    std::ifstream f(path, std::ios::binary);
-    if (!f) throw std::runtime_error("open failed: " + path);
-    f.seekg(0, std::ios::end);
-    std::string s;
-    s.resize(static_cast<size_t>(f.tellg()));
-    f.seekg(0, std::ios::beg);
-    f.read(s.data(), static_cast<std::streamsize>(s.size()));
-    return s;
-}
-
-static std::string B64urlBytes(const unsigned char* data, size_t len) {
-    static constexpr std::string_view t = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
-    std::string out;
-    out.reserve(((len + 2) / 3) * 4);
-    int val = 0;
-    int valb = -6;
-    for (size_t i = 0; i < len; ++i) {
-        val = (val << 8) + data[i];
-        valb += 8;
-        while (valb >= 0) {
-            out.push_back(t[(val >> valb) & 0x3F]);
-            valb -= 6;
-        }
-    }
-    if (valb > -6) out.push_back(t[((val << 8) >> (valb + 8)) & 0x3F]);
-    return out;
-}
-
-static std::string SignRs256B64url(const std::string& signingInput) {
-    const std::string pem = ReadAll((ResourcesUtilities::GetResourcesFolder() / "pragma_private.pem").string());
-    // simply just the JWT priv key.
-
-    BIO* bio = BIO_new_mem_buf(pem.data(), static_cast<int>(pem.size()));
-    if (bio == nullptr) throw std::runtime_error("BIO_new_mem_buf failed");
-    std::unique_ptr<BIO, int (*)(BIO*)> bioU(bio, BIO_free);
-
-    EVP_PKEY* pkeyRaw = PEM_read_bio_PrivateKey(bio, nullptr, nullptr, nullptr);
-    if (pkeyRaw == nullptr) throw std::runtime_error("PEM_read_bio_PrivateKey failed");
-    std::unique_ptr<EVP_PKEY, void (*)(EVP_PKEY*)> pkey(pkeyRaw, EVP_PKEY_free);
-
-    EVP_MD_CTX* ctxRaw = EVP_MD_CTX_new();
-    if (ctxRaw == nullptr) throw std::runtime_error("EVP_MD_CTX_new failed");
-    std::unique_ptr<EVP_MD_CTX, void (*)(EVP_MD_CTX*)> ctx(ctxRaw, EVP_MD_CTX_free);
-
-    if (EVP_DigestSignInit(ctx.get(), nullptr, EVP_sha256(), nullptr, pkey.get()) != 1) {
-        throw std::runtime_error("EVP_DigestSignInit failed");
-    }
-    if (EVP_DigestSignUpdate(ctx.get(), signingInput.data(), signingInput.size()) != 1) {
-        throw std::runtime_error("EVP_DigestSignUpdate failed");
-    }
-
-    size_t siglen = 0;
-    if (EVP_DigestSignFinal(ctx.get(), nullptr, &siglen) != 1) {
-        throw std::runtime_error("EVP_DigestSignFinal(size) failed");
-    }
-
-    std::vector<unsigned char> sig(siglen);
-    if (EVP_DigestSignFinal(ctx.get(), sig.data(), &siglen) != 1) {
-        throw std::runtime_error("EVP_DigestSignFinal(data) failed");
-    }
-    sig.resize(siglen);
-
-    return B64urlBytes(sig.data(), sig.size());
-}
-
-struct AuthCfg {
+struct AuthCfg
+{
     std::string steamApiKey;
 };
 
@@ -242,6 +168,17 @@ static std::string B64urlJson(const nlohmann::json& j) {
     while (!out.empty() && out.back() == '=') out.pop_back();
     return out;
 }
+static const std::string& GetPragmaPrivateKey()
+{
+    static std::string pragmaPrivateKey = []
+    {
+        std::ifstream keyFile(ResourcesUtilities::GetResourcesFolder() / "pragma_private.pem");
+        std::stringstream ss;
+        ss << keyFile.rdbuf();
+        return ss.str();
+    }();
+    return pragmaPrivateKey;
+}
 
 std::string AuthenticateHandler::BuildJwt(
     const std::string& backendType,
@@ -252,34 +189,47 @@ std::string AuthenticateHandler::BuildJwt(
     const auto now = static_cast<int64_t>(time(nullptr));
     const auto exp = now + static_cast<int64_t>(24 * 3600); // 24 hrs
 
-    nlohmann::json header = {
-        {"kid", "d3JtOq6jy3_HquwTsrzt81wh3BLiA-4f-qM8mj-0-YQ="},
-        {"alg", "RS256"},
-        {"typ", "JWT"}};
+    picojson::object header = {
+        {"kid", picojson::value("d3JtOq6jy3_HquwTsrzt81wh3BLiA-4f-qM8mj-0-YQ=")},
+        {"alg", picojson::value("RS256")},
+        {"typ", picojson::value("JWT")}
+    };
 
     const std::string jti = boost::uuids::to_string(boost::uuids::random_generator()());
-    nlohmann::json payload = {
-        {"iss", "pragma"},
-        {"sub", backendType == "GAME" ? playerId : socialId},
-        {"iat", now},
-        {"exp", exp},
-        {"jti", jti},
-        {"sessionType", "PLAYER"},
-        {"backendType", backendType},
-        {"displayName", displayName},
-        {"discriminator", discriminator},
-        {"pragmaSocialId", socialId},
-        {"idProvider", "STEAM"},
-        {"extSessionInfo", R"({"permissions":0,"accountTags":["canary"]})"},
-        {"expiresInMillis", "86400000"},
-        {"refreshInMillis", "36203000"},
-        {"pragmaPlayerId", playerId}};
+    picojson::object payload = {
+        {"iss", picojson::value("pragma")},
+        {"sub", picojson::value(backendType == "GAME" ? playerId : socialId)},
+        {"iat", picojson::value(static_cast<double>(now))},
+        {"exp", picojson::value(static_cast<double>(exp))},
+        {"jti", picojson::value(jti)},
+        {"sessionType", picojson::value("PLAYER")},
+        {"backendType", picojson::value(backendType)},
+        {"displayName", picojson::value(displayName)},
+        {"discriminator", picojson::value(discriminator)},
+        {"pragmaSocialId", picojson::value(socialId)},
+        {"idProvider", picojson::value("STEAM")},
+        {"extSessionInfo", picojson::value(R"({"permissions":0,"accountTags":["canary"]})")},
+        {"expiresInMillis", picojson::value("86400000")},
+        {"refreshInMillis", picojson::value("36203000")},
+        {"pragmaPlayerId", picojson::value(playerId)}
+    };
 
-    if (backendType == "GAME") {
-        payload["gameShardId"] = "00000000-0000-0000-0000-000000000001";
+    if (backendType == "GAME")
+    {
+        payload["gameShardId"] = picojson::value("00000000-0000-0000-0000-000000000001");
     }
 
-    const std::string signingInput = B64urlJson(header) + "." + B64urlJson(payload);
-    const std::string sigB64url = SignRs256B64url(signingInput);
-    return signingInput + "." + sigB64url;
+    auto token = jwt::create()
+    .set_header_claim("kid", jwt::claim(header["kid"]))
+    .set_header_claim("typ", jwt::claim(header["typ"]))
+    .set_header_claim("alg", jwt::claim(header["alg"]));
+    for (auto& [key, value] : payload)
+    {
+        token.set_payload_claim(key, jwt::claim(value));
+    }
+    return token.sign(jwt::algorithm::rs256(
+        "",
+        GetPragmaPrivateKey(),
+        "",
+        ""));
 }

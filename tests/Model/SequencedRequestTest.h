@@ -38,7 +38,7 @@ TEST_P(SequencedRequestTest, ResponseValidation) {
         }
         i++;
     }
-    TestWebsocketClient wsClient(8083);
+    TestWebsocketClient wsClient(8082);
     while (true) {
         if (requests.empty()) {
             break;
@@ -60,7 +60,7 @@ TEST_P(SequencedRequestTest, ResponseValidation) {
             boost::beast::flat_buffer res = wsClient.SendPacket(testJson["requestBody"], reqType);
             std::string resStr(boost::asio::buffers_begin(res.data()), boost::asio::buffers_end(res.data()));
             if (resStr.empty()) {
-                GTEST_SKIP() << "Skipping since no response given";
+                GTEST_SKIP() << "Skipping since no response given for request " << curTestPath.string();
             }
             json responseFull;
             ASSERT_NO_THROW(responseFull = json::parse(resStr));
@@ -91,7 +91,7 @@ TEST_P(SequencedRequestTest, ResponseValidation) {
                 GTEST_FATAL_FAILURE_("Unrecognized http verb");
             }
             if (res.body().empty()) {
-                GTEST_SKIP() << "Got an empty response";
+                GTEST_SKIP() << "Got an empty response for request " << curTestPath.string();
             }
             json resJson = json::parse(res.body());
             json expectedResponse = json::parse(testJson["response"].get<std::string>());

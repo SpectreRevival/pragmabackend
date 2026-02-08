@@ -30,7 +30,7 @@ TEST_P(WebsocketRequestTest, ResponseValidation) {
     ss << testFile.rdbuf();
     std::string testJsonStr = ss.str();
     json testJson = json::parse(testJsonStr);
-    TestWebsocketClient wsClient(8083);
+    TestWebsocketClient wsClient(8082);
     SpectreRpcType reqType = SpectreRpcType(testJson["rpcType"].get<std::string>());
     std::cout << "Test info: " << std::endl;
     std::cout << "RPC type: " << reqType.GetName() << std::endl;
