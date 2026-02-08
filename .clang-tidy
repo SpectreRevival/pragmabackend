@@ -27,10 +27,12 @@ Checks: >
   -bugprone-narrowing-conversions,
   -cppcoreguidelines-narrowing-conversions,
   -cppcoreguidelines-pro-bounds-pointer-arithmetic,
-  -cppcoreguidelines-magic-numbers,
+  -cppcoreguidelines-avoid-magic-numbers,
   -readability-identifier-length,
   -cppcoreguidelines-pro-bounds-constant-array-index,
-  -modernize-return-braced-init-list
+  -modernize-return-braced-init-list,
+  -hicpp-signed-bitwise,
+  -misc-header-cleaner
 CheckOptions:
   - key: readability-identifier-naming.ClassCase
     value: CamelCase
