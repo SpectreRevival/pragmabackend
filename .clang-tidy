@@ -33,7 +33,8 @@ Checks: >
   -modernize-return-braced-init-list,
   -hicpp-signed-bitwise,
   -misc-include-cleaner,
-  -readability-qualified-auto
+  -readability-qualified-auto,
+  -readability-magic-numbers
 CheckOptions:
   - key: readability-identifier-naming.ClassCase
     value: CamelCase

@@ -61,7 +61,7 @@ void Database::SetField(FieldKey key, const pbuf::Message* object, const std::st
         "INSERT INTO {table} (" + GetKeyFieldName() + ", {col}) VALUES(?,?) ON CONFLICT(" + GetKeyFieldName() + ") DO UPDATE SET {col} = excluded.{col};",
         key);
     setStatement.bind(1, dbKeyId);
-    return SetField(setStatement, key, object, 2);
+    SetField(setStatement, key, object, 2);
 }
 
 bool Database::IsFieldPopulated(FieldKey key, const std::string& dbKey) {
