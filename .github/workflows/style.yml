@@ -6,7 +6,47 @@ on:
     branches: ["*"]
 
 jobs:
-  enforce-style:
+  clang-tidy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install clang-tidy
+        run: |
+          sudo apt update
+          sudo apt install -y clang-tidy clang-tools
+
+      - name: Install compiler
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential ninja-build curl zip unzip tar autoconf autoconf-archive automake libtool linux-libc-dev pkg-config software-properties-common lsb-release
+          sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+          sudo apt-key adv --fetch-keys https://apt.kitware.com/keys/kitware-archive-latest.asc
+          sudo apt-get update
+          sudo apt-get install -y cmake
+
+      - name: Cache vcpkg archives directory
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/vcpkg/archives
+          key: vcpkg-${{hashFiles('vcpkg/**')}}-${{hashFiles('vcpkg.json')}}
+          restore-keys: |
+            vcpkg-${{hashFiles('vcpkg/**')}}
+
+      - name: Configure
+        run: |
+          /usr/bin/cmake . --preset x64-debug-linux -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+      - name: Generate protos
+        run: cmake --build out/build/x64-debug-linux --target generate_protos
+
+      - name: Run clang tidy
+        run: run-clang-tidy -p out/build/x64-debug-linux
+
+  clang-format:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
