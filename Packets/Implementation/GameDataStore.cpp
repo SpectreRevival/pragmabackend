@@ -9,7 +9,7 @@ namespace pbu = google::protobuf::util;
 
 GameDataStore GameDataStore::inst((ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultInventoryStore.json").string());
 
-static std::string InventoryStoreToPayload(const InventoryContent* invStore) {
+static std::string InventoryStoreToPayload(const InventoryContent* invStore) { // NOLINT(readability-function-cognitive-complexity)
     std::string jsonstr;
     std::string jsonstr2;
     pbu::JsonPrintOptions popts;
