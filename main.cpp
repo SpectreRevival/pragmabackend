@@ -53,6 +53,8 @@
 #include <string>
 #include <thread>
 
+#include "SubmitProviderIdHandler.h"
+
 static uint16_t gamePort = 8081;
 static uint16_t socialPort = 8082;
 static uint16_t wsPort = 80;
@@ -184,7 +186,7 @@ int main(int argc, char** argv) {
 
         // feel like this needs cleaning up T_T
 
-        new AuthenticateHandler("/v1/submitproviderid");
+        new SubmitProviderIdHandler("/v1/submitproviderid");
         new AuthenticateHandler("/v1/account/authenticateorcreatev2");
         new HeartbeatProcessor(SpectreRpcType("PlayerSessionRpc.HeartbeatV1Request"));
         new FieldFetchProcessor<Inventory>(

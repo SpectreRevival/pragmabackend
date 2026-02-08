@@ -14,7 +14,7 @@ pbuf::util::JsonPrintOptions opts = []() {
 static std::string ExtractBearer(const http::request<http::string_body>& req) {
     auto auth = req.base()[http::field::authorization];
     if (auth.empty()) return {};
-    static constexpr char prefix[] = "Bearer ";
+    static constexpr std::string_view prefix = "Bearer ";
     const std::string s = std::string(auth);
     if (!s.starts_with(prefix)) return {};
     return s.substr(sizeof(prefix) - 1);
