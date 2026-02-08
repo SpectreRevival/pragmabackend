@@ -22,3 +22,7 @@ AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
 SpaceBeforeParens: ControlStatements
 ColumnLimit: 0
+
+# Type qualifier alignment
+PointerAlignment: Left
+QualifierAlignment: Left
