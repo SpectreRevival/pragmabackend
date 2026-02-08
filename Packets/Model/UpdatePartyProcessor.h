@@ -3,6 +3,6 @@
 
 class UpdatePartyProcessor : public WebsocketPacketProcessor {
 public:
-	UpdatePartyProcessor(SpectreRpcType rpcType);
+	explicit UpdatePartyProcessor(SpectreRpcType rpcType);
 	void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

@@ -4,7 +4,7 @@
 
 static const std::string endOfConfigJson = "\"inputBindingsVersion\":3}";
 
-GetPlayerDataProcessor::GetPlayerDataProcessor(SpectreRpcType rpcType) :
+GetPlayerDataProcessor::GetPlayerDataProcessor(const SpectreRpcType& rpcType) :
 	WebsocketPacketProcessor(rpcType) {
 
 }
@@ -20,7 +20,7 @@ std::string GetPlayerDataProcessor::GetPlayerDataAsString(const PlayerData& play
 	}
 	// mt wanted the PlayerConfig object to be a json STRING for some reason, probably to avoid
 	// having to serialize a 100 field object which would be slow? either way, we do this... interesting thing to quote it the way the game expects
-	// All of the field sizes up to this point are constant, so we can use a magic number to quote the start of the config field
+	// All the field sizes up to this point are constant, so we can use a magic number to quote the start of the config field
 	std::string finalPlayerDataComponent(playerDataComponent.begin(), playerDataComponent.begin() + 58);
 	finalPlayerDataComponent += "\"{";
 	int endIndex = 0;
@@ -49,7 +49,7 @@ std::string GetPlayerDataProcessor::GetPlayerDataAsString(const PlayerData& play
 }
 
 void GetPlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
-	std::unique_ptr<PlayerData> data = PlayerDatabase::Get().GetField<PlayerData>(FieldKey::PLAYER_DATA, sock.GetPlayerId());
+	const std::unique_ptr<PlayerData> data = PlayerDatabase::Get().GetField<PlayerData>(FieldKey::PLAYER_DATA, sock.GetPlayerId());
 	data->set_serverdata("{}");
 	std::string fullPayload = "{\"data\":";
 	fullPayload += GetPlayerDataAsString(*data) + "}";

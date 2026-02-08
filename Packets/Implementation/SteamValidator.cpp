@@ -28,7 +28,8 @@ std::string SteamValidator::HttpGet(const std::string& host, const std::string& 
 	return res.body();
 }
 
-std::optional<SteamPlayerInfo> SteamValidator::ValidateSteamId(const std::string& steam64) {
+std::optional<SteamPlayerInfo> SteamValidator::ValidateSteamId(const std::string& steam64) const
+{
 	if (m_apiKey.empty()) return std::nullopt;
 
 	auto body = HttpGet("api.steampowered.com",

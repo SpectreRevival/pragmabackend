@@ -10,7 +10,7 @@ class StaticResponseProcessorWS : public WebsocketPacketProcessor {
 private:
     std::shared_ptr<json> m_res;
 public:
-    StaticResponseProcessorWS(SpectreRpcType rpcType, std::shared_ptr<json> res)
+    StaticResponseProcessorWS(const SpectreRpcType rpcType, const std::shared_ptr<json>& res)
         : WebsocketPacketProcessor(rpcType), m_res(res) {
     };
 

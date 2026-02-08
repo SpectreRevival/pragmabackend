@@ -16,7 +16,8 @@ SpectreWebsocketRequest::SpectreWebsocketRequest(SpectreWebsocket& sock, reqbuf 
 	m_payloadAsStr = (*m_reqjson)["payload"].dump();
 }
 
-std::shared_ptr<json> SpectreWebsocketRequest::GetPayload() {
+std::shared_ptr<json> SpectreWebsocketRequest::GetPayload() const
+{
 	return std::make_shared<json>(((*m_reqjson)["payload"]));
 }
 
@@ -32,7 +33,8 @@ void SpectreWebsocketRequest::SendEmptyResponse() {
 	m_websocket.SendPacket(GetBaseJsonResponse());
 }
 
-std::string SpectreWebsocketRequest::GetResponseType() {
+std::string SpectreWebsocketRequest::GetResponseType() const
+{
 	std::string resType = m_requestType.GetName();
 	if (resType.size() >= 7 && resType.compare(resType.size() - 7, 7, "Request") == 0)
 		resType.erase(resType.size() - 7);

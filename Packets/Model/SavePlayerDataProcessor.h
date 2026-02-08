@@ -3,7 +3,7 @@
 
 class SavePlayerDataProcessor : public WebsocketPacketProcessor {
 public:
-	SavePlayerDataProcessor(SpectreRpcType rpcType);
+	explicit SavePlayerDataProcessor(SpectreRpcType rpcType);
 
 	void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

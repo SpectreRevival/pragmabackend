@@ -1,9 +1,5 @@
 #pragma once
-#include <boost/asio.hpp>
 #include <boost/beast/core.hpp>
-#include <boost/beast/core/buffers_to_string.hpp>
-#include <boost/beast/http.hpp>
-#include <boost/beast/websocket.hpp>
 #include <SpectreRpcType.h>
 #include <nlohmann/json.hpp>
 #include <SpectreWebsocket.h>
@@ -24,11 +20,11 @@ private:
 public:
 	SpectreWebsocketRequest(SpectreWebsocket& sock, reqbuf req);
 
-	std::shared_ptr<json> GetPayload();
+	std::shared_ptr<json> GetPayload() const;
 
 	template<typename T> 
 	std::unique_ptr<T> GetPayloadAsMessage() {
-		static_assert(std::is_base_of<pbuf::Message, T>::value, "Type passed to GetPayloadAsMessage must be subclass of pbuf::Message");
+		static_assert(std::is_base_of_v<pbuf::Message, T>, "Type passed to GetPayloadAsMessage must be subclass of pbuf::Message");
 		T message;
 		auto status = pbuf::util::JsonStringToMessage(
 			m_payloadAsStr,
@@ -45,17 +41,20 @@ public:
 		return &m_requestbuf;
 	}
 
-	SpectreWebsocket& GetSocket() {
+	[[nodiscard]] SpectreWebsocket& GetSocket() const
+	{
 		return m_websocket;
 	}
 	
-	SpectreRpcType GetRequestType() {
+	[[nodiscard]] SpectreRpcType GetRequestType() const
+	{
 		return m_requestType;
 	}
 
-	std::string GetResponseType();
+	std::string GetResponseType() const;
 
-	int GetRequestId() {
+	[[nodiscard]] int GetRequestId() const
+	{
 		return m_requestId;
 	}
 	

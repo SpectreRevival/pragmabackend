@@ -3,7 +3,7 @@
 
 class SaveWeaponLoadoutProcessor : public WebsocketPacketProcessor{
 public:
-    SaveWeaponLoadoutProcessor(SpectreRpcType rpcType);
+    explicit SaveWeaponLoadoutProcessor(SpectreRpcType rpcType);
 
     void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

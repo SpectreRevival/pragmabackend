@@ -16,11 +16,11 @@ private:
 	PlayerDatabase& m_dbRef;
 	const FieldKey field;
 public:
-	FieldFetchProcessor(SpectreRpcType rpcType, FieldKey key, PlayerDatabase& dbRef) :
+	FieldFetchProcessor(const SpectreRpcType& rpcType, const FieldKey& key, PlayerDatabase& dbRef) :
 		WebsocketPacketProcessor(rpcType), m_dbRef(dbRef), field(key) {
 	}
 
-	FieldFetchProcessor(SpectreRpcType rpcType, FieldKey key) :
+	FieldFetchProcessor(const SpectreRpcType& rpcType, const FieldKey& key) :
 		FieldFetchProcessor(rpcType, key, PlayerDatabase::Get()) {
 	}
 

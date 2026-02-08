@@ -3,6 +3,6 @@
 
 class FetchPlayerLoadoutsProcessor : public WebsocketPacketProcessor {
 public:
-    explicit FetchPlayerLoadoutsProcessor(SpectreRpcType rpcType);
+    explicit FetchPlayerLoadoutsProcessor(const SpectreRpcType& rpcType);
     void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

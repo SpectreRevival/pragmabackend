@@ -3,7 +3,7 @@
 
 class GetBulkProfileDataProcessor : public WebsocketPacketProcessor {
 public:
-	GetBulkProfileDataProcessor(SpectreRpcType rpcType);
+	explicit GetBulkProfileDataProcessor(const SpectreRpcType& rpcType);
 
 	void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

@@ -3,7 +3,7 @@
 
 class GetLoginDataProcessor : public WebsocketPacketProcessor {
 public:
-	GetLoginDataProcessor(SpectreRpcType rpcType);
+	explicit GetLoginDataProcessor(const SpectreRpcType& rpcType);
 
 	void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

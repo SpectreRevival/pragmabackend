@@ -7,7 +7,6 @@
 #include <JsonTestUtil.h>
 #include <queue>
 
-#include "TestHTTPClient.h"
 #include "boost/asio/buffers_iterator.hpp"
 
 namespace fs = std::filesystem;

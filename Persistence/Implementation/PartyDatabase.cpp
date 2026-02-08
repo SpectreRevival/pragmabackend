@@ -5,8 +5,7 @@ PartyDatabase::PartyDatabase(fs::path path) : Database(path, "parties", "PartyID
 	sql::Statement colQuery(GetRawRef(), "PRAGMA table_info(" + GetTableName() + ");");
 	bool colExists = false;
 	while (colQuery.executeStep()) {
-		std::string colName = colQuery.getColumn(1).getText();
-		if (colName == "PartyCode") {
+		if (std::string colName = colQuery.getColumn(1).getText(); colName == "PartyCode") {
 			colExists = true;
 			break;
 		}
@@ -126,14 +125,13 @@ std::string PartyDatabase::SerializePartyToString(const PartyResponse& partyRes)
 		spdlog::error("Failed to serialize CreatePartyProcessor response: {}", status.message());
 		throw;
 	}
-	std::string jsonfinal;
 	size_t pos = jsoninit.find(sharedClientDataStart);
 	if (pos == std::string::npos) {
 		spdlog::error("did not find sharedClientData property in CreatePartyProcessor res json, something weird has happened");
 		throw;
 	}
 	pos += sharedClientDataStart.size();
-	jsonfinal = std::string(jsoninit.begin(), jsoninit.begin() + pos);
+	std::string jsonfinal = std::string(jsoninit.begin(), jsoninit.begin() + pos);
 	jsonfinal += '\"';
 	char curChar = jsoninit[pos];
 	while (curChar != '}') {

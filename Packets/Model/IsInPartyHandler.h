@@ -4,6 +4,6 @@
 class IsInPartyHandler : public WebsocketPacketProcessor
 {
 public:
-    IsInPartyHandler(SpectreRpcType rpcType);
+    explicit IsInPartyHandler(const SpectreRpcType& rpcType);
     void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

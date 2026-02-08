@@ -5,7 +5,6 @@
 #include <UpdatesItemMessage.pb.h>
 #include <algorithm>
 #include <google/protobuf/util/json_util.h>
-#include <cctype>
 
 namespace pbu = google::protobuf::util;
 
@@ -48,8 +47,8 @@ void UpdateItemsV0Processor::Process(SpectreWebsocketRequest& packet, SpectreWeb
 	for (const InstancedItemUpdate& itemUpdate : itemUpdates->instanceditemupdates())
 	{
 		std::string instanceId = itemUpdate.instanceid();
-		std::transform(instanceId.begin(), instanceId.end(), instanceId.begin(),
-		               [](unsigned char c) { return std::tolower(c); });
+		std::ranges::transform(instanceId, instanceId.begin(),
+		                       [](unsigned char c) { return std::tolower(c); });
 		InstancedItem* curItem = nullptr;
 		for (int i = 0; i < playerInv->instanced_size(); i++)
 		{

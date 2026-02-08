@@ -1,4 +1,4 @@
-name: Attach builds to releases
+name: release.yml
 on:
   release:
     types: [published]

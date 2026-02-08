@@ -3,13 +3,13 @@
 #include <ProfileData.pb.h>
 #include <PlayerDatabase.h>
 
-GetBulkProfileDataProcessor::GetBulkProfileDataProcessor(SpectreRpcType rpcType) :
+GetBulkProfileDataProcessor::GetBulkProfileDataProcessor(const SpectreRpcType& rpcType) :
 	WebsocketPacketProcessor(rpcType) {
 
 }
 
 void GetBulkProfileDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
-	std::unique_ptr<GetBulkProfileDataMessage> req = packet.GetPayloadAsMessage<GetBulkProfileDataMessage>();
+	const std::unique_ptr<GetBulkProfileDataMessage> req = packet.GetPayloadAsMessage<GetBulkProfileDataMessage>();
 	BulkProfileDataResponse res;
 	for (int i = 0; i < req->playerids_size(); i++) {
 		res.add_bulkprofiledata()->CopyFrom(

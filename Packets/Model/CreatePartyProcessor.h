@@ -9,6 +9,6 @@ private:
 	std::string GetRandomUUIDAsString();
 	std::string GetNewInviteCode();
 public:
-	CreatePartyProcessor(SpectreRpcType rpcType);
+	explicit CreatePartyProcessor(const SpectreRpcType& rpcType);
 	void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

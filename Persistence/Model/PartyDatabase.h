@@ -7,7 +7,7 @@ private:
 	static PartyDatabase inst;
 public:
 	static PartyDatabase& Get();
-	PartyDatabase(fs::path path);
+	explicit PartyDatabase(fs::path path);
 	PartyResponse GetPartyRes(const std::string& partyId);
 	PartyResponse GetPartyResByInviteCode(const std::string& inviteCode);
 	Party GetParty(const std::string& partyId);

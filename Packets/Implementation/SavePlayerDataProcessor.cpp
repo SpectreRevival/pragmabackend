@@ -11,8 +11,8 @@ SavePlayerDataProcessor::SavePlayerDataProcessor(SpectreRpcType rpcType) :
 }
 
 void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
-	const char* strbegin = reinterpret_cast<const char*>(packet.GetRawBuffer()->cdata().data());
-	std::string reqFormatted = "{\"playerId\": \"" + sock.GetPlayerId() + "\",\"data\":";
+	const char* strbegin = static_cast<const char*>(packet.GetRawBuffer()->cdata().data());
+	std::string reqFormatted = R"({"playerId": ")" + sock.GetPlayerId() + "\",\"data\":";
 	int index = 0;
 	char curChar;
 	for (; index < packet.GetRawBuffer()->size(); index++) {

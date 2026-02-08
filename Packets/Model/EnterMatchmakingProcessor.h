@@ -3,6 +3,6 @@
 
 class EnterMatchmakingProcessor : public WebsocketPacketProcessor {
 public:
-	EnterMatchmakingProcessor(SpectreRpcType rpcType);
+	explicit EnterMatchmakingProcessor(const SpectreRpcType& rpcType);
 	void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

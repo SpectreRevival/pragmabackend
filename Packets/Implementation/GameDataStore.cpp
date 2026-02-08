@@ -9,12 +9,12 @@ namespace pbu = google::protobuf::util;
 
 GameDataStore GameDataStore::inst((ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultInventoryStore.json").string());
 
-static std::string InventoryStoreToPayload(InventoryContent* invStore) {
+static std::string InventoryStoreToPayload(const InventoryContent* invStore) {
 	std::string jsonstr;
 	std::string jsonstr2;
 	pbu::JsonPrintOptions popts;
 	popts.always_print_fields_with_no_presence = true;
-	auto status = pbu::MessageToJsonString(*invStore, &jsonstr, popts);
+	const auto status = pbu::MessageToJsonString(*invStore, &jsonstr, popts);
 	if (!status.ok()) {
 		spdlog::error("Failed to serialize InventoryContent to json string: {}", status.message());
 		throw;
@@ -73,7 +73,7 @@ static std::string InventoryStoreToPayload(InventoryContent* invStore) {
 	return jsonstr2;
 }
 
-void GameDataStore::RefreshInventoryStoreCache(InventoryContent* invStore) {
+void GameDataStore::RefreshInventoryStoreCache(const InventoryContent* invStore) {
 	inventoryStore_bufCache = InventoryStoreToPayload(invStore);
 	inventoryStoreLock.unlock();
 }
@@ -96,7 +96,7 @@ GameDataStore::GameDataStore(std::string inventoryStorePath) {
 
 std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>> GameDataStore::InventoryStore_mut() {
 	// When the returned pointer goes out of scope, call the RefreshInventoryStoreCache method in the class
-	while (!inventoryStoreLock.try_lock()) {}
+	std::unique_lock storeLock(inventoryStoreLock);
 	return std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>>(
 		&inventoryStore,
 		// Turns class method into static lambda
@@ -105,7 +105,7 @@ std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>> GameDa
 }
 
 std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>> GameDataStore::InventoryStore() {
-	while (!inventoryStoreLock.try_lock()) {}
+	std::unique_lock storeLock(inventoryStoreLock);
 	return std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>>(
 		&inventoryStore,
 		std::bind(&GameDataStore::UnlockInventoryStore, this, std::placeholders::_1)
@@ -113,7 +113,7 @@ std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>> GameDa
 }
 
 std::unique_ptr<std::string, std::function<void(std::string*)>> GameDataStore::InventoryStore_buf() {
-	while (!inventoryStoreLock.try_lock());
+	std::unique_lock storeLock(inventoryStoreLock);
 	return std::unique_ptr<std::string, std::function<void(std::string*)>>(
 		&inventoryStore_bufCache,
 		std::bind(&GameDataStore::UnlockInventoryStore2, this, std::placeholders::_1)

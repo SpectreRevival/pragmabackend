@@ -3,7 +3,7 @@
 
 class SaveOutfitLoadoutProcessor : public WebsocketPacketProcessor {
 public:
-    SaveOutfitLoadoutProcessor(SpectreRpcType rpcType);
+    explicit SaveOutfitLoadoutProcessor(SpectreRpcType rpcType);
 
     void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

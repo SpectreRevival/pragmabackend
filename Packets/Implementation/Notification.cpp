@@ -1,6 +1,6 @@
 #include <Notification.h>
 
-Notification::Notification(SpectreRpcType notificationType) : m_notificationType(notificationType) {
+Notification::Notification(const SpectreRpcType notificationType) : m_notificationType(notificationType) {
 
 }
 

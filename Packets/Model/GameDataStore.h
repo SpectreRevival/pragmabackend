@@ -7,12 +7,12 @@ private:
 	InventoryContent inventoryStore;
 	std::string inventoryStore_bufCache;
 	static GameDataStore inst;
-	void RefreshInventoryStoreCache(InventoryContent* invStore);
+	void RefreshInventoryStoreCache(const InventoryContent* invStore);
 	void UnlockInventoryStore2(std::string* unused);
 	void UnlockInventoryStore(InventoryContent* unused);
 	std::mutex inventoryStoreLock;
 public:
-	GameDataStore(std::string inventoryStoreFilePath);
+	explicit GameDataStore(std::string inventoryStoreFilePath);
 	static GameDataStore& Get();
 	/**
 	* Gets the list of all items, crafting entries, .etc that are available in the game

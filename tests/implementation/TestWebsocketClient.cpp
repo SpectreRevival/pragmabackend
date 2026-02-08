@@ -33,7 +33,7 @@ std::shared_ptr<boost::beast::websocket::stream<boost::asio::ip::tcp::socket>> T
     return ws;
 }
 
-boost::beast::flat_buffer TestWebsocketClient::SendPacket(std::string& packet, SpectreRpcType rpcType)
+boost::beast::flat_buffer TestWebsocketClient::SendPacket(const std::string& packet, const SpectreRpcType rpcType) const
 {
     std::string final = "{\"requestId\":" + std::to_string(nextRequestId) + ",\"type\":\"" + rpcType.GetName() + "\",\"payload\":" + packet + "}";
     ws->write(boost::asio::buffer(final));
@@ -61,7 +61,7 @@ boost::beast::flat_buffer TestWebsocketClient::SendPacket(std::string& packet, S
     return buffer;
 }
 
-boost::beast::flat_buffer TestWebsocketClient::SendPacket(nlohmann::json& packet, SpectreRpcType rpcType)
+boost::beast::flat_buffer TestWebsocketClient::SendPacket(const nlohmann::json& packet, SpectreRpcType rpcType) const
 {
     std::string final = "{\"requestId\":" + std::to_string(nextRequestId) + ",\"type\":\"" + rpcType.GetName() + "\",\"payload\":" + packet.dump() + "}";
     ws->write(boost::asio::buffer(final));

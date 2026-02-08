@@ -4,7 +4,7 @@
 std::unordered_map<FieldKey, const std::string> Database::classNames;
 std::unordered_map <FieldKey, std::unique_ptr<const pbuf::Message>> Database::defaultFieldValues;
 
-Database::Database(fs::path dbPath, const std::string tableName, const std::string keyFieldName, const std::string keyFieldType) 
+Database::Database(const fs::path& dbPath, const std::string& tableName, const std::string& keyFieldName, const std::string& keyFieldType)
 	: m_filename(dbPath), m_dbRaw(dbPath.string(), sql::OPEN_READWRITE | sql::OPEN_CREATE),
   m_tableName(tableName), m_keyFieldName(keyFieldName)
 {
@@ -38,7 +38,7 @@ sql::Statement Database::FormatStatement(std::string command, FieldKey key) {
 * - statement has 1 questionmark, and it's index(1-indexed) is passed for dataBindIndex
 Eg valid: INSERT INTO players (PlayerName) VALUES (?) WHERE HI=? B=2
 */
-void Database::SetField(sql::Statement& statement, FieldKey key, const pbuf::Message* object, uint32_t dataBindIndex) {
+void Database::SetField(sql::Statement& statement, FieldKey key, const pbuf::Message* object, const uint32_t dataBindIndex) {
 	if (dataBindIndex == 0) {
 		spdlog::error("passed 0 for data bind index which is not valid");
 		throw;
@@ -51,7 +51,7 @@ void Database::SetField(sql::Statement& statement, FieldKey key, const pbuf::Mes
 		statement.exec();
 	}
 	catch (const std::exception& e) {
-		spdlog::error("Failed to set field with FieldKey {}", classNames.at(key));
+		spdlog::error("Failed to set field with FieldKey {}: {}", classNames.at(key), e.what());
 		throw;
 	}
 }

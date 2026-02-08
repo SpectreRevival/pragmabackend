@@ -3,8 +3,6 @@
 #include <PlayerDatabase.h>
 #include <spdlog/spdlog.h>
 #include <UpdateSingleItemMessage.pb.h>
-#include <algorithm>
-#include <cctype>
 
 UpdateItemV4Processor::UpdateItemV4Processor(SpectreRpcType rpcType) :
 	WebsocketPacketProcessor(rpcType) {

@@ -5,12 +5,12 @@ PartyDetailsNotification::PartyDetailsNotification(const std::string& partyId, S
 	payload = PartyDatabase::Get().GetPartyRes(partyId);
 }
 
-PartyDetailsNotification::PartyDetailsNotification(const PartyResponse& res, SpectreRpcType notificationType) :
+PartyDetailsNotification::PartyDetailsNotification(const PartyResponse& partyRes, const SpectreRpcType notificationType) :
 	Notification(notificationType) {
-	payload = res;
+	payload = partyRes;
 }
 
-PartyDetailsNotification::PartyDetailsNotification(const Party& party, SpectreRpcType notificationType) :
+PartyDetailsNotification::PartyDetailsNotification(const Party& party, const SpectreRpcType notificationType) :
 	Notification(notificationType) {
 	payload.mutable_party()->CopyFrom(party);
 }

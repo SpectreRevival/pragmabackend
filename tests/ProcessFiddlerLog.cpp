@@ -65,7 +65,7 @@ void ProcessWebsocketSession(json& session)
     }
 }
 
-std::string ExtractURLPath(std::string url)
+std::string ExtractURLPath(const std::string& url)
 {
     static const std::regex re(R"(https?://[^/]+(/[^?#]*)?)");
     std::smatch match;

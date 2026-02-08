@@ -9,10 +9,10 @@
 namespace fs = std::filesystem;
 using namespace nlohmann;
 
-void DeduplicateWebsocketRequests(std::string reqFolder)
+void DeduplicateWebsocketRequests(const std::string& reqFolder)
 {
     std::unordered_map<SpectreRpcType, std::pair<fs::path, double>> filesToKeep;
-    for (auto item : fs::directory_iterator(reqFolder))
+    for (const auto& item : fs::directory_iterator(reqFolder))
     {
         if (!item.is_regular_file())
         {
@@ -80,10 +80,10 @@ long long parseTimestamp(std::string s)
 }
 
 
-void DeduplicateHTTPRequests(std::string reqFolder)
+void DeduplicateHTTPRequests(const std::string& reqFolder)
 {
     std::unordered_map<std::string, std::pair<fs::path, long long>> filesToKeep;
-    for (auto item : fs::directory_iterator(reqFolder))
+    for (const auto& item : fs::directory_iterator(reqFolder))
     {
         if (!item.is_regular_file())
         {

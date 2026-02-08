@@ -22,7 +22,8 @@ using regex = betterrx::regex;
 namespace std {
 	template <>
 	struct hash<betterrx::regex> {
-		std::size_t operator()(const betterrx::regex& regex) const {
+		std::size_t operator()(const betterrx::regex& regex) const noexcept
+		{
 			return std::hash<std::string>{}(regex.m_pattern);
 		}
 	};

@@ -3,6 +3,6 @@
 
 class SetReadyProcessor : public WebsocketPacketProcessor {
 public:
-	SetReadyProcessor(SpectreRpcType rpcType);
+	explicit SetReadyProcessor(SpectreRpcType rpcType);
 	void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

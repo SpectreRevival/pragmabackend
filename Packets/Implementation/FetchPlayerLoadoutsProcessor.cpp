@@ -3,14 +3,14 @@
 #include <PlayerDatabase.h>
 #include <WeaponLoadout.pb.h>
 
-FetchPlayerLoadoutsProcessor::FetchPlayerLoadoutsProcessor(SpectreRpcType rpcType) :
+FetchPlayerLoadoutsProcessor::FetchPlayerLoadoutsProcessor(const SpectreRpcType& rpcType) :
     WebsocketPacketProcessor(rpcType) {
 
 }
 
 void FetchPlayerLoadoutsProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
-    std::unique_ptr<FetchLoadoutsRequest> req = packet.GetPayloadAsMessage<FetchLoadoutsRequest>();
-    std::unique_ptr<WeaponLoadouts> loadouts = PlayerDatabase::Get().GetField<WeaponLoadouts>(FieldKey::PLAYER_WEAPON_LOADOUT, req->playerid());
+    const std::unique_ptr<FetchLoadoutsRequest> req = packet.GetPayloadAsMessage<FetchLoadoutsRequest>();
+    const std::unique_ptr<WeaponLoadouts> loadouts = PlayerDatabase::Get().GetField<WeaponLoadouts>(FieldKey::PLAYER_WEAPON_LOADOUT, req->playerid());
     FetchLoadoutsResponse res;
     for (int i = 0; i < loadouts->weaponloadoutdata_size(); i++)
     {

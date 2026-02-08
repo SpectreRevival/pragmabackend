@@ -10,8 +10,8 @@
 static const std::string inviteCodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 static int inviteCodeNChars = 6;
 
-CreatePartyProcessor::CreatePartyProcessor(SpectreRpcType rpcType) :
-	WebsocketPacketProcessor(rpcType), stdrandgen(std::random_device{}()), uuidgen(stdrandgen) {
+CreatePartyProcessor::CreatePartyProcessor(const SpectreRpcType& rpcType) :
+	WebsocketPacketProcessor(rpcType), uuidgen(stdrandgen), stdrandgen(std::random_device{}()) {
 
 }
 

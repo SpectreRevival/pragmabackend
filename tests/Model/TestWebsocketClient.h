@@ -18,6 +18,6 @@ public:
     explicit TestWebsocketClient(unsigned short port);
     ~TestWebsocketClient();
     std::shared_ptr<boost::beast::websocket::stream<boost::asio::ip::tcp::socket>> GetRawSocket();
-    boost::beast::flat_buffer SendPacket(std::string& packet, SpectreRpcType rpcType);
-    boost::beast::flat_buffer SendPacket(nlohmann::json& packet, SpectreRpcType rpcType);
+    [[nodiscard]] boost::beast::flat_buffer SendPacket(const std::string& packet, SpectreRpcType rpcType) const;
+    [[nodiscard]] boost::beast::flat_buffer SendPacket(const nlohmann::json& packet, SpectreRpcType rpcType) const;
 };

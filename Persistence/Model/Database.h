@@ -3,15 +3,11 @@
 #include <unordered_map>
 #include <vector>
 #include <SQLiteCpp/SQLiteCpp.h>
-#include <google/protobuf/dynamic_message.h>
-#include <google/protobuf/descriptor.h>
 #include <google/protobuf/message.h>
 #include "FieldKey.h"
 #include <type_traits>
 #include <spdlog/spdlog.h>
-#include <optional>
 #include <fstream>
-#include <iostream>
 #include <google/protobuf/util/json_util.h>
 #include <sstream>
 
@@ -47,12 +43,12 @@ private:
 	static std::unordered_map<FieldKey, std::unique_ptr<const pbuf::Message>> defaultFieldValues;
 	template<typename T>
 	std::unique_ptr<T> DefaultOrNullptr(FieldKey key) {
-		static_assert(std::is_base_of<pbuf::Message, T>::value, "Type provided to DefaultOrNullptr must inherit from protobuf::Message");
+		static_assert(std::is_base_of_v<pbuf::Message, T>, "Type provided to DefaultOrNullptr must inherit from protobuf::Message");
 		auto defaultValue = defaultFieldValues.find(key);
 		if (defaultValue == defaultFieldValues.end()) {
 			return nullptr;
 		}
-		spdlog::info("Returning default value for FieldKey: {}", (uint32_t)key);
+		spdlog::info("Returning default value for FieldKey: {}", static_cast<uint32_t>(key));
 		const T* typed = dynamic_cast<const T*>(defaultValue->second.get());
 		if (!typed) {
 			// Handle type mismatch
@@ -65,14 +61,14 @@ private:
 		return std::move(copy);
 	}
 public:
-	Database(fs::path dbPath, const std::string tableName, const std::string keyFieldName, const std::string keyFieldType);
+	Database(const fs::path& dbPath, const std::string& tableName, const std::string& keyFieldName, const std::string& keyFieldType);
 
 	sql::Database* GetRaw();
 	sql::Database& GetRawRef();
 
 	template<typename T>
 	std::vector<std::unique_ptr<T>> GetFields(sql::Statement& query, FieldKey key) {
-		static_assert(std::is_base_of<pbuf::Message, T>::value, "Type provided to GetFields must inherit from protobuf::Message");
+		static_assert(std::is_base_of_v<pbuf::Message, T>, "Type provided to GetFields must inherit from protobuf::Message");
 		std::vector<std::unique_ptr<T>> output;
 		while (query.executeStep()) {
 			if (query.getColumnCount() != 1) {
@@ -87,7 +83,7 @@ public:
 			FieldKey savedFieldKey;
 			memcpy(&savedFieldKey, blob, sizeof(FieldKey));
 			if (savedFieldKey != key) {
-				spdlog::error("FieldKey passed to GetFields {} was not the same as FieldKey found in saved object", (uint32_t)key);
+				spdlog::error("FieldKey passed to GetFields {} was not the same as FieldKey found in saved object", static_cast<uint32_t>(key));
 				throw;
 			}
 			std::unique_ptr<T> object = std::make_unique<T>();
@@ -102,7 +98,7 @@ public:
 
 	template<typename T>
 	std::unique_ptr<T> GetField(sql::Statement& query, FieldKey key) {
-		static_assert(std::is_base_of<pbuf::Message, T>::value, "Type provided to GetField must inherit from protobuf::Message");
+		static_assert(std::is_base_of_v<pbuf::Message, T>, "Type provided to GetField must inherit from protobuf::Message");
 		if (!query.executeStep()) {
 			return std::move(DefaultOrNullptr<T>(key));
 		}
@@ -121,7 +117,7 @@ public:
 		FieldKey savedFieldKey;
 		memcpy(&savedFieldKey, blob, sizeof(FieldKey));
 		if (savedFieldKey != key) {
-			spdlog::error("FieldKey passed to GetFields {} was not the same as FieldKey found in saved object", (uint32_t)key);
+			spdlog::error("FieldKey passed to GetFields {} was not the same as FieldKey found in saved object", static_cast<uint32_t>(key));
 			return std::move(DefaultOrNullptr<T>(key));
 		}
 		std::unique_ptr<T> object = std::make_unique<T>();
@@ -146,7 +142,7 @@ public:
 
 	template<typename T>
 	void AddPrototype(FieldKey key) {
-		static_assert(std::is_base_of<pbuf::Message, T>::value, "Type provided to AddPrototype must inherit from protobuf::Message");
+		static_assert(std::is_base_of_v<pbuf::Message, T>, "Type provided to AddPrototype must inherit from protobuf::Message");
 		classNames.insert({ key, std::string(T::descriptor()->name()) });
 		sql::Statement colQuery(m_dbRaw, "PRAGMA table_info(" + GetTableName() + ");");
 		bool colExists = false;
@@ -163,15 +159,14 @@ public:
 	}
 
 	template<typename T>
-	void AddPrototype(FieldKey key, fs::path defaultFieldValuePath) {
+	void AddPrototype(const FieldKey key, const fs::path& defaultFieldValuePath) {
 		AddPrototype<T>(key);
-		std::ifstream defaultFile(defaultFieldValuePath);
+		const std::ifstream defaultFile(defaultFieldValuePath);
 		std::stringstream buf;
 		buf << defaultFile.rdbuf();
-		std::string data = buf.str();
+		const std::string data = buf.str();
 		T defaultFieldData;
-		auto status = pbuf::util::JsonStringToMessage(data, &defaultFieldData, m_parseOpts);
-		if (!status.ok()) {
+		if (auto status = pbuf::util::JsonStringToMessage(data, &defaultFieldData, m_parseOpts); !status.ok()) {
 			spdlog::error("failed to parse default message: {}", status.message());
 			throw;
 		}
@@ -180,10 +175,10 @@ public:
 
 	bool IsFieldPopulated(FieldKey key, const std::string& dbKey);
 
-	void SetField(sql::Statement& statement, FieldKey key, const pbuf::Message* object, uint32_t dataBindIndex);
+	static void SetField(sql::Statement& statement, FieldKey key, const pbuf::Message* object, uint32_t dataBindIndex);
 	void SetField(FieldKey key, const pbuf::Message* object, const std::string& ddbKey);
 
-	const std::string& GetFieldName(FieldKey key);
+	static const std::string& GetFieldName(FieldKey key);
 
 	const std::string& GetTableName();
 	const std::string& GetKeyFieldName();

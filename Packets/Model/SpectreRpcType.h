@@ -16,19 +16,19 @@ private:
 	int m_typeId;
 public:
 	SpectreRpcType() : m_typeId(0){}
-	SpectreRpcType(const SpectreRpcType& type) : m_typeId(type.m_typeId) {};
+	SpectreRpcType(const SpectreRpcType& type) = default;
 	explicit SpectreRpcType(int typeId) : m_typeId(typeId) {};
 	explicit SpectreRpcType(const std::string& name) : m_typeId(typeIdToName.left.at(name)) {};
 
-	std::string GetName() const {
+	[[nodiscard]] std::string GetName() const {
 		return typeIdToName.right.at(m_typeId);
 	}
 
-	int GetId() const {
+	[[nodiscard]] int GetId() const {
 		return m_typeId;
 	}
 
-	SpectreRpcType GetResponseType()
+	[[nodiscard]] SpectreRpcType GetResponseType() const
 	{
 		std::string resType = GetName();
 		if (resType.size() >= 7 && resType.compare(resType.size() - 7, 7, "Request") == 0)
@@ -555,11 +555,10 @@ private:
 	});
 };
 
-namespace std {
-	template <>
-	struct hash<SpectreRpcType> {
-		std::size_t operator()(const SpectreRpcType& rpcType) const {
-			return std::hash<int>{}(rpcType.GetId());
-		}
-	};
-}
+template <>
+struct std::hash<SpectreRpcType> {
+	std::size_t operator()(const SpectreRpcType& rpcType) const noexcept
+	{
+		return std::hash<int>{}(rpcType.GetId());
+	}
+};

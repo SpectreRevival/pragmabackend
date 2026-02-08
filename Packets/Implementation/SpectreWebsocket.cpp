@@ -58,11 +58,12 @@ SpectreWebsocket::SpectreWebsocket(ws& sock, const http::request<http::string_bo
 	}
 };
 
-const ws& SpectreWebsocket::GetRawSocket() {
+const ws& SpectreWebsocket::GetRawSocket() const
+{
 	return socket;
 }
 
-void SpectreWebsocket::SendPacket(std::shared_ptr<json> res) {
+void SpectreWebsocket::SendPacket(const std::shared_ptr<json>& res) {
 	json packet;
 	packet["sequenceNumber"] = curSequenceNumber;
 	packet["response"] = *res;
@@ -99,7 +100,7 @@ void SpectreWebsocket::SendPacket(const std::string& resPayload, int requestId, 
 	socket.write(boost::asio::buffer(finalRes));
 }
 
-void SpectreWebsocket::SendNotification(std::shared_ptr<json> notifPayload, const SpectreRpcType& notificationType) {
+void SpectreWebsocket::SendNotification(const std::shared_ptr<json>& notifPayload, const SpectreRpcType& notificationType) {
 	json packet;
 	packet["sequenceNumber"] = curSequenceNumber;
 	packet["notification"]["type"] = notificationType.GetName();

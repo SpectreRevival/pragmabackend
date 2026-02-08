@@ -2,7 +2,7 @@
 #include <IsInPartyResponse.pb.h>
 #include <PartyDatabase.h>
 
-IsInPartyHandler::IsInPartyHandler(SpectreRpcType rpcType) : WebsocketPacketProcessor(rpcType)
+IsInPartyHandler::IsInPartyHandler(const SpectreRpcType& rpcType) : WebsocketPacketProcessor(rpcType)
 {
 
 }

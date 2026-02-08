@@ -7,7 +7,7 @@
 #include <LegacyPlayerData.pb.h>
 #include <ResourcesUtilities.h>
 
-PlayerDatabase::PlayerDatabase(fs::path path) : Database(path, "players", "PlayerID", "TEXT") {
+PlayerDatabase::PlayerDatabase(const fs::path& path) : Database(path, "players", "PlayerID", "TEXT") {
 	AddPrototype<Inventory>(FieldKey::PLAYER_INVENTORY, ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultInventory.json");
 	AddPrototype<OutfitLoadouts>(FieldKey::PLAYER_OUTFIT_LOADOUT, ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultOutfitLoadout.json");
 	AddPrototype<WeaponLoadouts>(FieldKey::PLAYER_WEAPON_LOADOUT, ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultWeaponLoadout.json");
