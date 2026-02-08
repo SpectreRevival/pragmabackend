@@ -6,6 +6,7 @@ UseTab: Never
 # Brace and layout preferences
 BreakBeforeBraces: Attach
 AllowShortFunctionsOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: true
 
 # Include ordering
 IncludeBlocks: Regroup
