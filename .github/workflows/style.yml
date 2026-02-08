@@ -44,4 +44,23 @@ jobs:
         run: cmake --build out/build/x64-debug-linux --target generate_protos
 
       - name: Run clang tidy
-        run: run-clang-tidy -p out/build/x64-debug-linux
+        run: |
+          FILES=$(
+          find . \( \
+          -regex '\./\(Persistence\|Packets\|tests\)/Implementation/.*\.cpp' -o \
+          -regex '\./\(Persistence\|Packets\|tests\)/Model/.*\.h' \
+          \) \
+          | grep -vE 'out/|vcpkg_installed/|vcpkg/'
+          )
+          
+          run-clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -fix-errors -p out/build/x64-debug-linux
+
+      - name: Push fixes
+        if: always()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "Apply clang-tidy"
+          git pull origin ${{github.event.pull_request.head.ref}}
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
