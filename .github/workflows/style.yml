@@ -53,4 +53,4 @@ jobs:
           | grep -vE 'out/|vcpkg_installed/|vcpkg/'
           )
           
-          run-clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux
+          run-clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux --verbose

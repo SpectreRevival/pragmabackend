@@ -26,7 +26,7 @@ add_custom_target(copy_auth ALL
     COMMENT "copying auth.json to binary dir"
 )
 
-add_executable(pragmabackend main.cpp StaticHTTPPackets.cpp StaticHTTPPackets.cpp)
+add_executable(pragmabackend main.cpp)
 add_library(pragmabackend_core)
 target_link_libraries(pragmabackend PUBLIC pragmabackend_core)
 add_dependencies(pragmabackend_core copy_resources copy_auth)
