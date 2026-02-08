@@ -95,6 +95,7 @@ foreach(proto_file IN LISTS PACKETS_PROTOBUF_FILES PERSISTENCE_PROTOBUF_FILES)
 endforeach()
 
 add_custom_target(generate_protos DEPENDS ${GENERATED_PROTO_SRCS} ${GENERATED_PROTO_HDRS})
+set_source_files_properties(${GENERATED_PROTO_SRCS} ${GENERATED_PROTO_HDRS} PROPERTIES SKIP_CLANG_TIDY ON)
 add_dependencies(pragmabackend_core generate_protos)
 
 target_sources(pragmabackend_core PRIVATE ${GENERATED_PROTO_SRCS})

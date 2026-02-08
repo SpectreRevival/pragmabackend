@@ -1,7 +1,7 @@
 # Generated from CLion Inspection settings
 ---
 WarningsAsErrors: "*"
-HeaderFilterRegex: '*.pb.*'
+HeaderFilterRegex: '^(?!.*\.pb\.).*$'
 Checks: '-*,
 bugprone-argument-comment,
 bugprone-assert-side-effect,
