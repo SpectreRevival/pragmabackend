@@ -4,7 +4,7 @@ TabWidth: 4
 UseTab: Never
 
 # Brace and layout preferences
-BreakBeforeBraces: Allman
+BreakBeforeBraces: Attach
 AllowShortFunctionsOnASingleLine: Empty
 
 # Include ordering
