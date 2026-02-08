@@ -26,7 +26,7 @@ std::string GetPlayerDataProcessor::GetPlayerDataAsString(const PlayerData& play
     for (int i = 59; i < playerDataComponent.size(); i++) {
         char curChar = playerDataComponent[i];
         if (curChar == '}') {
-            if (playerDataComponent.compare(i - endOfConfigJson.length() + 1, endOfConfigJson.length(), endOfConfigJson.c_str()) == 0) {
+            if (playerDataComponent.compare(i - endOfConfigJson.length() + 1, endOfConfigJson.length(), endOfConfigJson) == 0) {
                 finalPlayerDataComponent += "}\"";
                 endIndex = i;
                 break;

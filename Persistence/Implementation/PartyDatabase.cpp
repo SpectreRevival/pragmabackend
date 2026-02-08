@@ -1,7 +1,7 @@
 #include <PartyDatabase.h>
 #include <google/protobuf/util/json_util.h>
 
-PartyDatabase::PartyDatabase(fs::path path)
+PartyDatabase::PartyDatabase(const fs::path& path)
     : Database(path, "parties", "PartyID", "TEXT") {
     sql::Statement colQuery(GetRawRef(), "PRAGMA table_info(" + GetTableName() + ");");
     bool colExists = false;

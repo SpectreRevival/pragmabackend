@@ -9,7 +9,7 @@ class PartyDatabase : public Database {
 
   public:
     static PartyDatabase& Get();
-    explicit PartyDatabase(fs::path path);
+    explicit PartyDatabase(const fs::path& path);
     PartyResponse GetPartyRes(const std::string& partyId);
     PartyResponse GetPartyResByInviteCode(const std::string& inviteCode);
     Party GetParty(const std::string& partyId);

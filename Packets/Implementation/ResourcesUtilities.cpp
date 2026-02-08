@@ -34,11 +34,12 @@ std::filesystem::path ResourcesUtilities::GetResourcesFolder() {
 
         while (true) {
             fs::path candidate = current / "resources";
-            if (fs::is_directory(candidate))
+            if (fs::is_directory(candidate)) {
                 return candidate;
+}
 
             if (current == current.root_path()) {
-                std::cerr << "Failed to find resources directory" << std::endl;
+                std::cerr << "Failed to find resources directory" << '\n';
                 throw std::runtime_error("Failed to find resources directory");
             }
 

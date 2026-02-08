@@ -11,9 +11,9 @@ SavePlayerDataProcessor::SavePlayerDataProcessor(SpectreRpcType rpcType)
 
 void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
     const char* strbegin = static_cast<const char*>(packet.GetRawBuffer()->cdata().data());
-    std::string reqFormatted = R"({"playerId": ")" + sock.GetPlayerId() + "\",\"data\":";
+    std::string reqFormatted = R"({"playerId": ")" + sock.GetPlayerId() + R"(","data":)";
     int index = 0;
-    char curChar;
+    char curChar = 0;
     for (; index < packet.GetRawBuffer()->size(); index++) {
         curChar = strbegin[index];
         if (curChar == '\"' && strbegin[index + 1] == '{') {
@@ -29,13 +29,12 @@ void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWe
             }
             index++;
         } else if (curChar == '}') {
-            if (reqFormatted.compare(reqFormatted.size() - endOfConfigJson.size(), endOfConfigJson.size(), endOfConfigJson.c_str()) == 0) {
+            if (reqFormatted.compare(reqFormatted.size() - endOfConfigJson.size(), endOfConfigJson.size(), endOfConfigJson) == 0) {
                 reqFormatted += curChar;
                 index += 2;
                 break;
-            } else {
-                reqFormatted += curChar;
-            }
+            }                 reqFormatted += curChar;
+           
         } else {
             reqFormatted += curChar;
         }
@@ -51,7 +50,7 @@ void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWe
         throw;
     }
     // mt does this thing where they leave all the other fields blank if they just want to update the data str
-    if (playerData.attackeroutfitloadoutid() == "") {
+    if (playerData.attackeroutfitloadoutid().empty()) {
         // Only copy the extra data field
         std::unique_ptr<PlayerData> existingData = PlayerDatabase::Get().GetField<PlayerData>(FieldKey::PLAYER_DATA, sock.GetPlayerId());
         existingData->mutable_data()->CopyFrom(playerData.data());

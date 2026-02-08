@@ -63,7 +63,7 @@ class Database {
     }
 
   public:
-    Database(const fs::path& dbPath, const std::string& tableName, const std::string& keyFieldName, const std::string& keyFieldType);
+    Database(const fs::path& dbPath, std::string  tableName, std::string  keyFieldName, const std::string& keyFieldType);
 
     sql::Database* GetRaw();
     sql::Database& GetRawRef();
@@ -177,7 +177,7 @@ class Database {
     bool IsFieldPopulated(FieldKey key, const std::string& dbKey);
 
     static void SetField(sql::Statement& statement, FieldKey key, const pbuf::Message* object, uint32_t dataBindIndex);
-    void SetField(FieldKey key, const pbuf::Message* object, const std::string& ddbKey);
+    void SetField(FieldKey key, const pbuf::Message* object, const std::string& dbKeyId);
 
     static const std::string& GetFieldName(FieldKey key);
 

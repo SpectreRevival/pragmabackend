@@ -97,7 +97,7 @@ void CreatePartyProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebso
     std::unique_ptr<Inventory> invstruct = PlayerDatabase::Get().GetField<Inventory>(FieldKey::PLAYER_INVENTORY, sock.GetPlayerId());
     const FullInventory& inv = invstruct->full();
     for (int i = 0; i < inv.instanced_size(); i++) {
-        // TODO make this only actually return the items needed for performance, but for MVP this should be fine
+        // TODO(ohm): make this only actually return the items needed for performance, but for MVP this should be fine
         creatingPlayerExtra->add_limitedinstancedinventory()->CopyFrom(inv.instanced(i));
     }
 

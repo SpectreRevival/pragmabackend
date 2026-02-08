@@ -30,7 +30,7 @@ void UpdateItemV4Processor::Process(SpectreWebsocketRequest& packet, SpectreWebs
                 break;
             }
         }
-        if (!curItem) {
+        if (curItem == nullptr) {
             spdlog::warn("Couldn't find item with instance id {} in a item update request, skipping", itemUpdate->instanceditemupdate().instanceid());
             SendSuccessfulUpdate(packet, sock);
             return;
@@ -51,7 +51,7 @@ void UpdateItemV4Processor::Process(SpectreWebsocketRequest& packet, SpectreWebs
                 break;
             }
         }
-        if (!curItem) {
+        if (curItem == nullptr) {
             spdlog::warn("Couldn't find item with instance id {} in a item update request, skipping", itemUpdate->stackeditemupdate().instanceid());
             SendSuccessfulUpdate(packet, sock);
             return;

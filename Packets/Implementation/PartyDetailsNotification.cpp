@@ -6,8 +6,8 @@ PartyDetailsNotification::PartyDetailsNotification(const std::string& partyId, S
 }
 
 PartyDetailsNotification::PartyDetailsNotification(const PartyResponse& partyRes, const SpectreRpcType notificationType)
-    : Notification(notificationType) {
-    payload = partyRes;
+    : Notification(notificationType), payload(partyRes) {
+    
 }
 
 PartyDetailsNotification::PartyDetailsNotification(const Party& party, const SpectreRpcType notificationType)

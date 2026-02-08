@@ -60,14 +60,14 @@ bool PlayerDatabase::IsBanned(const std::string& playerId) {
     SQLite::Statement query(*raw, "SELECT banned_until FROM bans WHERE player_id=?;");
     query.bind(1, playerId);
     if (!query.executeStep()) return false;
-    long long until_ms = 0;
+    long long untilMs = 0;
     if (!query.getColumn(0).isNull()) {
-        until_ms = query.getColumn(0).getInt64();
+        untilMs = query.getColumn(0).getInt64();
     }
 
-    if (until_ms == 0) return true;
-    const auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+    if (untilMs == 0) return true;
+    const auto nowMs = std::chrono::duration_cast<std::chrono::milliseconds>(
                             std::chrono::system_clock::now().time_since_epoch())
                             .count();
-    return now_ms < until_ms;
+    return nowMs < untilMs;
 }

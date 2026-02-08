@@ -34,8 +34,9 @@ void SpectreWebsocketRequest::SendEmptyResponse() {
 
 std::string SpectreWebsocketRequest::GetResponseType() const {
     std::string resType = m_requestType.GetName();
-    if (resType.size() >= 7 && resType.compare(resType.size() - 7, 7, "Request") == 0)
+    if (resType.size() >= 7 && resType.compare(resType.size() - 7, 7, "Request") == 0) {
         resType.erase(resType.size() - 7);
+}
     resType += "Response";
     return resType;
 }

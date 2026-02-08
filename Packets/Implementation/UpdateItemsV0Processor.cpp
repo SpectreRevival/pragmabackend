@@ -51,7 +51,7 @@ void UpdateItemsV0Processor::Process(SpectreWebsocketRequest& packet, SpectreWeb
                 break;
             }
         }
-        if (!curItem) {
+        if (curItem == nullptr) {
             spdlog::warn("Couldn't find item with instance id {} in a item update request, skipping", instanceId);
             continue;
         }
