@@ -1,7 +1,18 @@
-#include <PartyDatabase.h>
-#include <google/protobuf/util/json_util.h>
+#include "CreatePartyRequest.pb.h"
+#include "Database.h"
+#include "FieldKey.h"
+#include "Party.pb.h"
+#include "PartyMember.pb.h"
 
-PartyDatabase::PartyDatabase(fs::path path)
+#include <PartyDatabase.h>
+#include <SQLiteCpp/Statement.h>
+#include <cstddef>
+#include <filesystem>
+#include <google/protobuf/util/json_util.h>
+#include <memory>
+#include <spdlog/spdlog.h>
+
+PartyDatabase::PartyDatabase(const fs::path& path)
     : Database(path, "parties", "PartyID", "TEXT") {
     sql::Statement colQuery(GetRawRef(), "PRAGMA table_info(" + GetTableName() + ");");
     bool colExists = false;

@@ -1,4 +1,11 @@
+#include "SpectreWebsocket.h"
+
 #include <StaticResponseProcessorHTTP.h>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/impl/write.hpp>
+#include <boost/beast/http/message_fwd.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/beast/http/string_body_fwd.hpp>
 
 void StaticResponseProcessorHTTP::Process(const http::request<http::string_body>& req, tcp::socket& sock) {
     http::response<http::string_body> res;

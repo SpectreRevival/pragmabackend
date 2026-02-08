@@ -1,4 +1,10 @@
+#include "Notification.h"
+#include "Party.pb.h"
+#include "SpectreRpcType.h"
+#include "SpectreWebsocket.h"
+
 #include <PartyDetailsNotification.h>
+#include <string>
 
 PartyDetailsNotification::PartyDetailsNotification(const std::string& partyId, SpectreRpcType notificationType)
     : Notification(notificationType) {
@@ -6,8 +12,8 @@ PartyDetailsNotification::PartyDetailsNotification(const std::string& partyId, S
 }
 
 PartyDetailsNotification::PartyDetailsNotification(const PartyResponse& partyRes, const SpectreRpcType notificationType)
-    : Notification(notificationType) {
-    payload = partyRes;
+    : Notification(notificationType), payload(partyRes) {
+    
 }
 
 PartyDetailsNotification::PartyDetailsNotification(const Party& party, const SpectreRpcType notificationType)

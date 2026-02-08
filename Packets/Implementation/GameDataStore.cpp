@@ -1,9 +1,16 @@
+#include "LoginDataMessage.pb.h"
+
 #include <GameDataStore.h>
 #include <ResourcesUtilities.h>
+#include <cstddef>
 #include <fstream>
+#include <functional>
 #include <google/protobuf/util/json_util.h>
+#include <memory>
+#include <mutex>
 #include <spdlog/spdlog.h>
 #include <sstream>
+#include <string>
 
 namespace pbu = google::protobuf::util;
 
@@ -51,7 +58,7 @@ static std::string InventoryStoreToPayload(const InventoryContent* invStore) {
         jsonstr2[curPos + 1] = '\"';
         curPos = jsonstr2.find("\"gameData\":{}");
     }
-    curPos = jsonstr2.find("\"gameData\":\"{\\\"contentId\\\":\\\"\\\"");
+    curPos = jsonstr2.find(R"("gameData":"{\"contentId\":\"\")");
     while (curPos != std::string::npos) {
         size_t colon = jsonstr2.find(':', curPos);
         if (colon == std::string::npos) break;
@@ -73,7 +80,7 @@ static std::string InventoryStoreToPayload(const InventoryContent* invStore) {
         }
         if (i >= jsonstr2.size()) break;
         jsonstr2.replace(startQuote, i - startQuote + 1, "{}");
-        curPos = jsonstr2.find("\"gameData\":\"{\\\"contentId\\\":\\\"\\\"", startQuote + 2);
+        curPos = jsonstr2.find(R"("gameData":"{\"contentId\":\"\")", startQuote + 2);
     }
     return jsonstr2;
 }
@@ -83,7 +90,7 @@ void GameDataStore::RefreshInventoryStoreCache(const InventoryContent* invStore)
     inventoryStoreLock.unlock();
 }
 
-GameDataStore::GameDataStore(std::string inventoryStorePath) {
+GameDataStore::GameDataStore(const std::string& inventoryStorePath) {
     std::ifstream invStoreFile(inventoryStorePath);
     if (!invStoreFile.is_open()) {
         spdlog::error("failed to open InventoryStore file");
@@ -105,31 +112,31 @@ std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>> GameDa
     return std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>>(
         &inventoryStore,
         // Turns class method into static lambda
-        std::bind(&GameDataStore::RefreshInventoryStoreCache, this, std::placeholders::_1));
+        [this](auto && PH1) { RefreshInventoryStoreCache(std::forward<decltype(PH1)>(PH1)); });
 }
 
 std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>> GameDataStore::InventoryStore() {
     std::unique_lock storeLock(inventoryStoreLock);
     return std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>>(
         &inventoryStore,
-        std::bind(&GameDataStore::UnlockInventoryStore, this, std::placeholders::_1));
+        [this](auto && PH1) { UnlockInventoryStore(std::forward<decltype(PH1)>(PH1)); });
 }
 
 std::unique_ptr<std::string, std::function<void(std::string*)>> GameDataStore::InventoryStore_buf() {
     std::unique_lock storeLock(inventoryStoreLock);
     return std::unique_ptr<std::string, std::function<void(std::string*)>>(
         &inventoryStore_bufCache,
-        std::bind(&GameDataStore::UnlockInventoryStore2, this, std::placeholders::_1));
+        [this](auto && PH1) { UnlockInventoryStore2(std::forward<decltype(PH1)>(PH1)); });
 }
 
 GameDataStore& GameDataStore::Get() {
     return inst;
 }
 
-void GameDataStore::UnlockInventoryStore2(std::string* unused) {
+void GameDataStore::UnlockInventoryStore2(std::string*  /*unused*/) {
     inventoryStoreLock.unlock();
 }
 
-void GameDataStore::UnlockInventoryStore(InventoryContent* unused) {
+void GameDataStore::UnlockInventoryStore(InventoryContent*  /*unused*/) {
     inventoryStoreLock.unlock();
 }

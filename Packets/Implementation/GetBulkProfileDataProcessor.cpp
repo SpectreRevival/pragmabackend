@@ -1,7 +1,14 @@
+#include "FieldKey.h"
+#include "PacketProcessor.h"
+#include "SpectreRpcType.h"
+#include "SpectreWebsocket.h"
+#include "SpectreWebsocketRequest.h"
+
 #include <BulkProfileDataMessage.pb.h>
 #include <GetBulkProfileDataProcessor.h>
 #include <PlayerDatabase.h>
 #include <ProfileData.pb.h>
+#include <memory>
 
 GetBulkProfileDataProcessor::GetBulkProfileDataProcessor(const SpectreRpcType& rpcType)
     : WebsocketPacketProcessor(rpcType) {

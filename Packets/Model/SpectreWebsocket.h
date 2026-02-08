@@ -31,7 +31,7 @@ class SpectreWebsocket {
 
     void SendPacket(const std::string& resPayload, int requestId, const std::string& resType);
 
-    void SendPacket(const pbuf::Message& res, const std::string& resType, int requestId);
+    void SendPacket(const pbuf::Message& payload, const std::string& resType, int requestId);
 
     void SendNotification(const std::shared_ptr<json>& notif, const SpectreRpcType& notificationType);
 

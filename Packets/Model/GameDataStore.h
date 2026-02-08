@@ -13,7 +13,7 @@ class GameDataStore {
     std::mutex inventoryStoreLock;
 
   public:
-    explicit GameDataStore(std::string inventoryStoreFilePath);
+    explicit GameDataStore(const std::string& inventoryStorePath);
     static GameDataStore& Get();
     /**
      * Gets the list of all items, crafting entries, .etc that are available in the game

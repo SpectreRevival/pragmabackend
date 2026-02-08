@@ -1,6 +1,16 @@
+#include "FieldKey.h"
+#include "PacketProcessor.h"
+#include "SpectreRpcType.h"
+#include "SpectreWebsocket.h"
+#include "SpectreWebsocketRequest.h"
+
 #include <GetPlayerDataProcessor.h>
 #include <PlayerData.pb.h>
 #include <PlayerDatabase.h>
+#include <google/protobuf/util/json_util.h>
+#include <memory>
+#include <spdlog/spdlog.h>
+#include <string>
 
 static const std::string endOfConfigJson = "\"inputBindingsVersion\":3}";
 
@@ -26,7 +36,7 @@ std::string GetPlayerDataProcessor::GetPlayerDataAsString(const PlayerData& play
     for (int i = 59; i < playerDataComponent.size(); i++) {
         char curChar = playerDataComponent[i];
         if (curChar == '}') {
-            if (playerDataComponent.compare(i - endOfConfigJson.length() + 1, endOfConfigJson.length(), endOfConfigJson.c_str()) == 0) {
+            if (playerDataComponent.compare(i - endOfConfigJson.length() + 1, endOfConfigJson.length(), endOfConfigJson) == 0) {
                 finalPlayerDataComponent += "}\"";
                 endIndex = i;
                 break;

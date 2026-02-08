@@ -1,10 +1,23 @@
+#include "FieldKey.h"
+#include "InstancedItem.pb.h"
+#include "ItemUpdate.pb.h"
+#include "PacketProcessor.h"
+#include "SpectreRpcType.h"
+#include "SpectreWebsocket.h"
+#include "SpectreWebsocketRequest.h"
+
 #include <Inventory.pb.h>
 #include <PlayerDatabase.h>
+#include <SQLiteCpp/Statement.h>
 #include <UpdateItemsV0Processor.h>
 #include <UpdatesItemMessage.pb.h>
 #include <algorithm>
+#include <cctype>
 #include <google/protobuf/util/json_util.h>
+#include <memory>
 #include <spdlog/spdlog.h>
+#include <stdexcept>
+#include <string>
 
 namespace pbu = google::protobuf::util;
 
@@ -51,7 +64,7 @@ void UpdateItemsV0Processor::Process(SpectreWebsocketRequest& packet, SpectreWeb
                 break;
             }
         }
-        if (!curItem) {
+        if (curItem == nullptr) {
             spdlog::warn("Couldn't find item with instance id {} in a item update request, skipping", instanceId);
             continue;
         }

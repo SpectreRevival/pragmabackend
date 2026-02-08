@@ -1,25 +1,28 @@
-#include <gtest/gtest.h>
-#include <filesystem>
-#include <WebsocketRequestTest.h>
-#include <HTTPRequestTest.h>
-
 #include "SequencedRequestTest.h"
-#include <ResourcesUtilities.h>
 
-static std::vector<std::string> g_ws_paths = []{
+#include <HTTPRequestTest.h>
+#include <ResourcesUtilities.h>
+#include <WebsocketRequestTest.h>
+#include <filesystem>
+#include <gtest/gtest.h>
+#include <string>
+#include <vector>
+
+static std::vector<std::string> gWsPaths = []{
     std::vector<std::string> paths;
-    for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "ws"))
+    for (const auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "ws"))
         {
-        if (item.is_regular_file() && item.path().extension() == ".json")
+        if (item.is_regular_file() && item.path().extension() == ".json") {
             paths.push_back(item.path().string());
+}
         }
     return paths;
 }();
 
-static std::vector<std::string> g_http_paths = []
+static std::vector<std::string> gHttpPaths = []
 {
     std::vector<std::string> paths;
-    for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "http"))
+    for (const auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "http"))
     {
         if (item.is_regular_file() && item.path().extension() == ".json")
         {
@@ -29,10 +32,10 @@ static std::vector<std::string> g_http_paths = []
     return paths;
 }();
 
-static std::vector<fs::path> g_sequenced_dirs = []
+static std::vector<fs::path> gSequencedDirs = []
 {
     std::vector<fs::path> sequencedDirs;
-    for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "sequenced"))
+    for (const auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "sequenced"))
     {
         if (item.is_directory())
         {
@@ -42,9 +45,9 @@ static std::vector<fs::path> g_sequenced_dirs = []
     return sequencedDirs;
 }();
 
-INSTANTIATE_TEST_SUITE_P(WebsocketRequestTests, WebsocketRequestTest, ::testing::ValuesIn(g_ws_paths) );
-INSTANTIATE_TEST_SUITE_P(HttpRequestTests, HTTPRequestTest, ::testing::ValuesIn(g_http_paths));
-INSTANTIATE_TEST_SUITE_P(SequencedRequestTests, SequencedRequestTest, ::testing::ValuesIn(g_sequenced_dirs));
+INSTANTIATE_TEST_SUITE_P(WebsocketRequestTests, WebsocketRequestTest, ::testing::ValuesIn(gWsPaths) );
+INSTANTIATE_TEST_SUITE_P(HttpRequestTests, HTTPRequestTest, ::testing::ValuesIn(gHttpPaths));
+INSTANTIATE_TEST_SUITE_P(SequencedRequestTests, SequencedRequestTest, ::testing::ValuesIn(gSequencedDirs));
 
 int main(int argc, char** argv)
 {

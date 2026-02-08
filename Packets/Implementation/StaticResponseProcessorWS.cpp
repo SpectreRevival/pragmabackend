@@ -1,4 +1,8 @@
+#include "SpectreWebsocket.h"
+#include "SpectreWebsocketRequest.h"
+
 #include <StaticResponseProcessorWS.h>
+#include <memory>
 #include <nlohmann/json.hpp>
 
 void StaticResponseProcessorWS::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {

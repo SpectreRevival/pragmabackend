@@ -1,4 +1,7 @@
 #include <AuthLatch.h>
+#include <chrono>
+#include <mutex>
+#include <string>
 
 AuthLatch& AuthLatch::Get() {
     static AuthLatch s;

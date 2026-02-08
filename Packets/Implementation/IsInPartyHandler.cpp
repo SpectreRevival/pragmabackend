@@ -1,6 +1,15 @@
+#include "FieldKey.h"
+#include "PacketProcessor.h"
+#include "PartyMember.pb.h"
+#include "SpectreRpcType.h"
+#include "SpectreWebsocket.h"
+#include "SpectreWebsocketRequest.h"
+
 #include <IsInPartyHandler.h>
 #include <IsInPartyResponse.pb.h>
 #include <PartyDatabase.h>
+#include <SQLiteCpp/Statement.h>
+#include <memory>
 
 IsInPartyHandler::IsInPartyHandler(const SpectreRpcType& rpcType)
     : WebsocketPacketProcessor(rpcType) {
