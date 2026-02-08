@@ -1,42 +1,50 @@
 #pragma once
+#include <SpectreRpcType.h>
 #include <boost/asio.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/beast/websocket/ssl.hpp>
-#include <SpectreRpcType.h>
-#include <nlohmann/json.hpp>
 #include <google/protobuf/message.h>
+#include <nlohmann/json.hpp>
 
-using tcp = boost::asio::ip::tcp;
-namespace ssl = boost::asio::ssl;
+using tcp      = boost::asio::ip::tcp;
+namespace ssl  = boost::asio::ssl;
 namespace http = boost::beast::http;
-using ws = boost::beast::websocket::stream<tcp::socket>;
-using json = nlohmann::ordered_json;
+using ws       = boost::beast::websocket::stream<tcp::socket>;
+using json     = nlohmann::ordered_json;
 namespace pbuf = google::protobuf;
 
-class SpectreWebsocket {
-private:
-	ws& socket;
-	int curSequenceNumber;
-	std::string m_playerId;
-public:
-	SpectreWebsocket(ws& sock, const http::request<http::string_body>& req);
-	/* 
-		Warning: Do not send packets through the socket directly, it bypasses abstraction and will cause bad things to happen
-	*/
-	const ws& GetRawSocket() const;
+class SpectreWebsocket
+{
+  private:
+    ws         &socket;
+    int         curSequenceNumber;
+    std::string m_playerId;
 
-	void SendPacket(const std::shared_ptr<json>& res);
+  public:
+    SpectreWebsocket(ws &sock, const http::request<http::string_body> &req);
+    /*
+        Warning: Do not send packets through the socket directly, it bypasses
+       abstraction and will cause bad things to happen
+    */
+    const ws &GetRawSocket() const;
 
-	void SendPacket(const std::string& resPayload, int requestId, const std::string& resType);
+    void SendPacket(const std::shared_ptr<json> &res);
 
-	void SendPacket(const pbuf::Message& res, const std::string& resType, int requestId);
+    void SendPacket(const std::string &resPayload, int requestId,
+                    const std::string &resType);
 
-	void SendNotification(const std::shared_ptr<json>& notif, const SpectreRpcType& notificationType);
+    void SendPacket(const pbuf::Message &res, const std::string &resType,
+                    int requestId);
 
-	void SendNotification(const std::string& notifPayload, const SpectreRpcType& notificationType);
+    void SendNotification(const std::shared_ptr<json> &notif,
+                          const SpectreRpcType        &notificationType);
 
-	void SendNotification(const pbuf::Message& notif, const SpectreRpcType& notificationType);
+    void SendNotification(const std::string    &notifPayload,
+                          const SpectreRpcType &notificationType);
 
-	const std::string& GetPlayerId();
+    void SendNotification(const pbuf::Message  &notif,
+                          const SpectreRpcType &notificationType);
+
+    const std::string &GetPlayerId();
 };

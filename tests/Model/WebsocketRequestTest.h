@@ -1,12 +1,12 @@
 #pragma once
-#include <gtest/gtest.h>
-#include <nlohmann/json.hpp>
-#include <fstream>
-#include <TestWebsocketClient.h>
+#include "boost/asio/buffers_iterator.hpp"
+
 #include <BackendEnvironment.h>
 #include <JsonTestUtil.h>
-
-#include "boost/asio/buffers_iterator.hpp"
+#include <TestWebsocketClient.h>
+#include <fstream>
+#include <gtest/gtest.h>
+#include <nlohmann/json.hpp>
 namespace fs = std::filesystem;
 using namespace nlohmann;
 
@@ -29,19 +29,24 @@ class WebsocketRequestTest : public ::testing::TestWithParam<std::string>
 
 TEST_P(WebsocketRequestTest, ResponseValidation)
 {
-    std::ifstream testFile(GetParam());
+    std::ifstream     testFile(GetParam());
     std::stringstream ss;
     ss << testFile.rdbuf();
-    std::string testJsonStr = ss.str();
-    json testJson = json::parse(testJsonStr);
+    std::string         testJsonStr = ss.str();
+    json                testJson    = json::parse(testJsonStr);
     TestWebsocketClient wsClient(8083);
-    SpectreRpcType reqType = SpectreRpcType(testJson["rpcType"].get<std::string>());
+    SpectreRpcType      reqType =
+        SpectreRpcType(testJson["rpcType"].get<std::string>());
     std::cout << "Test info: " << std::endl;
     std::cout << "RPC type: " << reqType.GetName() << std::endl;
-    std::cout << "Request payload: " << testJson["requestBody"].dump() << std::endl;
-    std::cout << "Expected response payload: " << testJson["responsePayload"].dump() << std::endl;
-    boost::beast::flat_buffer res = wsClient.SendPacket(testJson["requestBody"], reqType);
-    std::string resStr( boost::asio::buffers_begin(res.data()), boost::asio::buffers_end(res.data()) );
+    std::cout << "Request payload: " << testJson["requestBody"].dump()
+              << std::endl;
+    std::cout << "Expected response payload: "
+              << testJson["responsePayload"].dump() << std::endl;
+    boost::beast::flat_buffer res =
+        wsClient.SendPacket(testJson["requestBody"], reqType);
+    std::string resStr(boost::asio::buffers_begin(res.data()),
+                       boost::asio::buffers_end(res.data()));
     if (resStr.empty())
     {
         GTEST_SKIP() << "Skipping since no response given";
@@ -53,9 +58,12 @@ TEST_P(WebsocketRequestTest, ResponseValidation)
     ASSERT_TRUE(responseFull.contains("response"));
     ASSERT_TRUE(responseFull["response"].contains("requestId"));
     ASSERT_TRUE(responseFull["response"].contains("type"));
-    ASSERT_TRUE(SpectreRpcType(responseFull["response"]["type"].get<std::string>()) == reqType.GetResponseType());
+    ASSERT_TRUE(
+        SpectreRpcType(responseFull["response"]["type"].get<std::string>()) ==
+        reqType.GetResponseType());
     ASSERT_TRUE(responseFull["response"].contains("payload"));
-    ASSERT_TRUE(JsonMatchesSchema(responseFull["response"]["payload"], testJson["responsePayload"],
+    ASSERT_TRUE(JsonMatchesSchema(
+        responseFull["response"]["payload"], testJson["responsePayload"],
         testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true,
         !testJson.contains("ignoreAdd") || testJson["ignoreAdd"] == true));
 }
