@@ -20,7 +20,6 @@
 #include <jwt-cpp/jwt.h>
 
 #include "ResourcesUtilities.h"
-#include "../../out/build/x64-release-win/vcpkg_installed/x64-windows/include/jwt-cpp/traits/nlohmann-json/traits.h"
 
 using tcp = boost::asio::ip::tcp;
 
