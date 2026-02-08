@@ -3,7 +3,8 @@
 //
 
 #include "StaticHTTPPackets.cpp" // NOLINT
-#include "StaticWSPackets.cpp" // NOLINT
+#include "StaticWSPackets.cpp"   // NOLINT
+#include "SubmitProviderIdHandler.h"
 
 #include <AuthenticateHandler.h>
 #include <CreatePartyProcessor.h>
@@ -52,8 +53,6 @@
 #include <spdlog/spdlog.h>
 #include <string>
 #include <thread>
-
-#include "SubmitProviderIdHandler.h"
 
 static uint16_t gamePort = 8081;
 static uint16_t socialPort = 8082;
