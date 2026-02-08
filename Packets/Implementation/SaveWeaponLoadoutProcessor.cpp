@@ -1,16 +1,8 @@
-#include "FieldKey.h"
-#include "PacketProcessor.h"
-#include "SpectreRpcType.h"
-#include "SpectreWebsocket.h"
-#include "SpectreWebsocketRequest.h"
-
 #include <CaseHelper.h>
 #include <PlayerDatabase.h>
 #include <SaveWeaponLoadoutMessage.pb.h>
 #include <SaveWeaponLoadoutProcessor.h>
 #include <WeaponLoadout.pb.h>
-#include <memory>
-#include <spdlog/spdlog.h>
 
 SaveWeaponLoadoutProcessor::SaveWeaponLoadoutProcessor(SpectreRpcType rpcType)
     : WebsocketPacketProcessor(rpcType) {

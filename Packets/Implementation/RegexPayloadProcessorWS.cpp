@@ -1,10 +1,4 @@
-#include "SpectreWebsocket.h"
-#include "SpectreWebsocketRequest.h"
-
 #include <RegexPayloadProcessorWS.h>
-#include <memory>
-#include <regex>
-#include <string>
 
 void RegexPayloadProcessorWS::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
     std::shared_ptr<json> res = packet.GetBaseJsonResponse();

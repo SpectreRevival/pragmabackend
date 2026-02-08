@@ -1,5 +1,3 @@
-#include "SpectreRpcType.h"
-
 #include <Notification.h>
 
 Notification::Notification(const SpectreRpcType notificationType)

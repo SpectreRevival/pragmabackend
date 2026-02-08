@@ -1,21 +1,8 @@
 #include <SteamValidator.h>
-#include <boost/asio/io_context.hpp>
-#include <boost/asio/ip/tcp.hpp>
-#include <boost/beast/core/flat_buffer.hpp>
-#include <boost/beast/core/tcp_stream.hpp>
-#include <boost/beast/http/field.hpp>
-#include <boost/beast/http/impl/read.hpp>
-#include <boost/beast/http/impl/write.hpp>
-#include <boost/beast/http/message_fwd.hpp>
-#include <boost/beast/http/string_body_fwd.hpp>
-#include <boost/beast/http/verb.hpp>
-#include <boost/system/detail/error_code.hpp>
-#include <exception>
-#include <nlohmann/json_fwd.hpp>
-#include <optional>
+#include <boost/asio.hpp>
+#include <boost/beast/core.hpp>
+#include <boost/beast/http.hpp>
 #include <spdlog/spdlog.h>
-#include <string>
-#include <utility>
 
 using tcp = boost::asio::ip::tcp;
 namespace http = boost::beast::http;

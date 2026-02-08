@@ -1,15 +1,7 @@
-#include "FieldKey.h"
-#include "PacketProcessor.h"
-#include "SpectreRpcType.h"
-#include "SpectreWebsocket.h"
-#include "SpectreWebsocketRequest.h"
-
 #include <CaseHelper.h>
 #include <OutfitLoadout.pb.h>
 #include <PlayerDatabase.h>
 #include <SaveOutfitLoadoutProcessor.h>
-#include <memory>
-#include <spdlog/spdlog.h>
 
 SaveOutfitLoadoutProcessor::SaveOutfitLoadoutProcessor(SpectreRpcType rpcType)
     : WebsocketPacketProcessor(rpcType) {

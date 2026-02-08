@@ -1,14 +1,7 @@
-#include "FieldKey.h"
-#include "PacketProcessor.h"
-#include "SpectreRpcType.h"
-#include "SpectreWebsocket.h"
-#include "SpectreWebsocketRequest.h"
-
 #include <FetchLoadoutsRequest.pb.h>
 #include <FetchPlayerLoadoutsProcessor.h>
 #include <PlayerDatabase.h>
 #include <WeaponLoadout.pb.h>
-#include <memory>
 
 FetchPlayerLoadoutsProcessor::FetchPlayerLoadoutsProcessor(const SpectreRpcType& rpcType)
     : WebsocketPacketProcessor(rpcType) {

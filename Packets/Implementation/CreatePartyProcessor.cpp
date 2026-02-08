@@ -1,13 +1,3 @@
-#include "FieldKey.h"
-#include "OutfitLoadout.pb.h"
-#include "PacketProcessor.h"
-#include "Party.pb.h"
-#include "PartyMember.pb.h"
-#include "PlayerData.pb.h"
-#include "SpectreRpcType.h"
-#include "SpectreWebsocket.h"
-#include "SpectreWebsocketRequest.h"
-
 #include <CaseHelper.h>
 #include <CreatePartyProcessor.h>
 #include <CreatePartyRequest.pb.h>
@@ -15,13 +5,7 @@
 #include <PartyDatabase.h>
 #include <PlayerDatabase.h>
 #include <ProfileData.pb.h>
-#include <SQLiteCpp/Statement.h>
-#include <memory>
-#include <random>
-#include <spdlog/spdlog.h>
-#include <stdexcept>
 #include <stduuid/uuid.h>
-#include <string>
 
 static const std::string inviteCodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 static int inviteCodeNChars = 6;
@@ -113,7 +97,7 @@ void CreatePartyProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebso
     std::unique_ptr<Inventory> invstruct = PlayerDatabase::Get().GetField<Inventory>(FieldKey::PLAYER_INVENTORY, sock.GetPlayerId());
     const FullInventory& inv = invstruct->full();
     for (int i = 0; i < inv.instanced_size(); i++) {
-        // TODO(ohm): make this only actually return the items needed for performance, but for MVP this should be fine
+        // TODO make this only actually return the items needed for performance, but for MVP this should be fine
         creatingPlayerExtra->add_limitedinstancedinventory()->CopyFrom(inv.instanced(i));
     }
 

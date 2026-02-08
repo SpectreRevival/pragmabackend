@@ -1,13 +1,7 @@
 #include "SpectreWebsocketRequest.h"
 
-#include "SpectreWebsocket.h"
-
-#include <exception>
-#include <memory>
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
-#include <string>
-#include <utility>
 
 SpectreWebsocketRequest::SpectreWebsocketRequest(SpectreWebsocket& sock, reqbuf req)
     : m_websocket(sock), m_requestbuf(std::move(req)) {
@@ -40,9 +34,8 @@ void SpectreWebsocketRequest::SendEmptyResponse() {
 
 std::string SpectreWebsocketRequest::GetResponseType() const {
     std::string resType = m_requestType.GetName();
-    if (resType.size() >= 7 && resType.compare(resType.size() - 7, 7, "Request") == 0) {
+    if (resType.size() >= 7 && resType.compare(resType.size() - 7, 7, "Request") == 0)
         resType.erase(resType.size() - 7);
-}
     resType += "Response";
     return resType;
 }

@@ -1,16 +1,7 @@
-#include "CreatePartyRequest.pb.h"
-#include "PacketProcessor.h"
-#include "Party.pb.h"
-#include "SpectreRpcType.h"
-#include "SpectreWebsocket.h"
-#include "SpectreWebsocketRequest.h"
-
 #include <PartyDatabase.h>
 #include <PartyMember.pb.h>
 #include <UpdatePartyPlayerProcessor.h>
 #include <UpdatePartyPlayerRequest.pb.h>
-#include <memory>
-#include <spdlog/spdlog.h>
 
 UpdatePartyPlayerProcessor::UpdatePartyPlayerProcessor(SpectreRpcType rpcType)
     : WebsocketPacketProcessor(rpcType) {

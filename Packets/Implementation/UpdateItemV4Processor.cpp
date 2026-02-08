@@ -1,17 +1,7 @@
-#include "FieldKey.h"
-#include "InstancedItem.pb.h"
-#include "PacketProcessor.h"
-#include "SpectreRpcType.h"
-#include "SpectreWebsocket.h"
-#include "SpectreWebsocketRequest.h"
-#include "StackableItem.pb.h"
-
 #include <Inventory.pb.h>
 #include <PlayerDatabase.h>
-#include <SQLiteCpp/Statement.h>
 #include <UpdateItemV4Processor.h>
 #include <UpdateSingleItemMessage.pb.h>
-#include <memory>
 #include <spdlog/spdlog.h>
 
 UpdateItemV4Processor::UpdateItemV4Processor(SpectreRpcType rpcType)
@@ -40,7 +30,7 @@ void UpdateItemV4Processor::Process(SpectreWebsocketRequest& packet, SpectreWebs
                 break;
             }
         }
-        if (curItem == nullptr) {
+        if (!curItem) {
             spdlog::warn("Couldn't find item with instance id {} in a item update request, skipping", itemUpdate->instanceditemupdate().instanceid());
             SendSuccessfulUpdate(packet, sock);
             return;
@@ -61,7 +51,7 @@ void UpdateItemV4Processor::Process(SpectreWebsocketRequest& packet, SpectreWebs
                 break;
             }
         }
-        if (curItem == nullptr) {
+        if (!curItem) {
             spdlog::warn("Couldn't find item with instance id {} in a item update request, skipping", itemUpdate->stackeditemupdate().instanceid());
             SendSuccessfulUpdate(packet, sock);
             return;

@@ -1,16 +1,7 @@
-#include "FieldKey.h"
-#include "PacketProcessor.h"
-#include "SpectreRpcType.h"
-#include "SpectreWebsocket.h"
-#include "SpectreWebsocketRequest.h"
-
 #include <PlayerData.pb.h>
 #include <PlayerDatabase.h>
 #include <SavePlayerDataProcessor.h>
 #include <google/protobuf/util/json_util.h>
-#include <memory>
-#include <spdlog/spdlog.h>
-#include <string>
 
 static const std::string endOfConfigJson = "\"inputBindingsVersion\": 3";
 
@@ -20,9 +11,9 @@ SavePlayerDataProcessor::SavePlayerDataProcessor(SpectreRpcType rpcType)
 
 void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
     const char* strbegin = static_cast<const char*>(packet.GetRawBuffer()->cdata().data());
-    std::string reqFormatted = R"({"playerId": ")" + sock.GetPlayerId() + R"(","data":)";
+    std::string reqFormatted = R"({"playerId": ")" + sock.GetPlayerId() + "\",\"data\":";
     int index = 0;
-    char curChar = 0;
+    char curChar;
     for (; index < packet.GetRawBuffer()->size(); index++) {
         curChar = strbegin[index];
         if (curChar == '\"' && strbegin[index + 1] == '{') {
@@ -38,12 +29,13 @@ void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWe
             }
             index++;
         } else if (curChar == '}') {
-            if (reqFormatted.compare(reqFormatted.size() - endOfConfigJson.size(), endOfConfigJson.size(), endOfConfigJson) == 0) {
+            if (reqFormatted.compare(reqFormatted.size() - endOfConfigJson.size(), endOfConfigJson.size(), endOfConfigJson.c_str()) == 0) {
                 reqFormatted += curChar;
                 index += 2;
                 break;
-            }                 reqFormatted += curChar;
-           
+            } else {
+                reqFormatted += curChar;
+            }
         } else {
             reqFormatted += curChar;
         }
@@ -59,7 +51,7 @@ void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWe
         throw;
     }
     // mt does this thing where they leave all the other fields blank if they just want to update the data str
-    if (playerData.attackeroutfitloadoutid().empty()) {
+    if (playerData.attackeroutfitloadoutid() == "") {
         // Only copy the extra data field
         std::unique_ptr<PlayerData> existingData = PlayerDatabase::Get().GetField<PlayerData>(FieldKey::PLAYER_DATA, sock.GetPlayerId());
         existingData->mutable_data()->CopyFrom(playerData.data());
