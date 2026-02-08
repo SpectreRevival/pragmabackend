@@ -15,8 +15,8 @@ std::filesystem::path ResourcesUtilities::GetCurrentExecutablePath() {
     return std::filesystem::path(buffer);
 
 #elif defined(__linux__)
-    char buffer[4096];
-    ssize_t len = readlink("/proc/self/exe", buffer, sizeof(buffer) - 1);
+    char buffer[4096]; // NOLINT
+    ssize_t len = readlink("/proc/self/exe", buffer, sizeof(buffer) - 1); // NOLINT
     buffer[len] = '\0';
     return std::filesystem::path(buffer);
 #else
