@@ -62,11 +62,13 @@ jobs:
       - name: Run clang-format
         run: |
           FILES=$(
-            find . \
-            -regex './\(Persistence\|Packets\|tests\)/.*/Implementation/.*\.cpp' -o \
-            -regex './\(Persistence\|Packets\|tests\)/.*/Model/.*\.h' \
+            find . \( \
+            -regex '\./\(Persistence\|Packets\|tests\)/Implementation/.*\.cpp' -o \
+            -regex '\./\(Persistence\|Packets\|tests\)/Model/.*\.h' \
+            \) \
             | grep -vE 'out/|vcpkg_installed/|vcpkg/'
-          )
+            )
+            
           clang-format -i $FILES
 
       - name: Commit changes
