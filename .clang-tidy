@@ -24,7 +24,7 @@ Checks: >
   -misc-const-correctness,
   -cert-err58-cpp,
   -bugprone-easily-swappable-parameters,
-  -bugprone-narrowing-conveersions,
+  -bugprone-narrowing-conversions,
   -cppcoreguidelines-narrowing-conversions,
   -cppcoreguidelines-pro-bounds-pointer-arithmetic,
   -cppcoreguidelines-magic-numbers,
