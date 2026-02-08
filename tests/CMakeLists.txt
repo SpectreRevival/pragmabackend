@@ -2,7 +2,7 @@ enable_testing()
 find_package(GTest CONFIG REQUIRED)
 find_package(Boost REQUIRED COMPONENTS process)
 
-add_executable(tests Implementation/test_main.cpp)
+add_executable(tests "${CMAKE_CURRENT_LIST_DIR}/Implementation/test_main.cpp")
 target_link_libraries(tests PRIVATE GTest::gtest)
 target_link_libraries(tests PRIVATE Boost::process)
 
@@ -24,12 +24,12 @@ target_include_directories(tests PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/Model")
 find_package(tiny-process-library CONFIG REQUIRED)
 target_link_libraries(tests PRIVATE tiny-process-library::tiny-process-library)
 
-add_executable(ProcessFiddlerLog Implementation/ProcessFiddlerLog.cpp)
+add_executable(ProcessFiddlerLog "${CMAKE_CURRENT_LIST_DIR}/Implementation/ProcessFiddlerLog.cpp")
 add_dependencies(ProcessFiddlerLog tests)
 find_package(nlohmann_json CONFIG REQUIRED)
 target_link_libraries(ProcessFiddlerLog PUBLIC nlohmann_json::nlohmann_json)
 
-add_executable(TestDeduplicator Implementation/TestDeduplicator.cpp)
+add_executable(TestDeduplicator "${CMAKE_CURRENT_LIST_DIR}/Implementation/TestDeduplicator.cpp")
 add_dependencies(TestDeduplicator tests)
 find_package(nlohmann_json CONFIG REQUIRED)
 target_link_libraries(TestDeduplicator PUBLIC nlohmann_json::nlohmann_json)
