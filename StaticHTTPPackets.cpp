@@ -3,6 +3,7 @@
 #include <spdlog/spdlog.h>
 #include <algorithm>
 #include <ResourcesUtilities.h>
+#include <StaticResponseProcessorHTTP.h>
 
 namespace fs = std::filesystem;
 
