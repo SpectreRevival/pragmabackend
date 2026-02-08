@@ -17,7 +17,7 @@ static std::string ExtractBearer(const http::request<http::string_body>& req) {
     static constexpr std::string_view prefix = "Bearer ";
     const std::string s = std::string(auth);
     if (!s.starts_with(prefix)) return {};
-    return s.substr(sizeof(prefix) - 1);
+    return s.substr(prefix.size() - 1);
 }
 
 static std::string DecodePlayerIdNoverify(const std::string& token) {

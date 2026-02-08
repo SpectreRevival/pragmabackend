@@ -225,7 +225,7 @@ std::string AuthenticateHandler::CreatePlayerFromSteam(const std::string& steam6
     pd->set_playerid(uuid);
     DisplayName* dn = pd->mutable_displayname();
     dn->set_displayname(displayName.empty() ? "Player" : displayName);
-    std::array<char, 5> disc;
+    std::array<char, 5> disc{};
     std::mt19937 rng{std::random_device{}()};
     std::snprintf(disc.data(), 5, "%04d", std::uniform_int_distribution<int>(0, 9999)(rng)); // NOLINT
     dn->set_discriminator(disc.data());
