@@ -27,5 +27,4 @@ jobs:
             | grep -vE 'out/|vcpkg_installed/|vcpkg/'
             )
           
-          clang-format -i $FILES
-          clang-format -i main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp
+          clang-format -i --dry-run --Werror $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp
