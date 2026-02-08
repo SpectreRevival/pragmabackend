@@ -2,7 +2,7 @@
 #include <nlohmann/json.hpp>
 
 void StaticResponseProcessorWS::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
-	std::shared_ptr<json> res = packet.GetBaseJsonResponse();
-	(*res)["payload"] = *m_res;
-	sock.SendPacket(res);
+    std::shared_ptr<json> res = packet.GetBaseJsonResponse();
+    (*res)["payload"] = *m_res;
+    sock.SendPacket(res);
 }

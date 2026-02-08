@@ -1,15 +1,15 @@
 #pragma once
-#include <fstream>
-#include <filesystem>
-#include <spdlog/spdlog.h>
-#include <algorithm>
 #include <ResourcesUtilities.h>
 #include <StaticResponseProcessorHTTP.h>
+#include <algorithm>
+#include <filesystem>
+#include <fstream>
+#include <spdlog/spdlog.h>
 
 namespace fs = std::filesystem;
 
 #pragma warning(push) // disable msvc's complaining about us not saving the processors in vars, they'll be cleaned up when our program ends.
-#pragma warning(disable: 4101)
+#pragma warning(disable : 4101)
 void RegisterStaticHTTPHandlerFromFile(std::string route, std::string filename) {
     std::ifstream fileres(filename);
     if (!fileres.is_open()) {

@@ -3,8 +3,7 @@
 #include <nlohmann/json.hpp>
 using namespace nlohmann;
 
-inline bool JsonMatchesSchema(const json& response, const json& expectedResponse, bool ignoreReplace, bool ignoreAdd)
-{
+inline bool JsonMatchesSchema(const json& response, const json& expectedResponse, bool ignoreReplace, bool ignoreAdd) {
     json diff = json::diff(expectedResponse, response);
     std::cout << "DIFF: " << std::endl;
     std::cout << diff.dump() << std::endl;
@@ -14,21 +13,17 @@ inline bool JsonMatchesSchema(const json& response, const json& expectedResponse
     {
         // Note that remove and add are flipped from what you would think here. Remove means it's not in the test but is in the response.
         // This is okay since I assume that the game doesn't use very strict json deserialization so additional fields will just go unchecked.
-        if (entry["op"] == "remove")
-        {
-            if (ignoreAdd)
-            {
+        if (entry["op"] == "remove") {
+            if (ignoreAdd) {
                 continue;
             }
             return false;
         }
         // This is stuff that is in the test but not in the response, very bad
-        if (entry["op"] == "add")
-        {
+        if (entry["op"] == "add") {
             return false;
         }
-        if (entry["value"] != "*" && !ignoreReplace)
-        {
+        if (entry["value"] != "*" && !ignoreReplace) {
             return false;
         }
     }

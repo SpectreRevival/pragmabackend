@@ -1,7 +1,7 @@
 #include <RegexPayloadProcessorHTTP.h>
 #include <spdlog/spdlog.h>
 
-void RegexPayloadProcessorHTTP::Process(http::request<http::string_body> const& req, tcp::socket& sock) {
+void RegexPayloadProcessorHTTP::Process(const http::request<http::string_body>& req, tcp::socket& sock) {
     http::response<http::string_body> res;
     res.version(req.version());
     res.keep_alive(req.keep_alive());

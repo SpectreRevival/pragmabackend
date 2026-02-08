@@ -1,14 +1,15 @@
 #pragma once
-#include <SpectreWebsocket.h>
 #include <SpectreRpcType.h>
+#include <SpectreWebsocket.h>
 
 class Notification {
-private:
-	SpectreRpcType m_notificationType;
-public:
-	virtual ~Notification() = default;
-	explicit Notification(SpectreRpcType notificationType);
+  private:
+    SpectreRpcType m_notificationType;
 
-	const SpectreRpcType& GetNotificationType() const;
-	virtual void SendTo(SpectreWebsocket& sock) const = 0;
+  public:
+    virtual ~Notification() = default;
+    explicit Notification(SpectreRpcType notificationType);
+
+    const SpectreRpcType& GetNotificationType() const;
+    virtual void SendTo(SpectreWebsocket& sock) const = 0;
 };

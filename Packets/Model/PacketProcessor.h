@@ -1,19 +1,21 @@
 #pragma once
-#include <boost/beast/http.hpp>
-#include <boost/asio.hpp>
-#include <SpectreWebsocketRequest.h>
 #include <SpectreRpcType.h>
+#include <SpectreWebsocketRequest.h>
+#include <boost/asio.hpp>
+#include <boost/beast/http.hpp>
 #include <string>
 
 class HTTPPacketProcessor {
-private:
+  private:
     std::string m_route;
     inline static std::unordered_map<std::string, HTTPPacketProcessor*> HTTP_ROUTES = {};
-public:
-    explicit HTTPPacketProcessor(std::string route) : m_route(std::move(route)) {
+
+  public:
+    explicit HTTPPacketProcessor(std::string route)
+        : m_route(std::move(route)) {
         HTTP_ROUTES[m_route] = this;
     };
-    virtual void Process(http::request<http::string_body> const& req, tcp::socket& sock) = 0;
+    virtual void Process(const http::request<http::string_body>& req, tcp::socket& sock) = 0;
     virtual ~HTTPPacketProcessor() = default;
     std::string& GetRoute() const {
         return const_cast<std::string&>(m_route);
@@ -25,11 +27,13 @@ public:
 };
 
 class WebsocketPacketProcessor {
-private:
+  private:
     SpectreRpcType m_rpcType;
     inline static std::unordered_map<SpectreRpcType, WebsocketPacketProcessor*> WEBSOCKET_ROUTES = {};
-public:
-    explicit WebsocketPacketProcessor(const SpectreRpcType& rpcType) : m_rpcType(rpcType) {
+
+  public:
+    explicit WebsocketPacketProcessor(const SpectreRpcType& rpcType)
+        : m_rpcType(rpcType) {
         WEBSOCKET_ROUTES[rpcType] = this;
     }
     virtual void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) = 0;

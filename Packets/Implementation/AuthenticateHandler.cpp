@@ -1,32 +1,32 @@
-#include <AuthenticateHandler.h>
-#include <PlayerDatabase.h>
-#include <SteamValidator.h>
 #include <AuthLatch.h>
-#include <ProfileData.pb.h>
-#include <PlayerData.pb.h>
+#include <AuthenticateHandler.h>
 #include <OutfitLoadout.pb.h>
+#include <PlayerData.pb.h>
+#include <PlayerDatabase.h>
+#include <ProfileData.pb.h>
+#include <ResourcesUtilities.h>
+#include <SteamValidator.h>
 #include <WeaponLoadout.pb.h>
-#include <spdlog/spdlog.h>
-#include <nlohmann/json.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_io.hpp>
-#include <boost/uuid/string_generator.hpp>
 #include <boost/uuid/name_generator_sha1.hpp>
 #include <boost/uuid/random_generator.hpp>
+#include <boost/uuid/string_generator.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <fstream>
+#include <nlohmann/json.hpp>
 #include <openssl/bio.h>
 #include <openssl/evp.h>
 #include <openssl/pem.h>
-#include <fstream>
 #include <random>
+#include <spdlog/spdlog.h>
 #include <string>
 #include <vector>
-#include <ResourcesUtilities.h>
 
 #if defined(_WIN32)
 extern "C" {
-#  include <openssl/applink.c>
+#include <openssl/applink.c>
 }
 #endif
 
@@ -66,15 +66,15 @@ static std::string sign_rs256_b64url(const std::string& signing_input) {
 
     BIO* bio = BIO_new_mem_buf(pem.data(), static_cast<int>(pem.size()));
     if (!bio) throw std::runtime_error("BIO_new_mem_buf failed");
-    std::unique_ptr<BIO, int(*)(BIO*)> bio_u(bio, BIO_free);
+    std::unique_ptr<BIO, int (*)(BIO*)> bio_u(bio, BIO_free);
 
     EVP_PKEY* pkey_raw = PEM_read_bio_PrivateKey(bio, nullptr, nullptr, nullptr);
     if (!pkey_raw) throw std::runtime_error("PEM_read_bio_PrivateKey failed");
-    std::unique_ptr<EVP_PKEY, void(*)(EVP_PKEY*)> pkey(pkey_raw, EVP_PKEY_free);
+    std::unique_ptr<EVP_PKEY, void (*)(EVP_PKEY*)> pkey(pkey_raw, EVP_PKEY_free);
 
     EVP_MD_CTX* ctx_raw = EVP_MD_CTX_new();
     if (!ctx_raw) throw std::runtime_error("EVP_MD_CTX_new failed");
-    std::unique_ptr<EVP_MD_CTX, void(*)(EVP_MD_CTX*)> ctx(ctx_raw, EVP_MD_CTX_free);
+    std::unique_ptr<EVP_MD_CTX, void (*)(EVP_MD_CTX*)> ctx(ctx_raw, EVP_MD_CTX_free);
 
     if (EVP_DigestSignInit(ctx.get(), nullptr, EVP_sha256(), nullptr, pkey.get()) != 1)
         throw std::runtime_error("EVP_DigestSignInit failed");
@@ -114,7 +114,8 @@ static const AuthCfg& GetAuthCfg() {
     return cfg;
 }
 
-AuthenticateHandler::AuthenticateHandler(std::string route) : HTTPPacketProcessor(std::move(route)) {}
+AuthenticateHandler::AuthenticateHandler(std::string route)
+    : HTTPPacketProcessor(std::move(route)) {}
 
 static std::string client_ip(const tcp::socket& sock) {
     // just gonna let this throw; ends up 500 anyway
@@ -123,11 +124,11 @@ static std::string client_ip(const tcp::socket& sock) {
 
 static std::string PlayerUuidFromSteam64(const std::string& steam64) {
     static const auto ns = boost::uuids::string_generator{}("c8a6b6ce-1e7b-49f2-9a4f-0be3d7b7e5a1");
-    const auto id = boost::uuids::name_generator_sha1{ ns }(steam64);
+    const auto id = boost::uuids::name_generator_sha1{ns}(steam64);
     return boost::lexical_cast<std::string>(id);
 }
 
-void AuthenticateHandler::Process(http::request<http::string_body> const& req, tcp::socket& sock) {
+void AuthenticateHandler::Process(const http::request<http::string_body>& req, tcp::socket& sock) {
     http::response<http::string_body> res;
     res.version(req.version());
     res.keep_alive(req.keep_alive());
@@ -170,7 +171,7 @@ void AuthenticateHandler::Process(http::request<http::string_body> const& req, t
                 return reply(http::status::bad_request, R"({"error":"invalid steam id"})");
             }
 
-            AuthLatch::Get().Put(client_ip(sock), steam64, /*latch timer in seconds*/ 120); //120s for now until i sort the launcher out - astro
+            AuthLatch::Get().Put(client_ip(sock), steam64, /*latch timer in seconds*/ 120); // 120s for now until i sort the launcher out - astro
             return reply(http::status::ok, R"({"ok":true})");
         }
 
@@ -209,17 +210,15 @@ void AuthenticateHandler::Process(http::request<http::string_body> const& req, t
             const std::string socialId = playerId;
 
             json tokens = {
-                {"pragmaGameToken",   BuildJwt("GAME",   playerId, socialId, display, disc)},
-                {"pragmaSocialToken", BuildJwt("SOCIAL", playerId, socialId, display, disc)}
-            };
+                {"pragmaGameToken", BuildJwt("GAME", playerId, socialId, display, disc)},
+                {"pragmaSocialToken", BuildJwt("SOCIAL", playerId, socialId, display, disc)}};
 
-            json out = { {"pragmaTokens", tokens} };
+            json out = {{"pragmaTokens", tokens}};
             return reply(http::status::ok, out.dump());
         }
 
         return reply(http::status::not_found, R"({"error":"no route"})");
-    }
-    catch (const std::exception& e) {
+    } catch (const std::exception& e) {
         spdlog::error("auth 500: {}", e.what());
         return reply(http::status::internal_server_error, R"({"error":"internal server error"})");
     }
@@ -233,14 +232,14 @@ std::string AuthenticateHandler::CreatePlayerFromSteam(const std::string& steam6
     DisplayName* dn = pd->mutable_displayname();
     dn->set_displayname(displayName.empty() ? "Player" : displayName);
     char disc[5];
-    std::mt19937 rng{ std::random_device{}() };
+    std::mt19937 rng{std::random_device{}()};
     std::snprintf(disc, 5, "%04d", std::uniform_int_distribution<int>(0, 9999)(rng));
     dn->set_discriminator(disc);
     PlayerDatabase::Get().SetField(FieldKey::PROFILE_DATA, pd.get(), uuid);
-	std::unique_ptr<PlayerData> pdata = PlayerDatabase::Get().GetField<PlayerData>(FieldKey::PLAYER_DATA, uuid);
+    std::unique_ptr<PlayerData> pdata = PlayerDatabase::Get().GetField<PlayerData>(FieldKey::PLAYER_DATA, uuid);
     pdata->set_playerid(uuid);
     pdata->mutable_matchmakingdata()->set_playerid(uuid);
-	PlayerDatabase::Get().SetField(FieldKey::PLAYER_DATA, pdata.get(), uuid);
+    PlayerDatabase::Get().SetField(FieldKey::PLAYER_DATA, pdata.get(), uuid);
     std::unique_ptr<OutfitLoadouts> outfits = PlayerDatabase::Get().GetField<OutfitLoadouts>(FieldKey::PLAYER_OUTFIT_LOADOUT, uuid);
     for (int i = 0; i < outfits->loadouts_size(); i++) {
         outfits->mutable_loadouts(i)->set_playerid(uuid);
@@ -261,7 +260,8 @@ static std::string b64url_json(const nlohmann::json& j) {
     out.reserve(((s.size() + 2) / 3) * 4);
     int val = 0, valb = -6;
     for (unsigned char c : s) {
-        val = (val << 8) + c; valb += 8;
+        val = (val << 8) + c;
+        valb += 8;
         while (valb >= 0) {
             out.push_back(t[(val >> valb) & 0x3F]);
             valb -= 6;
@@ -278,16 +278,14 @@ std::string AuthenticateHandler::BuildJwt(
     const std::string& playerId,
     const std::string& socialId,
     const std::string& displayName,
-    const std::string& discriminator
-) {
+    const std::string& discriminator) {
     const auto now = static_cast<long long>(time(nullptr));
     const auto exp = now + 24 * 3600; // 24 hrs
 
     nlohmann::json header = {
         {"kid", "d3JtOq6jy3_HquwTsrzt81wh3BLiA-4f-qM8mj-0-YQ="},
         {"alg", "RS256"},
-        {"typ", "JWT"}
-    };
+        {"typ", "JWT"}};
 
     const std::string jti = boost::uuids::to_string(boost::uuids::random_generator()());
     nlohmann::json payload = {
@@ -305,8 +303,7 @@ std::string AuthenticateHandler::BuildJwt(
         {"extSessionInfo", R"({"permissions":0,"accountTags":["canary"]})"},
         {"expiresInMillis", "86400000"},
         {"refreshInMillis", "36203000"},
-        {"pragmaPlayerId", playerId}
-    };
+        {"pragmaPlayerId", playerId}};
 
     if (backendType == "GAME") {
         payload["gameShardId"] = "00000000-0000-0000-0000-000000000001";
