@@ -1,10 +1,11 @@
+#include "StaticResponseProcessorHTTP.h"
+
 #include <ResourcesUtilities.h>
 #include <algorithm>
 #include <filesystem>
 #include <fstream>
-#include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
-#include "StaticResponseProcessorHTTP.h"
+#include <spdlog/spdlog.h>
 
 namespace fs = std::filesystem;
 
@@ -12,7 +13,8 @@ namespace fs = std::filesystem;
     push) // disable msvc's complaining about us not saving the processors in
           // vars, they'll be cleaned up when our program ends.
 #pragma warning(disable : 4101)
-static void RegisterStaticHTTPHandlerFromFile(std::string route, std::string filename)
+static void RegisterStaticHTTPHandlerFromFile(std::string route,
+                                              std::string filename)
 {
     std::ifstream fileres(filename);
     if (!fileres.is_open())
@@ -34,9 +36,10 @@ static void RegisterStaticHTTPHandlers()
              ResourcesUtilities::GetResourcesFolder() / "payloads" / "static" /
              "game"))
     {
-        if (!fs::is_regular_file(file)) {
+        if (!fs::is_regular_file(file))
+        {
             continue;
-}
+        }
         std::string route =
             (fs::absolute(file.path().parent_path()) / file.path().stem())
                 .string();
@@ -52,9 +55,10 @@ static void RegisterStaticHTTPHandlers()
              ResourcesUtilities::GetResourcesFolder() / "payloads" / "static" /
              "social"))
     {
-        if (!fs::is_regular_file(file)) {
+        if (!fs::is_regular_file(file))
+        {
             continue;
-}
+        }
         std::string route =
             (fs::absolute(file.path().parent_path()) / file.path().stem())
                 .string();
