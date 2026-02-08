@@ -22,11 +22,12 @@ Checks: >
   -modernize-use-trailing-return-type,
   -hicpp-braces-around-statements,
   -misc-const-correctness,
-  -cert-err58-cpp
-  -bugprone-easily-swappable-parameters
-  -bugprone-narrowing-conveersions
-  -cppcoreguidelines-narrowing-conversions
-  -cppcoreguidelines-pro-bounds-pointer-arithmetic
+  -cert-err58-cpp,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-narrowing-conveersions,
+  -cppcoreguidelines-narrowing-conversions,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-magic-numbers
 CheckOptions:
   - key: readability-identifier-naming.ClassCase
     value: CamelCase
