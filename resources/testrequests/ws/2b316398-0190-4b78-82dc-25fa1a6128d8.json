@@ -1,0 +1,44 @@
+{
+  "requestBody": {
+    "currentTimestampMillis": "1740507440512",
+    "isoLanguageCodes": [
+      "en-US"
+    ],
+    "publicationId": "eb050886-132c-4161-ad84-492622f0444e"
+  },
+  "responsePayload": {
+    "publication": {
+      "messages": [
+        {
+          "contentDescriptor": "*",
+          "endTimestampMillis": "1741087533980",
+          "fullImage": {
+            "internalName": "Image_Standard_Spectators_Full"
+          },
+          "fullMessage": {
+            "translatedMessage": "*"
+          },
+          "fullTabTitle": {
+            "translatedMessage": "*"
+          },
+          "fullTitle": {
+            "translatedMessage": "*"
+          },
+          "id": "25cdb46d-93b4-4007-92ac-4e9eecfea8fb",
+          "previewImage": {
+            "internalName": "Image_Standard_ReportABug_Preview"
+          },
+          "previewTitle": {
+            "translatedMessage": "*"
+          },
+          "startTimestampMillis": "*",
+          "updatedTimestampMillis": "*"
+        }
+      ],
+      "onLoadAction": "MTN_PLAYER_NEWS_ON_LOAD_ACTION_FULL_VIEW_ON_LOGIN",
+      "publicationId": "eb050886-132c-4161-ad84-492622f0444e"
+    }
+  },
+  "rpcType": "MtnNewsServiceRpc.GetNewsPlayerV1Request",
+  "testAge": 1740507440.167
+}

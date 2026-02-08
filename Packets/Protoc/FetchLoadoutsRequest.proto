@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message FetchLoadoutsRequest {
+    string playerId = 1;
+}
+
+message FetchLoadoutsResponse {
+    repeated LoadoutId weaponLoadoutData = 1;
+}
+
+message LoadoutId {
+    string loadoutId = 1;
+    string playerId = 2;
+}

@@ -1,0 +1,40 @@
+enable_testing()
+find_package(GTest CONFIG REQUIRED)
+find_package(Boost REQUIRED COMPONENTS process)
+
+add_executable(tests Implementation/test_main.cpp)
+target_link_libraries(tests PRIVATE GTest::gtest)
+target_link_libraries(tests PRIVATE Boost::process)
+
+file(GLOB_RECURSE TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/*.cpp")
+list(REMOVE_ITEM TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/Implementation/test_main.cpp")
+list(REMOVE_ITEM TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/Implementation/ProcessFiddlerLog.cpp")
+list(REMOVE_ITEM TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/Implementation/TestDeduplicator.cpp")
+
+target_sources(tests PRIVATE ${TEST_FILES})
+add_dependencies(tests pragmabackend)
+target_link_libraries(tests PRIVATE pragmabackend_core)
+target_include_directories(tests PUBLIC Model)
+target_include_directories(tests PUBLIC "${CMAKE_SOURCE_DIR}/Packets/Model")
+target_include_directories(tests PUBLIC "${CMAKE_SOURCE_DIR}/Persistence/Model")
+target_include_directories(tests PUBLIC "${CMAKE_SOURCE_DIR}/Packets/Model")
+target_include_directories(tests PUBLIC "${CMAKE_SOURCE_DIR}/Persistence/Model")
+target_include_directories(tests PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/Model")
+
+find_package(tiny-process-library CONFIG REQUIRED)
+target_link_libraries(tests PRIVATE tiny-process-library::tiny-process-library)
+
+add_executable(ProcessFiddlerLog Implementation/ProcessFiddlerLog.cpp)
+add_dependencies(ProcessFiddlerLog tests)
+find_package(nlohmann_json CONFIG REQUIRED)
+target_link_libraries(ProcessFiddlerLog PUBLIC nlohmann_json::nlohmann_json)
+
+add_executable(TestDeduplicator Implementation/TestDeduplicator.cpp)
+add_dependencies(TestDeduplicator tests)
+find_package(nlohmann_json CONFIG REQUIRED)
+target_link_libraries(TestDeduplicator PUBLIC nlohmann_json::nlohmann_json)
+target_include_directories(TestDeduplicator PUBLIC "${CMAKE_SOURCE_DIR}/Packets/Model")
+target_include_directories(TestDeduplicator PUBLIC "${CMAKE_SOURCE_DIR}/Persistence/Model")
+
+include(GoogleTest)
+gtest_discover_tests(tests)

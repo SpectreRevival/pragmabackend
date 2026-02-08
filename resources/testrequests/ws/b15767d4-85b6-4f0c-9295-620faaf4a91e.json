@@ -1,0 +1,1 @@
+{"requestBody":{},"responsePayload":{"friendList":{"acceptNewFriendInvites":true,"blocked":[],"friends":[],"receivedInvites":[],"sentInvites":[],"version":"0"}},"rpcType":"FriendRpc.GetFriendListAndRegisterOnlineV1Request","testAge":1740507440.099}

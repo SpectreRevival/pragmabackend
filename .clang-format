@@ -1,0 +1,20 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Brace and layout preferences
+BreakBeforeBraces: Allman
+AllowShortFunctionsOnASingleLine: Empty
+
+# Include ordering
+IncludeBlocks: Regroup
+SortIncludes: true
+
+# Namespace formatting
+NamespaceIndentation: All
+
+# Align and spacing rules
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+SpaceBeforeParens: ControlStatements

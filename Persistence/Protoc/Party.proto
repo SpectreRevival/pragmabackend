@@ -1,6 +1,5 @@
 syntax = "proto3";
 import "PartyMember.proto";
-import "DisplayName.proto";
 import "CrossplayPreferences.proto";
 import "CustomGameInfo.proto";
 
