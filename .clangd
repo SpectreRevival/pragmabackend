@@ -1,0 +1,13 @@
+Diagnostics:
+  Suppress:
+    # Ignore protobuf-generated files
+    - ".*\\.pb\\.h"
+    - ".*\\.pb\\.cc"
+
+    # Ignore protobuf library headers (covers google/protobuf and any vendor)
+    - ".*/protobuf/.*"
+    - ".*google/protobuf.*"
+
+    # Ignore vcpkg-installed headers (covers classic + manifest mode)
+    - ".*/vcpkg_installed/.*"
+    - ".*/installed/.*"

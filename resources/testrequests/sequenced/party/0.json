@@ -1,0 +1,7 @@
+{
+	"method": "POST",
+	"path": "/v1/submitproviderid",
+	"request": "{\"providerId\":\"76561199041068696\"}",
+	"response": "{\"ok\": true}",
+	"testAge":"2025-02-25T13:17:06.6028148-05:00"
+}

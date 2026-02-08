@@ -6,13 +6,12 @@ on:
     branches: ["*"]
 
 jobs:
-  build:
+  build-ubuntu:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         build_type: [debug, release]
-      max-parallel: 1
     steps:
       - name: Clone repo
         uses: actions/checkout@v4
@@ -22,37 +21,195 @@ jobs:
       - name: Install compiler
         run: |
           sudo apt update
-          sudo apt-get update
-          sudo apt-get install -y curl zip unzip tar
-          sudo apt install -y build-essential ninja-build
-          sudo apt-get install -y autoconf autoconf-archive automake libtool
-          sudo apt install -y linux-libc-dev pkg-config
-
-      - name: Install cmake
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y software-properties-common lsb-release
+          sudo apt install -y build-essential ninja-build curl zip unzip tar autoconf autoconf-archive automake libtool linux-libc-dev pkg-config software-properties-common lsb-release
           sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
           sudo apt-key adv --fetch-keys https://apt.kitware.com/keys/kitware-archive-latest.asc
           sudo apt-get update
           sudo apt-get install -y cmake
 
-      - name: Cache vcpkg archive
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/vcpkg/archives
-          key: vcpkg-${{hashFiles('vcpkg.json')}}-${{hashFiles('vcpkg/**')}}
-          restore-keys: |
-            vcpkg-
-
       - name: Create auth.json
+        shell: bash
         # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
         run: |
           echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > auth.json
 
-      - name: Configure ${{matrix.build_type}}
+      - name: Cache vcpkg archives directory
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/vcpkg/archives
+          key: vcpkg-${{hashFiles('vcpkg/**')}}-${{hashFiles('vcpkg.json')}}
+          restore-keys: |
+            vcpkg-${{hashFiles('vcpkg/**')}}
+
+      - name: Configure ${{matrix.build_type}} ${{matrix.os}}
         run: |
           /usr/bin/cmake . --preset x64-${{matrix.build_type}}-linux
 
-      - name: Build ${{matrix.build_type}}
+      - name: Build ${{matrix.build_type}} ${{matrix.os}}
         run: /usr/bin/cmake --build out/build/x64-${{matrix.build_type}}-linux
+
+      - name: Create artifact
+        run: |
+          mkdir package
+          chmod +x out/build/x64-${{matrix.build_type}}-linux/pragmabackend
+          chmod +x out/build/x64-${{matrix.build_type}}-linux/tests/tests
+          cp -r out/build/x64-${{matrix.build_type}}-linux/* package
+          rm package/*.h
+          rm package/*.cc
+          rm package/*.log
+          rm -rf package/*CMakeFiles
+          rm -rf package/tests/CMakeFiles
+          rm -rf package/tests/*.cmake
+          rm -rf package/vcpkg_installed
+          rm package/build.ninja
+          rm package/*.cmake
+          rm package/CMakeCache.txt
+          rm package/auth.json
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: x64-${{matrix.build_type}}-linux
+          path: package/
+          retention-days: 1
+
+      - name: Clean up vcpkg folder
+        shell: bash
+        run: |
+          rm -rf ./vcpkg/buildtrees
+          rm -rf ./vcpkg/downloads
+          rm -rf ./vcpkg/packages
+
+  build-windows:
+      runs-on: windows-latest
+      strategy:
+        fail-fast: false
+        matrix:
+          build_type: [debug, release]
+      steps:
+        - name: Clone repo
+          uses: actions/checkout@v4
+          with:
+            submodules: recursive
+
+        - name: Install cmake (windows only)
+          run: winget install -e --id Kitware.CMake --disable-interactivity --accept-source-agreements --accept-package-agreements
+
+        - name: Create auth.json
+          shell: bash
+          # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
+          run: |
+            echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > auth.json
+            
+        - name: Resolve LOCALAPPDATA
+          id: localappdata
+          shell: pwsh
+          run: |
+            echo "value=$env:LOCALAPPDATA" >> $env:GITHUB_OUTPUT
+
+        - name: Cache vcpkg archives directory
+          uses: actions/cache@v4
+          with:
+            path: ${{ steps.localappdata.outputs.value }}\vcpkg\archives
+            key: vcpkg-${{hashFiles('vcpkg/**')}}-${{hashFiles('vcpkg.json')}}
+            restore-keys: |
+              vcpkg-${{hashFiles('vcpkg/**')}}
+
+        - name: Configure and build ${{matrix.build_type}}
+          if: matrix.build_type == 'debug'
+          run: cmake -S . -B out/build/x64-debug-win -A x64 -T host=x64 -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
+
+        - name: Configure and build ${{matrix.build_type}}
+          if: matrix.build_type == 'release'
+          run: cmake -S . -B out/build/x64-release-win -A x64 -T host=x64 -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
+
+        - name: Build ${{matrix.build_type}}
+          run: cmake --build out/build/x64-${{matrix.build_type}}-win
+
+        - name: Create artifact
+          shell: bash
+          run: |
+            mkdir package
+            cp -r out/build/x64-${{matrix.build_type}}-win/* package*
+            rm package/*.h
+            rm package/*.cc
+            rm package/*.vcxproj*
+            rm package/*.log
+            rm -rf package/.cmake
+            rm -rf package/CMakeFiles
+            rm package/*.cmake
+            rm -rf package/*.dir
+            rm -rf package/vcpkg_installed
+            cp package/Debug/*.dll package/
+            cp package/Debug/*.lib package/
+            cp package/Debug/pragmabackend.exe package/
+            cp package/tests/Debug/*.dll package/tests
+            cp package/tests/Debug/*.exe package/tests
+            rm -rf package/x64
+            rm -rf package/Debug
+            rm package/tests/*.vcxproj*
+            rm package/tests/*.cmake
+            rm -rf package/tests/*.dir
+            rm -rf package/tests/CMakeFiles
+            rm -rf package/tests/Debug
+            rm package/auth.json
+
+        - name: Upload artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: x64-${{matrix.build_type}}-win
+            path: package/
+            retention-days: 1
+
+        - name: Clean up vcpkg folder
+          shell: bash
+          run: |
+            rm -rf ./vcpkg/buildtrees
+            rm -rf ./vcpkg/downloads
+            rm -rf ./vcpkg/packages
+
+  test-ubuntu:
+    needs: build-ubuntu
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [debug, release]
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: x64-${{matrix.build_type}}-linux
+          path: build/
+
+      - name: Run tests
+        run: |
+          chmod +x build/tests/tests
+          chmod +x build/pragmabackend
+          cd build/tests
+          ./tests
+
+  test-windows:
+    needs: build-windows
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [debug, release]
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: x64-${{matrix.build_type}}-win
+          path: build/
+
+      - name: Create auth.json
+        shell: bash
+        run: |
+          echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > build/auth.json
+
+      - name: Run tests
+        shell: cmd
+        run: |
+          cd build\tests\
+          .\tests.exe

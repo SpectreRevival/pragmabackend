@@ -6,11 +6,13 @@
     "boost-beast",
     "boost-bimap",
     "boost-uuid",
+    "boost-process",
     "date",
+    "gtest",
     "jwt-cpp",
     "nlohmann-json",
-    "picojson",
     "openssl",
+    "picojson",
     "protobuf",
     "safetyhook",
     "spdlog",
@@ -39,6 +41,7 @@
       ]
     },
     "sqlitecpp",
-    "stduuid"
+    "stduuid",
+    "tiny-process-library"
   ]
 }

@@ -433,6 +433,7 @@ FodyWeavers.xsd
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/discord.xml
 
 # AWS User-specific
 .idea/**/aws.xml
