@@ -1,5 +1,5 @@
-#include <ResourcesUtilities.h>
 #include <iostream>
+#include <ResourcesUtilities.h>
 #if defined(_WIN32)
 #include <windows.h>
 #elif defined(__linux__)
@@ -11,45 +11,44 @@ namespace fs = std::filesystem;
 std::filesystem::path ResourcesUtilities::GetCurrentExecutablePath()
 {
 #if defined(_WIN32)
-    wchar_t buffer[MAX_PATH];
-    GetModuleFileNameW(nullptr, buffer, MAX_PATH);
-    return std::filesystem::path(buffer);
+        wchar_t buffer[MAX_PATH];
+        GetModuleFileNameW(nullptr, buffer, MAX_PATH);
+        return std::filesystem::path(buffer);
 
 #elif defined(__linux__)
-    char    buffer[4096];
-    ssize_t len = readlink("/proc/self/exe", buffer, sizeof(buffer) - 1);
-    buffer[len] = '\0';
-    return std::filesystem::path(buffer);
+        char buffer[4096];
+        ssize_t len = readlink("/proc/self/exe", buffer, sizeof(buffer) - 1);
+        buffer[len] = '\0';
+        return std::filesystem::path(buffer);
 #else
-    static_assert(false, "Unsupported platform");
+        static_assert(false, "Unsupported platform");
 #endif
 }
 
 std::filesystem::path ResourcesUtilities::GetExecutableWorkingDirectory()
 {
-    return ResourcesUtilities::GetCurrentExecutablePath().parent_path();
+        return ResourcesUtilities::GetCurrentExecutablePath().parent_path();
 }
 
-std::filesystem::path ResourcesUtilities::GetResourcesFolder()
-{
-    static std::filesystem::path resFolderPath = []
-    {
-        fs::path current = fs::absolute(GetExecutableWorkingDirectory());
-
-        while (true)
+std::filesystem::path ResourcesUtilities::GetResourcesFolder() {
+        static std::filesystem::path resFolderPath = []
         {
-            fs::path candidate = current / "resources";
-            if (fs::is_directory(candidate))
-                return candidate;
+                fs::path current = fs::absolute(GetExecutableWorkingDirectory());
 
-            if (current == current.root_path())
-            {
-                std::cerr << "Failed to find resources directory" << std::endl;
-                throw std::runtime_error("Failed to find resources directory");
-            }
+                while (true)
+                {
+                        fs::path candidate = current / "resources";
+                        if (fs::is_directory(candidate))
+                                return candidate;
 
-            current = current.parent_path();
-        }
-    }();
-    return resFolderPath;
+                        if (current == current.root_path())
+                        {
+                                std::cerr << "Failed to find resources directory" << std::endl;
+                                throw std::runtime_error("Failed to find resources directory");
+                        }
+
+                        current = current.parent_path();
+                }
+        }();
+        return resFolderPath;
 }

@@ -1,10 +1,8 @@
 #pragma once
 #include <PacketProcessor.h>
 
-class SetReadyProcessor : public WebsocketPacketProcessor
-{
-  public:
-    explicit SetReadyProcessor(SpectreRpcType rpcType);
-    void Process(SpectreWebsocketRequest &packet,
-                 SpectreWebsocket        &sock) override;
+class SetReadyProcessor : public WebsocketPacketProcessor {
+public:
+	explicit SetReadyProcessor(SpectreRpcType rpcType);
+	void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

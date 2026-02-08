@@ -1,20 +1,14 @@
 #pragma once
-#include "Regex.h"
-
 #include <PacketProcessor.h>
 #include <unordered_map>
+#include "Regex.h"
 
-class RegexPayloadProcessorHTTP : public HTTPPacketProcessor
-{
-  private:
+class RegexPayloadProcessorHTTP : public HTTPPacketProcessor {
+private:
     std::unordered_map<regex, std::shared_ptr<json>> m_resMap;
+public:
+    RegexPayloadProcessorHTTP(const std::string& route, const std::unordered_map<regex, std::shared_ptr<json>>& resMap)
+        : HTTPPacketProcessor(route), m_resMap(resMap) {};
 
-  public:
-    RegexPayloadProcessorHTTP(
-        const std::string                                      &route,
-        const std::unordered_map<regex, std::shared_ptr<json>> &resMap)
-        : HTTPPacketProcessor(route), m_resMap(resMap){};
-
-    void Process(http::request<http::string_body> const &req,
-                 tcp::socket                            &sock) override;
+    void Process(http::request<http::string_body> const& req, tcp::socket& sock) override;
 };
