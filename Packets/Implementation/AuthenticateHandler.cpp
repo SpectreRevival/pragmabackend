@@ -1,3 +1,5 @@
+#include "ResourcesUtilities.h"
+
 #include <AuthLatch.h>
 #include <AuthenticateHandler.h>
 #include <OutfitLoadout.pb.h>
@@ -14,17 +16,14 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <fstream>
+#include <jwt-cpp/jwt.h>
 #include <nlohmann/json.hpp>
 #include <random>
 #include <string>
-#include <jwt-cpp/jwt.h>
-
-#include "ResourcesUtilities.h"
 
 using tcp = boost::asio::ip::tcp;
 
-struct AuthCfg
-{
+struct AuthCfg {
     std::string steamApiKey;
 };
 
@@ -167,10 +166,8 @@ static std::string B64urlJson(const nlohmann::json& j) {
     while (!out.empty() && out.back() == '=') out.pop_back();
     return out;
 }
-static const std::string& GetPragmaPrivateKey()
-{
-    static std::string pragmaPrivateKey = []
-    {
+static const std::string& GetPragmaPrivateKey() {
+    static std::string pragmaPrivateKey = [] {
         std::ifstream keyFile(ResourcesUtilities::GetResourcesFolder() / "pragma_private.pem");
         std::stringstream ss;
         ss << keyFile.rdbuf();
@@ -191,8 +188,7 @@ std::string AuthenticateHandler::BuildJwt(
     picojson::object header = {
         {"kid", picojson::value("d3JtOq6jy3_HquwTsrzt81wh3BLiA-4f-qM8mj-0-YQ=")},
         {"alg", picojson::value("RS256")},
-        {"typ", picojson::value("JWT")}
-    };
+        {"typ", picojson::value("JWT")}};
 
     const std::string jti = boost::uuids::to_string(boost::uuids::random_generator()());
     picojson::object payload = {
@@ -210,20 +206,17 @@ std::string AuthenticateHandler::BuildJwt(
         {"extSessionInfo", picojson::value(R"({"permissions":0,"accountTags":["canary"]})")},
         {"expiresInMillis", picojson::value("86400000")},
         {"refreshInMillis", picojson::value("36203000")},
-        {"pragmaPlayerId", picojson::value(playerId)}
-    };
+        {"pragmaPlayerId", picojson::value(playerId)}};
 
-    if (backendType == "GAME")
-    {
+    if (backendType == "GAME") {
         payload["gameShardId"] = picojson::value("00000000-0000-0000-0000-000000000001");
     }
 
     auto token = jwt::create()
-    .set_header_claim("kid", jwt::claim(header["kid"]))
-    .set_header_claim("typ", jwt::claim(header["typ"]))
-    .set_header_claim("alg", jwt::claim(header["alg"]));
-    for (auto& [key, value] : payload)
-    {
+                     .set_header_claim("kid", jwt::claim(header["kid"]))
+                     .set_header_claim("typ", jwt::claim(header["typ"]))
+                     .set_header_claim("alg", jwt::claim(header["alg"]));
+    for (auto& [key, value] : payload) {
         token.set_payload_claim(key, jwt::claim(value));
     }
     return token.sign(jwt::algorithm::rs256(
