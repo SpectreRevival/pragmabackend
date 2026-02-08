@@ -2,8 +2,8 @@
 // Created by astro on 27/09/2025.
 //
 
-#include "StaticHTTPPackets.cpp"
-#include "StaticWSPackets.cpp"
+#include "StaticHTTPPackets.cpp" // NOLINT
+#include "StaticWSPackets.cpp" // NOLINT
 
 #include <AuthenticateHandler.h>
 #include <CreatePartyProcessor.h>
