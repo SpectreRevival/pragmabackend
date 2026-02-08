@@ -16,12 +16,12 @@ Checks: >
   performance-*,
   portability-*,
   readability-*,
-  -cppcoreguidelines-avoid-non-const-global-variables
-  -misc-use-anonymous-namespace
-  -readability-braces-around-statements
-  -modernize-use-trailing-return-type
-  -hicpp-braces-around-statements
-  -misc-const-correctness
+  -cppcoreguidelines-avoid-non-const-global-variables,
+  -misc-use-anonymous-namespace,
+  -readability-braces-around-statements,
+  -modernize-use-trailing-return-type,
+  -hicpp-braces-around-statements,
+  -misc-const-correctness,
   -cert-err58-cpp
 CheckOptions:
   - key: readability-identifier-naming.ClassCase
