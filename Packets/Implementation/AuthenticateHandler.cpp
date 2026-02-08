@@ -275,7 +275,7 @@ static std::string B64urlJson(const nlohmann::json& j) {
         }
     }
     if (valb > -6) out.push_back(t[((val << 8) >> (valb + 8)) & 0x3F]);
-    while ((out.size() % 4) != 0u) out.push_back('=');
+    while ((out.size() % 4) != 0U) out.push_back('=');
     while (!out.empty() && out.back() == '=') out.pop_back();
     return out;
 }

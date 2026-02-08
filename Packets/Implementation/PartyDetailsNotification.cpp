@@ -1,12 +1,13 @@
 #include <PartyDetailsNotification.h>
+#include <utility>
 
 PartyDetailsNotification::PartyDetailsNotification(const std::string& partyId, SpectreRpcType notificationType)
     : Notification(notificationType) {
     payload = PartyDatabase::Get().GetPartyRes(partyId);
 }
 
-PartyDetailsNotification::PartyDetailsNotification(const PartyResponse& partyRes, const SpectreRpcType notificationType)
-    : Notification(notificationType), payload(partyRes) {
+PartyDetailsNotification::PartyDetailsNotification(PartyResponse  partyRes, const SpectreRpcType notificationType)
+    : Notification(notificationType), payload(std::move(partyRes)) {
     
 }
 
