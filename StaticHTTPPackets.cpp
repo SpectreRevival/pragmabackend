@@ -1,3 +1,4 @@
+#pragma once
 #include <fstream>
 #include <filesystem>
 #include <spdlog/spdlog.h>
