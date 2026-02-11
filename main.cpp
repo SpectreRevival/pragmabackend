@@ -86,14 +86,12 @@ void SetupLogger() {
 static std::string StripQueryParams(const std::string& url) {
     size_t pos = url.find('?');
     if (pos != std::string::npos) {
-        if (url[0] == '/' && url[1] == '/')
-        {
+        if (url[0] == '/' && url[1] == '/') {
             return url.substr(1, pos);
         }
         return url.substr(0, pos);
     }
-    if (url[0] == '/' && url[1] == '/')
-    {
+    if (url[0] == '/' && url[1] == '/') {
         return url.substr(1);
     }
     return url;
