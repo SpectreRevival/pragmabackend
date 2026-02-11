@@ -1,6 +1,8 @@
 name: autoformat
 on:
   pull_request:
+  push:
+    branches: [master]
 jobs:
   clang-format:
     runs-on: ubuntu-latest
@@ -29,13 +31,3 @@ jobs:
             )
           
           clang-format -i $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp
-
-      - name: Push fixes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet; then
-            git add -A
-            git commit -m "Apply clang-format"
-            git push
-          fi
