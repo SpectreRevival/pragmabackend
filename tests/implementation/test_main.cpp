@@ -6,25 +6,25 @@
 #include "SequencedRequestTest.h"
 #include <ResourcesUtilities.h>
 
-static std::vector<std::string> gWsPaths = []{
-    std::vector<std::string> paths;
+static std::vector<fs::path> gWsPaths = []{
+    std::vector<fs::path> paths;
     for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "ws"))
         {
         if (item.is_regular_file() && item.path().extension() == ".json") {
-            paths.push_back(item.path().string());
+            paths.push_back(item.path());
 }
         }
     return paths;
 }();
 
-static std::vector<std::string> gHttpPaths = []
+static std::vector<fs::path> gHttpPaths = []
 {
-    std::vector<std::string> paths;
+    std::vector<fs::path> paths;
     for (auto& item : std::filesystem::directory_iterator(ResourcesUtilities::GetResourcesFolder() / "testrequests" / "http"))
     {
         if (item.is_regular_file() && item.path().extension() == ".json")
         {
-            paths.push_back(item.path().string());
+            paths.push_back(item.path());
         }
     }
     return paths;
