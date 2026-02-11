@@ -11,7 +11,6 @@ GetLoginDataProcessor::GetLoginDataProcessor(const SpectreRpcType& rpcType)
 }
 
 void GetLoginDataProcessor::Process(SpectreWebsocketRequest& request, SpectreWebsocket& sock) {
-    // todo add player data
     std::string loginDataRes = R"({"loginData":{"ext":{"inboxMessages":[],"playerData":)";
     std::unique_ptr<PlayerData> playerData = PlayerDatabase::Get().GetField<PlayerData>(FieldKey::PLAYER_DATA, sock.GetPlayerId());
     loginDataRes += GetPlayerDataProcessor::GetPlayerDataAsString(*playerData);

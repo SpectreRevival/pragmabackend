@@ -99,25 +99,25 @@ GameDataStore::GameDataStore(const std::string& inventoryStorePath) {
     inventoryStore_bufCache = InventoryStoreToPayload(&inventoryStore);
 }
 
-std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>> GameDataStore::InventoryStore_mut() {
+std::unique_ptr<InventoryContent, std::function<void(const InventoryContent*)>> GameDataStore::InventoryStore_mut() {
     // When the returned pointer goes out of scope, call the RefreshInventoryStoreCache method in the class
-    std::unique_lock storeLock(inventoryStoreLock);
-    return std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>>(
+    while (!inventoryStoreLock.try_lock()) {}
+    return std::unique_ptr<InventoryContent, std::function<void(const InventoryContent*)>>(
         &inventoryStore,
         // Turns class method into static lambda
         [this](auto&& pH1) { RefreshInventoryStoreCache(std::forward<decltype(pH1)>(pH1)); });
 }
 
-std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>> GameDataStore::InventoryStore() {
-    std::unique_lock storeLock(inventoryStoreLock);
-    return std::unique_ptr<InventoryContent, std::function<void(InventoryContent*)>>(
+std::unique_ptr<const InventoryContent, std::function<void(const InventoryContent*)>> GameDataStore::InventoryStore() {
+    while (!inventoryStoreLock.try_lock()) {}
+    return std::unique_ptr<const InventoryContent, std::function<void(const InventoryContent*)>>(
         &inventoryStore,
         [this](auto&& pH1) { UnlockInventoryStore(std::forward<decltype(pH1)>(pH1)); });
 }
 
-std::unique_ptr<std::string, std::function<void(std::string*)>> GameDataStore::InventoryStore_buf() {
-    std::unique_lock storeLock(inventoryStoreLock);
-    return std::unique_ptr<std::string, std::function<void(std::string*)>>(
+std::unique_ptr<const std::string, std::function<void(const std::string*)>> GameDataStore::InventoryStore_buf() {
+    while (!inventoryStoreLock.try_lock()) {}
+    return std::unique_ptr<std::string, std::function<void(const std::string*)>>(
         &inventoryStore_bufCache,
         [this](auto&& pH1) { UnlockInventoryStore2(std::forward<decltype(pH1)>(pH1)); });
 }
@@ -126,10 +126,10 @@ GameDataStore& GameDataStore::Get() {
     return inst;
 }
 
-void GameDataStore::UnlockInventoryStore2(std::string* /*unused*/) {
+void GameDataStore::UnlockInventoryStore2(const std::string* /*unused*/) {
     inventoryStoreLock.unlock();
 }
 
-void GameDataStore::UnlockInventoryStore(InventoryContent* /*unused*/) {
+void GameDataStore::UnlockInventoryStore(const InventoryContent* /*unused*/) {
     inventoryStoreLock.unlock();
 }

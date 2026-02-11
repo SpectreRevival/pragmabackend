@@ -5,15 +5,13 @@ import "CustomGameInfo.proto";
 
 message Party {
 	BroadcastPartyExtraInfo extBroadcastParty = 1;
-	BroadcastPrivatePartyExtraInfo extPrivatePlayer = 2;
+	map<string, string> extPrivatePlayer = 2;
 	string partyId = 3;
 	repeated PartyMember partyMembers = 4;
 	string inviteCode = 5;
 	repeated string preferredGameServerZones = 6;
 	string version = 7;
 }
-
-message BroadcastPrivatePartyExtraInfo {} // no clue what this is supposed to have yet
 
 message BroadcastPartyExtraInfo {
 	string pool = 1;
@@ -29,4 +27,5 @@ message BroadcastPartyExtraInfo {
 	bool useTeamMmr = 11;
 	bool hasAcceptableRegion = 12;
 	CrossplayPreferences crossPlayPreference = 13;
+	repeated string removePlayers = 14;
 }

@@ -15,7 +15,6 @@ PartyDatabase::PartyDatabase(const fs::path& path)
         GetRaw()->exec("ALTER TABLE " + GetTableName() + " ADD COLUMN PartyCode TEXT;");
     }
     AddPrototype<BroadcastPartyExtraInfo>(FieldKey::PARTY_EXTRA_BROADCAST_INFO);
-    AddPrototype<BroadcastPrivatePartyExtraInfo>(FieldKey::PARTY_PRIVATE_EXTRA_BROADCAST_INFO);
     AddPrototype<PartyMembers>(FieldKey::PARTY_MEMBERS);
 }
 
@@ -32,7 +31,6 @@ void PartyDatabase::SaveParty(const Party& party) {
     }
     SetField(FieldKey::PARTY_MEMBERS, &members, party.partyid());
     SetField(FieldKey::PARTY_EXTRA_BROADCAST_INFO, &party.extbroadcastparty(), party.partyid());
-    SetField(FieldKey::PARTY_PRIVATE_EXTRA_BROADCAST_INFO, &party.extprivateplayer(), party.partyid());
     sql::Statement setPartyCode(GetRawRef(),
                                 "INSERT INTO " + GetTableName() + "(" + GetKeyFieldName() + ", PartyCode) VALUES(?,?) ON CONFLICT(" + GetKeyFieldName() + ") DO UPDATE SET PartyCode = excluded.PartyCode;");
     setPartyCode.bind(1, party.partyid());
