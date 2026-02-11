@@ -5,6 +5,10 @@
 #include <fstream>
 #include <stack>
 
+void ApplyTestRequestInserts(json& payload, const std::stack<json>& responses) {
+
+}
+
 TEST_P(SequencedRequestTest, ResponseValidation) {
     std::queue<fs::path> requests;
     std::stack<json> responses;
@@ -31,6 +35,7 @@ TEST_P(SequencedRequestTest, ResponseValidation) {
         json testJson = json::parse(testJsonStr);
         if (testJson.contains("rpcType")) {
             // ws request
+            ApplyTestRequestInserts(testJson["requestBody"], responses);
             json out;
             RunWebsocketTest(testJson, out);
             responses.push(out["response"]["payload"]);
