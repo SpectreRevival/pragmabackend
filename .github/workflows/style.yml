@@ -13,6 +13,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          fetch-depth: 0
+          ref: ${{github.event.pull_request.head.ref}}
 
       - name: Install clang-tidy
         run: |
@@ -54,3 +58,14 @@ jobs:
           )
           
           run-clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux
+
+      - name: Upload clang-tidy fixes
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet; then
+            git add -A
+            git commit -m "Apply clang-tidy"
+            git push
+          fi

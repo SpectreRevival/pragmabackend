@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
           fetch-depth: 0
           ref: ${{github.event.pull_request.head.ref}}
 
@@ -27,4 +28,14 @@ jobs:
             | grep -vE 'out/|vcpkg_installed/|vcpkg/'
             )
           
-          clang-format -i --dry-run --Werror $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp
+          clang-format -i $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp
+
+      - name: Push fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet; then
+            git add -A
+            git commit -m "Apply clang-format"
+            git push
+          fi
