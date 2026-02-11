@@ -3,9 +3,11 @@
 #include <HTTPRequestTest.h>
 #include <WebsocketRequestTest.h>
 #include <fstream>
+#include <stack>
 
 TEST_P(SequencedRequestTest, ResponseValidation) {
     std::queue<fs::path> requests;
+    std::stack<json> responses;
     int i = 0;
     while (true) {
         fs::path curTestPath = GetParam() / (std::to_string(i) + ".json");
@@ -29,10 +31,14 @@ TEST_P(SequencedRequestTest, ResponseValidation) {
         json testJson = json::parse(testJsonStr);
         if (testJson.contains("rpcType")) {
             // ws request
-            RunWebsocketTest(testJson);
+            json out;
+            RunWebsocketTest(testJson, out);
+            responses.push(out["response"]["payload"]);
         } else {
             // http request
-            RunHTTPTest(testJson);
+            json out;
+            RunHTTPTest(testJson, out);
+            responses.push(out);
         }
     }
 }

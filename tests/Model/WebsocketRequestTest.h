@@ -8,5 +8,5 @@ using namespace nlohmann;
 class WebsocketRequestTest : public RequestTest {
 };
 
-void RunWebsocketTest(fs::path testPath);
-void RunWebsocketTest(json testJson);
+void RunWebsocketTest(fs::path testPath, json& outResponse);
+void RunWebsocketTest(json testJson, json& outResponse);

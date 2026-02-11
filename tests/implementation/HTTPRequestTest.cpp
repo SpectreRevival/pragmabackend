@@ -4,18 +4,18 @@
 #include <TestHTTPClient.h>
 #include <JsonTestUtil.h>
 
-void RunHTTPTest(fs::path testPath)
+void RunHTTPTest(fs::path testPath, json& outResponse)
 {
     std::ifstream testFile(testPath);
     std::stringstream ss;
     ss << testFile.rdbuf();
     std::string testJsonStr = ss.str();
     json testJson = json::parse(testJsonStr);
-    RunHTTPTest(testJson);
+    return RunHTTPTest(testJson, outResponse);
 }
 
 
-void RunHTTPTest(json testJson)
+void RunHTTPTest(json testJson, json& outResponse)
 {
     std::cout << "Test info: " << std::endl;
     std::cout << "Path: " << testJson["path"].dump() << std::endl;
@@ -34,13 +34,14 @@ void RunHTTPTest(json testJson)
     if (res.body().empty()) {
         GTEST_SKIP() << "Got an empty response";
     }
-    json resJson = json::parse(res.body());
+    outResponse = json::parse(res.body());
     json expectedResponse = json::parse(testJson["response"].get<std::string>());
-    EXPECT_TRUE(JsonMatchesSchema(resJson, expectedResponse,
+    EXPECT_TRUE(JsonMatchesSchema(outResponse, expectedResponse,
                                   testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true,
                                   !testJson.contains("ignoreAdd") || testJson["ignoreAdd"] == true));
 }
 
 TEST_P(HTTPRequestTest, ResponseValidation) {
-    RunHTTPTest(GetParam());
+    json out;
+    RunHTTPTest(GetParam(), out);
 }

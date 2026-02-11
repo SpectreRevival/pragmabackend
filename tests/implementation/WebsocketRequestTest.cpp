@@ -4,17 +4,17 @@
 #include <TestWebsocketClient.h>
 #include "boost/asio/buffers_iterator.hpp"
 
-void RunWebsocketTest(fs::path testJsonPath)
+void RunWebsocketTest(fs::path testJsonPath, json& outResponse)
 {
     std::ifstream testFile(testJsonPath);
     std::stringstream ss;
     ss << testFile.rdbuf();
     std::string testJsonStr = ss.str();
     json testJson = json::parse(testJsonStr);
-    RunWebsocketTest(testJson);
+    RunWebsocketTest(testJson, outResponse);
 }
 
-void RunWebsocketTest(json testJson)
+void RunWebsocketTest(json testJson, json& outResponse)
 {
     TestWebsocketClient wsClient(8082);
     SpectreRpcType reqType = SpectreRpcType(testJson["rpcType"].get<std::string>());
@@ -27,20 +27,20 @@ void RunWebsocketTest(json testJson)
     if (resStr.empty()) {
         GTEST_SKIP() << "Skipping since no response given";
     }
-    json responseFull;
-    ASSERT_NO_THROW(responseFull = json::parse(resStr));
-    ASSERT_TRUE(responseFull.contains("sequenceNumber"));
-    ASSERT_TRUE(responseFull["sequenceNumber"] == 0);
-    ASSERT_TRUE(responseFull.contains("response"));
-    ASSERT_TRUE(responseFull["response"].contains("requestId"));
-    ASSERT_TRUE(responseFull["response"].contains("type"));
-    ASSERT_TRUE(SpectreRpcType(responseFull["response"]["type"].get<std::string>()) == reqType.GetResponseType());
-    ASSERT_TRUE(responseFull["response"].contains("payload"));
-    ASSERT_TRUE(JsonMatchesSchema(responseFull["response"]["payload"], testJson["responsePayload"],
+    ASSERT_NO_THROW(outResponse = json::parse(resStr));
+    ASSERT_TRUE(outResponse.contains("sequenceNumber"));
+    ASSERT_TRUE(outResponse["sequenceNumber"] == 0);
+    ASSERT_TRUE(outResponse.contains("response"));
+    ASSERT_TRUE(outResponse["response"].contains("requestId"));
+    ASSERT_TRUE(outResponse["response"].contains("type"));
+    ASSERT_TRUE(SpectreRpcType(outResponse["response"]["type"].get<std::string>()) == reqType.GetResponseType());
+    ASSERT_TRUE(outResponse["response"].contains("payload"));
+    ASSERT_TRUE(JsonMatchesSchema(outResponse["response"]["payload"], testJson["responsePayload"],
                                   testJson.contains("ignoreReplace") && testJson["ignoreReplace"] == true,
                                   !testJson.contains("ignoreAdd") || testJson["ignoreAdd"] == true));
 }
 
 TEST_P(WebsocketRequestTest, ResponseValidation) {
-    RunWebsocketTest(GetParam());
+    json out;
+    RunWebsocketTest(GetParam(), out);
 }

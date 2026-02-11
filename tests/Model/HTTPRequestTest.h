@@ -10,5 +10,5 @@ class HTTPRequestTest : public RequestTest
 
 };
 
-void RunHTTPTest(fs::path testPath);
-void RunHTTPTest(json testJson);
+void RunHTTPTest(fs::path testPath, json& outResponse);
+void RunHTTPTest(json testJson, json& outResponse);
