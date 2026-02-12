@@ -7,8 +7,8 @@
 #include <ProfileData.pb.h>
 #include <stduuid/uuid.h>
 
-static const std::string inviteCodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-static int inviteCodeNChars = 6;
+static constexpr std::string_view inviteCodeChars = "ABCDEFGHIJgKLMNOPQRSTUVWXYZ";
+static constexpr int inviteCodeNChars = 6;
 
 CreatePartyProcessor::CreatePartyProcessor(const SpectreRpcType& rpcType)
     : WebsocketPacketProcessor(rpcType), uuidgen(stdrandgen), stdrandgen(std::random_device{}()) {
@@ -23,7 +23,7 @@ std::string CreatePartyProcessor::GetNewInviteCode() {
     while (true) {
         std::string inviteCode;
         for (int i = 0; i < inviteCodeNChars; i++) {
-            inviteCode += inviteCodeChars[dist(stdrandgen)];
+            inviteCode += inviteCodeChars.at(dist(stdrandgen));
         }
         sql::Statement query(*PartyDatabase::Get().GetRaw(), "SELECT 1 FROM " + PartyDatabase::Get().GetTableName() + " WHERE PartyCode = ? LIMIT 1");
         query.bind(1, inviteCode);
@@ -45,7 +45,7 @@ void CreatePartyProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebso
     party->set_version("1");
 
     BroadcastPartyExtraInfo* pExtra = party->mutable_extbroadcastparty();
-    (*pExtra->mutable_standard())["mode"] = "Standard";
+    pExtra->mutable_standard()->at("mode") = "Standard";
     pExtra->set_lobbymode("standard_casual");
     pExtra->set_version("173322");
     pExtra->set_hasacceptableregion(true);
@@ -79,11 +79,11 @@ void CreatePartyProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebso
     for (int i = 0; i < outfitLoadouts->loadouts_size(); i++) {
         OutfitLoadout* loadout = outfitLoadouts->mutable_loadouts(i);
 
-        if (iequals(loadout->loadoutid(), playerDat->attackeroutfitloadoutid())) {
+        if (CaseInsensitiveEquals(loadout->loadoutid(), playerDat->attackeroutfitloadoutid())) {
             selectedAttackerOutfit = loadout;
         }
 
-        if (iequals(loadout->loadoutid(), playerDat->defenderoutfitloadoutid())) {
+        if (CaseInsensitiveEquals(loadout->loadoutid(), playerDat->defenderoutfitloadoutid())) {
             selectedDefenderOutfit = loadout;
         }
     }

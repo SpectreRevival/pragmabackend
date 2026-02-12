@@ -34,12 +34,12 @@ namespace sql = SQLite;
 */
 class Database {
   private:
-    fs::path m_filename;
-    sql::Database m_dbRaw;
-    std::string m_tableName;
-    std::string m_keyFieldName;
-    std::string m_keyFieldType;
-    pbuf::util::JsonParseOptions m_parseOpts;
+    fs::path filename;
+    sql::Database dbRaw;
+    std::string tableName;
+    std::string keyFieldName;
+    std::string keyFieldType;
+    pbuf::util::JsonParseOptions parseOpts;
     static std::unordered_map<FieldKey, const std::string> classNames;
     static std::unordered_map<FieldKey, std::unique_ptr<const pbuf::Message>> defaultFieldValues;
     template <typename T>
@@ -82,7 +82,7 @@ class Database {
                 spdlog::error("sz < {} in GetFields, cell cannot contain a FieldKey", sizeof(FieldKey));
                 throw;
             }
-            FieldKey savedFieldKey;
+            FieldKey savedFieldKey{};
             memcpy(&savedFieldKey, blob, sizeof(FieldKey));
             if (savedFieldKey != key) {
                 spdlog::error("FieldKey passed to GetFields {} was not the same as FieldKey found in saved object", static_cast<uint32_t>(key));
@@ -145,7 +145,7 @@ class Database {
     void AddPrototype(FieldKey key) {
         static_assert(std::is_base_of_v<pbuf::Message, T>, "Type provided to AddPrototype must inherit from protobuf::Message");
         classNames.insert({key, std::string(T::descriptor()->name())});
-        sql::Statement colQuery(m_dbRaw, "PRAGMA table_info(" + GetTableName() + ");");
+        sql::Statement colQuery(dbRaw, "PRAGMA table_info(" + GetTableName() + ");");
         bool colExists = false;
         while (colQuery.executeStep()) {
             std::string colName = colQuery.getColumn(1).getText();
@@ -155,7 +155,7 @@ class Database {
             }
         }
         if (!colExists) {
-            m_dbRaw.exec("ALTER TABLE " + GetTableName() + " ADD COLUMN " + std::string(T::descriptor()->name()) + " BLOB;");
+            dbRaw.exec("ALTER TABLE " + GetTableName() + " ADD COLUMN " + std::string(T::descriptor()->name()) + " BLOB;");
         }
     }
 
@@ -167,7 +167,7 @@ class Database {
         buf << defaultFile.rdbuf();
         const std::string data = buf.str();
         T defaultFieldData;
-        if (auto status = pbuf::util::JsonStringToMessage(data, &defaultFieldData, m_parseOpts); !status.ok()) {
+        if (auto status = pbuf::util::JsonStringToMessage(data, &defaultFieldData, parseOpts); !status.ok()) {
             spdlog::error("failed to parse default message: {}", status.message());
             throw;
         }

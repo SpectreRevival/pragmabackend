@@ -8,7 +8,6 @@
 #include <nlohmann/json.hpp>
 
 using tcp = boost::asio::ip::tcp;
-namespace ssl = boost::asio::ssl;
 namespace http = boost::beast::http;
 using ws = boost::beast::websocket::stream<tcp::socket>;
 using json = nlohmann::ordered_json;
@@ -16,16 +15,16 @@ namespace pbuf = google::protobuf;
 
 class SpectreWebsocket {
   private:
-    ws& socket;
+    ws& socket; // NOLINT
     int curSequenceNumber;
-    std::string m_playerId;
+    std::string playerId;
 
   public:
     SpectreWebsocket(ws& sock, const http::request<http::string_body>& req);
     /*
         Warning: Do not send packets through the socket directly, it bypasses abstraction and will cause bad things to happen
     */
-    const ws& GetRawSocket() const;
+    [[nodiscard]] const ws& GetRawSocket() const;
 
     void SendPacket(const std::shared_ptr<json>& res);
 

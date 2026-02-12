@@ -2,7 +2,7 @@
 #include <PlayerData.pb.h>
 #include <PlayerDatabase.h>
 
-static const std::string endOfConfigJson = "\"inputBindingsVersion\":3}";
+static constexpr std::string_view endOfConfigJson = "\"inputBindingsVersion\":3}";
 
 GetPlayerDataProcessor::GetPlayerDataProcessor(const SpectreRpcType& rpcType)
     : WebsocketPacketProcessor(rpcType) {
@@ -24,7 +24,7 @@ std::string GetPlayerDataProcessor::GetPlayerDataAsString(const PlayerData& play
     finalPlayerDataComponent += "\"{";
     int endIndex = 0;
     for (int i = 59; i < playerDataComponent.size(); i++) {
-        char curChar = playerDataComponent[i];
+        char curChar = playerDataComponent.at(i);
         if (curChar == '}') {
             if (playerDataComponent.compare(i - endOfConfigJson.length() + 1, endOfConfigJson.length(), endOfConfigJson) == 0) {
                 finalPlayerDataComponent += "}\"";

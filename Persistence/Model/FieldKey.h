@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-enum class FieldKey : uint32_t {
+enum class FieldKey : uint32_t { // NOLINT
     PLAYER_INVENTORY,
     PLAYER_OUTFIT_LOADOUT,
     PLAYER_WEAPON_LOADOUT,

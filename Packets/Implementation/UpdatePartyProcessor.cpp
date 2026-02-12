@@ -24,7 +24,7 @@ void UpdatePartyProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebso
     broadcastExtra->set_useteammmr(req->requestext().useteammmr());
     broadcastExtra->set_hasacceptableregion(req->requestext().acceptableregions_size() > 0);
     for (const auto& entry : req->requestext().standard()) {
-        (*broadcastExtra->mutable_standard())[entry.first] = entry.second;
+        broadcastExtra->mutable_standard()->at(entry.first) = entry.second;
     }
     PartyDatabase::Get().SaveParty(res.party());
     sock.SendPacket(PartyDatabase::SerializePartyToString(res), packet.GetRequestId(), packet.GetResponseType());

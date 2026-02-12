@@ -1,6 +1,6 @@
 #include <ResourcesUtilities.h>
 #include <iostream>
-#if defined(_WIN32)
+#ifdef _WIN32
 #include <windows.h>
 #elif defined(__linux__)
 #include <unistd.h>
@@ -9,11 +9,10 @@
 namespace fs = std::filesystem;
 
 std::filesystem::path ResourcesUtilities::GetCurrentExecutablePath() {
-#if defined(_WIN32)
-    wchar_t buffer[MAX_PATH];
-    GetModuleFileNameW(nullptr, buffer, MAX_PATH);
+#ifdef _WIN32
+    wchar_t buffer[MAX_PATH];                      // NOLINT
+    GetModuleFileNameW(nullptr, buffer, MAX_PATH); // NOLINT
     return std::filesystem::path(buffer);
-
 #elif defined(__linux__)
     char buffer[4096];                                                    // NOLINT
     ssize_t len = readlink("/proc/self/exe", buffer, sizeof(buffer) - 1); // NOLINT

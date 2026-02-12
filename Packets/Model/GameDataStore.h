@@ -5,7 +5,7 @@
 class GameDataStore {
   private:
     InventoryContent inventoryStore;
-    std::string inventoryStore_bufCache;
+    std::string inventoryStoreBufCache;
     static GameDataStore inst;
     void RefreshInventoryStoreCache(const InventoryContent* invStore);
     void UnlockInventoryStore2(const std::string* unused);
@@ -28,7 +28,7 @@ class GameDataStore {
      * If InventoryStore_buf or InventoryStore is called before the returned pointer of this method goes out of scope in the same thread, will hang forever :D
      * Do not store this pointer
      */
-    std::unique_ptr<InventoryContent, std::function<void(const InventoryContent*)>> InventoryStore_mut();
+    std::unique_ptr<InventoryContent, std::function<void(const InventoryContent*)>> InventoryStoreMut();
     /**
      * Get a reference to the InventoryStore as a string payload, this cached and should be used
      * when sending requests like GetLoginDataV3 as it may be expensive to serialize a 60k line json file over and over.
@@ -36,5 +36,5 @@ class GameDataStore {
      * Do not store this pointer for longer than you absolutely need it to avoid unnecessary blocking of other threads.
      * Thread-safe
      */
-    std::unique_ptr<const std::string, std::function<void(const std::string*)>> InventoryStore_buf();
+    std::unique_ptr<const std::string, std::function<void(const std::string*)>> InventoryStoreBuf();
 };

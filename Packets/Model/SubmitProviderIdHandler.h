@@ -1,8 +1,5 @@
 #pragma once
 #include <PacketProcessor.h>
-#include <spdlog/spdlog.h>
-
-namespace fs = std::filesystem;
 
 class SubmitProviderIdHandler : public HTTPPacketProcessor {
   public:

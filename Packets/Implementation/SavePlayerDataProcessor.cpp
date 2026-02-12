@@ -3,7 +3,7 @@
 #include <SavePlayerDataProcessor.h>
 #include <google/protobuf/util/json_util.h>
 
-static const std::string endOfConfigJson = "\"inputBindingsVersion\": 3";
+static constexpr std::string_view endOfConfigJson = "\"inputBindingsVersion\": 3";
 
 SavePlayerDataProcessor::SavePlayerDataProcessor(SpectreRpcType rpcType)
     : WebsocketPacketProcessor(rpcType) {
@@ -29,7 +29,7 @@ void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWe
             }
             index++;
         } else if (curChar == '}') {
-            if (reqFormatted.compare(reqFormatted.size() - endOfConfigJson.size(), endOfConfigJson.size(), endOfConfigJson) == 0) {
+            if (reqFormatted.ends_with(endOfConfigJson)) {
                 reqFormatted += curChar;
                 index += 2;
                 break;
@@ -61,6 +61,6 @@ void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWe
         PlayerDatabase::Get().SetField(FieldKey::PLAYER_DATA, &playerData, sock.GetPlayerId());
     }
     std::shared_ptr<json> res = packet.GetBaseJsonResponse();
-    (*res)["payload"]["success"] = true;
+    res->at("payload").at("success") = true;
     sock.SendPacket(res);
 }

@@ -25,7 +25,7 @@ static std::string InventoryStoreToPayload(const InventoryContent* invStore) { /
 
     while (curPos != std::string::npos) {
         curPos--;
-        char curChar = jsonstr[curPos];
+        char curChar = jsonstr.at(curPos);
         jsonstr2 += std::string(jsonstr.begin() + lastPos, jsonstr.begin() + curPos);
         jsonstr2 += '\"';
         while (curChar != '}') {
@@ -35,7 +35,7 @@ static std::string InventoryStoreToPayload(const InventoryContent* invStore) { /
                 jsonstr2 += curChar;
             }
             curPos++;
-            curChar = jsonstr[curPos];
+            curChar = jsonstr.at(curPos);
         }
         jsonstr2 += curChar;
         jsonstr2 += '\"';
@@ -47,8 +47,8 @@ static std::string InventoryStoreToPayload(const InventoryContent* invStore) { /
     curPos = jsonstr2.find("\"gameData\":{}");
     while (curPos != std::string::npos) {
         curPos += 11;
-        jsonstr2[curPos] = '\"';
-        jsonstr2[curPos + 1] = '\"';
+        jsonstr2.at(curPos) = '\"';
+        jsonstr2.at(curPos + 1) = '\"';
         curPos = jsonstr2.find("\"gameData\":{}");
     }
     curPos = jsonstr2.find(R"("gameData":"{\"contentId\":\"\")");
@@ -60,7 +60,7 @@ static std::string InventoryStoreToPayload(const InventoryContent* invStore) { /
         size_t i = startQuote + 1;
         bool esc = false;
         for (; i < jsonstr2.size(); ++i) {
-            char ch = jsonstr2[i];
+            char ch = jsonstr2.at(i);
             if (esc) {
                 esc = false;
                 continue;
@@ -79,7 +79,7 @@ static std::string InventoryStoreToPayload(const InventoryContent* invStore) { /
 }
 
 void GameDataStore::RefreshInventoryStoreCache(const InventoryContent* invStore) {
-    inventoryStore_bufCache = InventoryStoreToPayload(invStore);
+    inventoryStoreBufCache = InventoryStoreToPayload(invStore);
     inventoryStoreLock.unlock();
 }
 
@@ -96,10 +96,10 @@ GameDataStore::GameDataStore(const std::string& inventoryStorePath) {
         spdlog::error("failed to initialize InventoryStore: {}", status.message());
         throw;
     }
-    inventoryStore_bufCache = InventoryStoreToPayload(&inventoryStore);
+    inventoryStoreBufCache = InventoryStoreToPayload(&inventoryStore);
 }
 
-std::unique_ptr<InventoryContent, std::function<void(const InventoryContent*)>> GameDataStore::InventoryStore_mut() {
+std::unique_ptr<InventoryContent, std::function<void(const InventoryContent*)>> GameDataStore::InventoryStoreMut() {
     // When the returned pointer goes out of scope, call the RefreshInventoryStoreCache method in the class
     while (!inventoryStoreLock.try_lock()) {}
     return std::unique_ptr<InventoryContent, std::function<void(const InventoryContent*)>>(
@@ -115,10 +115,10 @@ std::unique_ptr<const InventoryContent, std::function<void(const InventoryConten
         [this](auto&& pH1) { UnlockInventoryStore(std::forward<decltype(pH1)>(pH1)); });
 }
 
-std::unique_ptr<const std::string, std::function<void(const std::string*)>> GameDataStore::InventoryStore_buf() {
+std::unique_ptr<const std::string, std::function<void(const std::string*)>> GameDataStore::InventoryStoreBuf() {
     while (!inventoryStoreLock.try_lock()) {}
     return std::unique_ptr<std::string, std::function<void(const std::string*)>>(
-        &inventoryStore_bufCache,
+        &inventoryStoreBufCache,
         [this](auto&& pH1) { UnlockInventoryStore2(std::forward<decltype(pH1)>(pH1)); });
 }
 

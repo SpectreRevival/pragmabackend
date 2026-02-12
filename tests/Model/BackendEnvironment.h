@@ -3,9 +3,10 @@
 #include <process.hpp>
 
 class BackendEnvironment : public ::testing::Environment {
-  public:
+  private:
     std::unique_ptr<TinyProcessLib::Process> server;
 
+  public:
     void SetUp() override;
 
     void TearDown() override;

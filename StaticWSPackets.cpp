@@ -7,7 +7,7 @@
 #include <spdlog/spdlog.h>
 #include <string>
 
-void RegisterStaticHandlerFromFile(std::string filename, SpectreRpcType rpcType) {
+static void RegisterStaticHandlerFromFile(std::string filename, SpectreRpcType rpcType) {
     std::ifstream resfile(filename);
     if (!resfile.is_open()) {
         throw std::runtime_error("failed to open response file");
@@ -18,8 +18,8 @@ void RegisterStaticHandlerFromFile(std::string filename, SpectreRpcType rpcType)
     new StaticResponseProcessorWS(rpcType, std::make_shared<json>(std::move(res)));
 }
 
-void RegisterRegexHandlerFromFiles(SpectreRpcType rpcType, std::unordered_map<regex, std::string> map) {
-    std::unordered_map<regex, std::shared_ptr<json>> map2;
+static void RegisterRegexHandlerFromFiles(SpectreRpcType rpcType, std::initializer_list<std::pair<Regex, std::string>> map) {
+    std::unordered_map<Regex, std::shared_ptr<json>> map2;
     for (const auto& [regex, filename] : map) {
         std::ifstream resfile(filename);
         if (!resfile.is_open()) {
@@ -46,7 +46,7 @@ void RegisterStaticWSHandlers() {
         std::string rpcType = file.path().filename().stem().string();
         RegisterStaticHandlerFromFile(fs::absolute(file.path()).string(), SpectreRpcType(rpcType));
     }
-    RegisterRegexHandlerFromFiles(SpectreRpcType("MtnBeaconServiceRpc.GetBeaconEndpointsV1Request"), {{regex("hathora-udp\""), (ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "beacon" / "hathora-udp.json").string()},
-                                                                                                      {regex("hathora\""), (ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "beacon" / "hathora.json").string()}});
+    RegisterRegexHandlerFromFiles(SpectreRpcType("MtnBeaconServiceRpc.GetBeaconEndpointsV1Request"), {{Regex("hathora-udp\""), (ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "beacon" / "hathora-udp.json").string()},
+                                                                                                      {Regex("hathora\""), (ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "beacon" / "hathora.json").string()}});
 }
 #pragma warning(pop)

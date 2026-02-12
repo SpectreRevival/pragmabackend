@@ -9,7 +9,7 @@ namespace http = boost::beast::http;
 using json = nlohmann::json;
 
 SteamValidator::SteamValidator(std::string apiKey)
-    : m_apiKey(std::move(apiKey)) {}
+    : apiKey(std::move(apiKey)) {}
 
 std::string SteamValidator::HttpGet(const std::string& host, const std::string& target) {
     boost::asio::io_context ioc;
@@ -30,18 +30,18 @@ std::string SteamValidator::HttpGet(const std::string& host, const std::string& 
 }
 
 std::optional<SteamPlayerInfo> SteamValidator::ValidateSteamId(const std::string& steam64) const {
-    if (m_apiKey.empty()) return std::nullopt;
+    if (apiKey.empty()) return std::nullopt;
 
     auto body = HttpGet("api.steampowered.com",
-                        "/ISteamUser/GetPlayerSummaries/v2/?key=" + m_apiKey + "&steamids=" + steam64 /* + "&format=json"*/);
+                        "/ISteamUser/GetPlayerSummaries/v2/?key=" + apiKey + "&steamids=" + steam64 /* + "&format=json"*/);
 
     try {
         auto j = json::parse(body);
-        auto& players = j["response"]["players"];
+        auto& players = j.at("response").at("players");
 
         if (players.empty()) return std::nullopt;
         SteamPlayerInfo out;
-        auto& player = players[0];
+        auto& player = players.at(0);
         out.steamId = player.value("steamid", "");
         out.personaName = player.value("personaname", "");
         return out;

@@ -128,7 +128,7 @@ std::string PartyDatabase::SerializePartyToString(const PartyResponse& partyRes)
     pos += sharedClientDataStart.size();
     std::string jsonfinal = std::string(jsoninit.begin(), jsoninit.begin() + pos);
     jsonfinal += '\"';
-    char curChar = jsoninit[pos];
+    char curChar = jsoninit.at(pos);
     while (curChar != '}') {
         if (curChar == '\"') {
             jsonfinal += "\\\"";
@@ -136,7 +136,7 @@ std::string PartyDatabase::SerializePartyToString(const PartyResponse& partyRes)
             jsonfinal += curChar;
         }
         pos++;
-        curChar = jsoninit[pos];
+        curChar = jsoninit.at(pos);
     }
     jsonfinal += "}\"";
     jsonfinal += std::string(jsoninit.begin() + pos + 1, jsoninit.end());

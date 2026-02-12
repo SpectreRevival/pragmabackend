@@ -21,7 +21,7 @@ void SaveWeaponLoadoutProcessor::Process(SpectreWebsocketRequest& packet, Spectr
     bool dataWritten = false;
     for (int i = 0; i < loadouts->weaponloadoutdata_size(); i++) {
 
-        if (iequals(loadouts->weaponloadoutdata(i).loadoutid(), loadoutToSave.loadoutid())) {
+        if (CaseInsensitiveEquals(loadouts->weaponloadoutdata(i).loadoutid(), loadoutToSave.loadoutid())) {
 
             loadouts->mutable_weaponloadoutdata(i)->CopyFrom(loadoutToSave);
             loadouts->mutable_weaponloadoutdata(i)->set_playerid(sock.GetPlayerId());
@@ -38,7 +38,7 @@ void SaveWeaponLoadoutProcessor::Process(SpectreWebsocketRequest& packet, Spectr
     }
     PlayerDatabase::Get().SetField(FieldKey::PLAYER_WEAPON_LOADOUT, loadouts.get(), sock.GetPlayerId());
     std::shared_ptr<json> res = packet.GetBaseJsonResponse();
-    (*res)["payload"]["success"] = true;
-    (*res)["payload"]["savedLoadoutId"] = loadoutToSave.loadoutid();
+    res->at("payload").at("success") = true;
+    res->at("payload").at("savedLoadoutId") = loadoutToSave.loadoutid();
     sock.SendPacket(res);
 }

@@ -7,42 +7,44 @@
 
 class HTTPPacketProcessor {
   private:
-    std::string m_route;
-    inline static std::unordered_map<std::string, HTTPPacketProcessor*> HTTP_ROUTES = {};
+    std::string route;
+    inline static std::unordered_map<std::string, HTTPPacketProcessor*> httpRoutes = {};
 
   public:
     explicit HTTPPacketProcessor(std::string route)
-        : m_route(std::move(route)) {
-        HTTP_ROUTES[m_route] = this;
+        : route(std::move(route)) {
+        httpRoutes[route] = this;
     };
+    HTTPPacketProcessor(HTTPPacketProcessor& other) = delete;
+    HTTPPacketProcessor(HTTPPacketProcessor&& other) = delete;
     virtual void Process(const http::request<http::string_body>& req, tcp::socket& sock) = 0;
     virtual ~HTTPPacketProcessor() = default;
-    std::string& GetRoute() const {
-        return const_cast<std::string&>(m_route);
+    [[nodiscard]] const std::string& GetRoute() const {
+        return route;
     }
     static HTTPPacketProcessor* GetProcessorForRoute(const std::string& route) {
-        auto it = HTTP_ROUTES.find(route);
-        return it == HTTP_ROUTES.end() ? nullptr : it->second;
+        auto it = httpRoutes.find(route);
+        return it == httpRoutes.end() ? nullptr : it->second;
     }
 };
 
 class WebsocketPacketProcessor {
   private:
-    SpectreRpcType m_rpcType;
-    inline static std::unordered_map<SpectreRpcType, WebsocketPacketProcessor*> WEBSOCKET_ROUTES = {};
+    SpectreRpcType rpcType;
+    inline static std::unordered_map<SpectreRpcType, WebsocketPacketProcessor*> websocketRoutes = {};
 
   public:
     explicit WebsocketPacketProcessor(const SpectreRpcType& rpcType)
-        : m_rpcType(rpcType) {
-        WEBSOCKET_ROUTES[rpcType] = this;
+        : rpcType(rpcType) {
+        websocketRoutes[rpcType] = this;
     }
     virtual void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) = 0;
     virtual ~WebsocketPacketProcessor() = default;
-    const SpectreRpcType& GetType() {
-        return m_rpcType;
+    [[nodiscard]] const SpectreRpcType& GetType() const {
+        return rpcType;
     }
     static WebsocketPacketProcessor* GetProcessorForRpc(const SpectreRpcType& rpcType) {
-        const auto it = WEBSOCKET_ROUTES.find(rpcType);
-        return it == WEBSOCKET_ROUTES.end() ? nullptr : it->second;
+        const auto it = websocketRoutes.find(rpcType);
+        return it == websocketRoutes.end() ? nullptr : it->second;
     }
 };

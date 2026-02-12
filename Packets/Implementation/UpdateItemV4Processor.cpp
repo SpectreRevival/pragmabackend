@@ -10,7 +10,7 @@ UpdateItemV4Processor::UpdateItemV4Processor(SpectreRpcType rpcType)
 
 static void SendSuccessfulUpdate(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
     std::shared_ptr<json> resjson = packet.GetBaseJsonResponse();
-    (*resjson)["payload"]["success"] = true;
+    resjson->at("payload").at("success") = true;
     sock.SendPacket(resjson);
 }
 

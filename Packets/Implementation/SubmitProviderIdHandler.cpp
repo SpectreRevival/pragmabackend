@@ -15,7 +15,7 @@ static std::string GetSteamApiKey() {
     std::stringstream ss;
     ss << authFile.rdbuf();
     json authJson = json::parse(ss.str());
-    return authJson["steamApiKey"].get<std::string>();
+    return authJson.at("steamApiKey").get<std::string>();
 }
 
 static std::string ClientIp(const tcp::socket& sock) {
@@ -43,10 +43,10 @@ void SubmitProviderIdHandler::Process(const http::request<http::string_body>& re
     }
 
     const auto body = json::parse(req.body(), nullptr, false);
-    if (body.is_discarded() || !body.contains("providerId") || !body["providerId"].is_string()) {
+    if (body.is_discarded() || !body.contains("providerId") || !body.at("providerId").is_string()) {
         return reply(http::status::bad_request, R"({"error":"providerId required"})");
     }
-    const std::string steam64 = body["providerId"];
+    const std::string steam64 = body.at("providerId");
     if (steam64.empty()) {
         return reply(http::status::bad_request, R"({"error":"providerId required"})");
     }

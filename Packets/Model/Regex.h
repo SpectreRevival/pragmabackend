@@ -3,28 +3,28 @@
 #include <string>
 
 namespace betterrx {
-    struct regex {
+    struct Regex {
       public:
-        std::string m_pattern;
-        std::regex m_rx;
+        std::string pattern;
+        std::regex rx;
 
-        regex(const std::string& pattern)
-            : m_pattern(pattern), m_rx(pattern) {};
-        bool operator==(const regex& other) const {
-            return m_pattern == other.m_pattern;
+        explicit Regex(const std::string& pattern)
+            : pattern(pattern), rx(pattern) {};
+        bool operator==(const Regex& other) const {
+            return pattern == other.pattern;
         }
-        operator std::regex() const {
-            return m_rx;
+        explicit operator std::regex() const {
+            return rx;
         }
     };
 } // namespace betterrx
-using regex = betterrx::regex;
+using Regex = betterrx::Regex;
 
 namespace std {
     template <>
-    struct hash<betterrx::regex> {
-        std::size_t operator()(const betterrx::regex& regex) const noexcept {
-            return std::hash<std::string>{}(regex.m_pattern);
+    struct hash<betterrx::Regex> {
+        std::size_t operator()(const betterrx::Regex& regex) const noexcept {
+            return std::hash<std::string>{}(regex.pattern);
         }
     };
 } // namespace std

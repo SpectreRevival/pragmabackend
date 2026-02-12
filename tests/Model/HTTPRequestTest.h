@@ -3,7 +3,7 @@
 #include <nlohmann/json.hpp>
 
 namespace fs = std::filesystem;
-using namespace nlohmann;
+using json = nlohmann::ordered_json;
 
 class HTTPRequestTest : public RequestTest {
 };

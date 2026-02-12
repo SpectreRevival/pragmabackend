@@ -11,11 +11,11 @@ using reqbuf = boost::beast::flat_buffer;
 
 class SpectreWebsocketRequest {
   private:
-    SpectreWebsocket& m_websocket;
-    reqbuf m_requestbuf;
-    SpectreRpcType m_requestType;
-    std::shared_ptr<json> m_reqjson;
-    std::string m_payloadAsStr;
+    SpectreWebsocket& websocket;
+    reqbuf requestBuf;
+    SpectreRpcType requestType;
+    std::shared_ptr<json> reqJson;
+    std::string payloadAsStr;
     int m_requestId;
 
   public:
@@ -28,7 +28,7 @@ class SpectreWebsocketRequest {
         static_assert(std::is_base_of_v<pbuf::Message, T>, "Type passed to GetPayloadAsMessage must be subclass of pbuf::Message");
         T message;
         auto status = pbuf::util::JsonStringToMessage(
-            m_payloadAsStr,
+            payloadAsStr,
             &message);
         if (!status.ok()) {
             spdlog::error("Failed to parse incoming request to message: {}", status.message());
@@ -38,15 +38,15 @@ class SpectreWebsocketRequest {
     }
 
     reqbuf* GetRawBuffer() {
-        return &m_requestbuf;
+        return &requestBuf;
     }
 
     [[nodiscard]] SpectreWebsocket& GetSocket() const {
-        return m_websocket;
+        return websocket;
     }
 
     [[nodiscard]] SpectreRpcType GetRequestType() const {
-        return m_requestType;
+        return requestType;
     }
 
     std::string GetResponseType() const;

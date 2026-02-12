@@ -5,14 +5,14 @@
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
 
-pbuf::util::JsonPrintOptions opts = []() {
-    pbuf::util::JsonPrintOptions options;
+static pbuf::util::JsonPrintOptions opts = []() {
+    static pbuf::util::JsonPrintOptions options;
     options.always_print_fields_with_no_presence = true;
     return options;
 }();
 
 static std::string ExtractBearer(const http::request<http::string_body>& req) {
-    auto auth = req.base()[http::field::authorization];
+    auto auth = req.base().at(http::field::authorization);
     if (auth.empty()) return {};
     static constexpr std::string_view prefix = "Bearer ";
     const std::string s = std::string(auth);
@@ -48,10 +48,10 @@ SpectreWebsocket::SpectreWebsocket(ws& sock, const http::request<http::string_bo
     const auto pid = bearer.empty() ? std::string() : DecodePlayerIdNoverify(bearer);
 
     if (!pid.empty()) {
-        m_playerId = pid;
+        playerId = pid;
     } else {
         spdlog::error("no playerid ???? investigate me!");
-        m_playerId = "1";
+        playerId = "1";
     }
 };
 
@@ -61,8 +61,8 @@ const ws& SpectreWebsocket::GetRawSocket() const {
 
 void SpectreWebsocket::SendPacket(const std::shared_ptr<json>& res) {
     json packet;
-    packet["sequenceNumber"] = curSequenceNumber;
-    packet["response"] = *res;
+    packet.at("sequenceNumber") = curSequenceNumber;
+    packet.at("response") = *res;
     curSequenceNumber++;
     socket.text(true);
     // dont pass temporary because beast will fragment it
@@ -94,9 +94,9 @@ void SpectreWebsocket::SendPacket(const std::string& resPayload, int requestId, 
 
 void SpectreWebsocket::SendNotification(const std::shared_ptr<json>& notifPayload, const SpectreRpcType& notificationType) {
     json packet;
-    packet["sequenceNumber"] = curSequenceNumber;
-    packet["notification"]["type"] = notificationType.GetName();
-    packet["notification"]["payload"] = *notifPayload;
+    packet.at("sequenceNumber") = curSequenceNumber;
+    packet.at("notification").at("type") = notificationType.GetName();
+    packet.at("notification").at("payload") = *notifPayload;
     curSequenceNumber++;
     socket.text(true);
     std::string msg = packet.dump();
@@ -124,5 +124,5 @@ void SpectreWebsocket::SendNotification(const pbuf::Message& notif, const Spectr
 }
 
 const std::string& SpectreWebsocket::GetPlayerId() {
-    return m_playerId;
+    return playerId;
 }

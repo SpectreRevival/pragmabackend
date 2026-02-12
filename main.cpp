@@ -66,7 +66,7 @@ using tcp = asio::ip::tcp;
 
 static std::shared_ptr<spdlog::logger> logger;
 
-void SetupLogger() {
+static void SetupLogger() {
     auto consoleSink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
     auto fileSink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/app.log", true);
 
@@ -86,18 +86,18 @@ void SetupLogger() {
 static std::string StripQueryParams(const std::string& url) {
     size_t pos = url.find('?');
     if (pos != std::string::npos) {
-        if (url[0] == '/' && url[1] == '/') {
+        if (url.at(0) == '/' && url.at(1) == '/') {
             return url.substr(1, pos);
         }
         return url.substr(0, pos);
     }
-    if (url[0] == '/' && url[1] == '/') {
+    if (url.at(0) == '/' && url.at(1) == '/') {
         return url.substr(1);
     }
     return url;
 }
 
-void Session(tcp::socket sock) {
+static void Session(tcp::socket sock) {
     try {
         beast::flat_buffer buffer; // http parser scratch space
         http::request<http::string_body> req;
@@ -150,7 +150,7 @@ void Session(tcp::socket sock) {
     }
 }
 
-void ConnectionAcceptor(unsigned short port) {
+static void ConnectionAcceptor(unsigned short port) {
     try {
         asio::io_context ioc; // we use sync ops but asio still wants an io_context around
 

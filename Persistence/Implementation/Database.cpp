@@ -7,17 +7,17 @@ std::unordered_map<FieldKey, const std::string> Database::classNames;
 std::unordered_map<FieldKey, std::unique_ptr<const pbuf::Message>> Database::defaultFieldValues;
 
 Database::Database(const fs::path& dbPath, std::string tableName, std::string keyFieldName, const std::string& /*keyFieldType*/)
-    : m_filename(dbPath), m_dbRaw(dbPath.string(), sql::OPEN_READWRITE | sql::OPEN_CREATE),
-      m_tableName(std::move(tableName)), m_keyFieldName(std::move(keyFieldName)) {
-    m_dbRaw.exec("CREATE TABLE IF NOT EXISTS " + GetTableName() + " (" + GetKeyFieldName() + " " + GetKeyFieldType() + " PRIMARY KEY);");
+    : filename(dbPath), dbRaw(dbPath.string(), sql::OPEN_READWRITE | sql::OPEN_CREATE),
+      tableName(std::move(tableName)), keyFieldName(std::move(keyFieldName)) {
+    dbRaw.exec("CREATE TABLE IF NOT EXISTS " + GetTableName() + " (" + GetKeyFieldName() + " " + GetKeyFieldType() + " PRIMARY KEY);");
 }
 
 sql::Database* Database::GetRaw() {
-    return &m_dbRaw;
+    return &dbRaw;
 }
 
 sql::Database& Database::GetRawRef() {
-    return m_dbRaw;
+    return dbRaw;
 }
 
 sql::Statement Database::FormatStatement(std::string command, FieldKey key) {
@@ -31,7 +31,7 @@ sql::Statement Database::FormatStatement(std::string command, FieldKey key) {
         command.replace(colPos, sizeof("{col}") - 1, GetFieldName(key));
         colPos = command.find("{col}");
     }
-    return sql::Statement(m_dbRaw, command);
+    return sql::Statement(dbRaw, command);
 }
 
 /** Makes the following assumptions:
@@ -77,13 +77,13 @@ const std::string& Database::GetFieldName(FieldKey key) {
 }
 
 const std::string& Database::GetTableName() {
-    return m_tableName;
+    return tableName;
 }
 
 const std::string& Database::GetKeyFieldName() {
-    return m_keyFieldName;
+    return keyFieldName;
 }
 
 const std::string& Database::GetKeyFieldType() {
-    return m_keyFieldType;
+    return keyFieldType;
 }

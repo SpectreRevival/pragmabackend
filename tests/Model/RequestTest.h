@@ -8,6 +8,7 @@ namespace fs = std::filesystem;
 class RequestTest : public ::testing::TestWithParam<fs::path> {
     std::unique_ptr<BackendEnvironment> backend;
 
+  public:
     void SetUp() override;
 
     void TearDown() override;

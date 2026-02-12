@@ -13,35 +13,35 @@ boost::bimap<K, V> BimapFromInitializerList(std::initializer_list<std::pair<K, V
 
 class SpectreRpcType {
   private:
-    int m_typeId;
+    int typeId;
 
   public:
     SpectreRpcType()
-        : m_typeId(0) {}
+        : typeId(0) {}
     SpectreRpcType(const SpectreRpcType& type) = default;
     explicit SpectreRpcType(int typeId)
-        : m_typeId(typeId) {};
+        : typeId(typeId) {};
     explicit SpectreRpcType(const std::string& name)
-        : m_typeId(typeIdToName.left.at(name)) {};
+        : typeId(typeIdToName.left.at(name)) {};
 
     [[nodiscard]] std::string GetName() const {
-        return typeIdToName.right.at(m_typeId);
+        return typeIdToName.right.at(typeId);
     }
 
     [[nodiscard]] int GetId() const {
-        return m_typeId;
+        return typeId;
     }
 
     [[nodiscard]] SpectreRpcType GetResponseType() const {
         std::string resType = GetName();
-        if (resType.size() >= 7 && resType.compare(resType.size() - 7, 7, "Request") == 0)
+        if (resType.size() >= 7 && resType.ends_with("Request"))
             resType.erase(resType.size() - 7);
         resType += "Response";
         return SpectreRpcType(resType);
     }
 
     bool operator==(const SpectreRpcType& other) const {
-        return other.m_typeId == m_typeId;
+        return other.typeId == typeId;
     }
 
   private:

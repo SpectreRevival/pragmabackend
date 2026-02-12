@@ -14,7 +14,7 @@ void SaveOutfitLoadoutProcessor::Process(SpectreWebsocketRequest& packet, Spectr
 
     bool dataWritten = false;
     for (int i = 0; i < loadouts->loadouts_size(); i++) {
-        if (iequals(loadouts->loadouts(i).loadoutid(), loadoutToSave->loadoutid())) {
+        if (CaseInsensitiveEquals(loadouts->loadouts(i).loadoutid(), loadoutToSave->loadoutid())) {
 
             loadouts->mutable_loadouts(i)->CopyFrom(*loadoutToSave);
             loadouts->mutable_loadouts(i)->set_playerid(sock.GetPlayerId());
@@ -31,7 +31,7 @@ void SaveOutfitLoadoutProcessor::Process(SpectreWebsocketRequest& packet, Spectr
     }
     PlayerDatabase::Get().SetField(FieldKey::PLAYER_OUTFIT_LOADOUT, loadouts.get(), sock.GetPlayerId());
     std::shared_ptr<json> res = packet.GetBaseJsonResponse();
-    (*res)["payload"]["success"] = true;
-    (*res)["payload"]["savedLoadoutId"] = loadoutToSave->loadoutid();
+    res->at("payload").at("success") = true;
+    res->at("payload").at("savedLoadoutId") = loadoutToSave->loadoutid();
     sock.SendPacket(res);
 }

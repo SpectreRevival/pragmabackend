@@ -23,9 +23,11 @@
 
 using tcp = boost::asio::ip::tcp;
 
-struct AuthCfg {
-    std::string steamApiKey;
-};
+namespace {
+    struct AuthCfg {
+        std::string steamApiKey;
+    };
+} // namespace
 
 static const AuthCfg& GetAuthCfg() {
     static AuthCfg cfg = [] {
@@ -33,8 +35,8 @@ static const AuthCfg& GetAuthCfg() {
         auto tryPath = [&](const char* p) {
             if (std::ifstream f(p); f.is_open()) {
                 auto j = json::parse(f, nullptr, false);
-                if (!j.is_discarded() && j.contains("steamApiKey") && j["steamApiKey"].is_string()) {
-                    c.steamApiKey = j["steamApiKey"].get<std::string>();
+                if (!j.is_discarded() && j.contains("steamApiKey") && j.at("steamApiKey").is_string()) {
+                    c.steamApiKey = j.at("steamApiKey").get<std::string>();
                 }
             }
         };

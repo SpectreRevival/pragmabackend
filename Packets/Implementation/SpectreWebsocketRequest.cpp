@@ -4,37 +4,37 @@
 #include <spdlog/spdlog.h>
 
 SpectreWebsocketRequest::SpectreWebsocketRequest(SpectreWebsocket& sock, reqbuf req)
-    : m_websocket(sock), m_requestbuf(std::move(req)) {
-    json reqjson = json::parse(static_cast<const char*>(m_requestbuf.data().data()), static_cast<const char*>(m_requestbuf.data().data()) + m_requestbuf.size());
-    m_reqjson = std::make_shared<json>(reqjson);
+    : websocket(sock), requestBuf(std::move(req)) {
+    json reqjson = json::parse(static_cast<const char*>(requestBuf.data().data()), static_cast<const char*>(requestBuf.data().data()) + requestBuf.size());
+    reqJson = std::make_shared<json>(reqjson);
     try {
-        m_requestType = SpectreRpcType(std::string((*m_reqjson)["type"]));
+        requestType = SpectreRpcType(std::string(reqJson->at("type")));
     } catch (std::exception& e) {
-        spdlog::warn("log type not found for " + (*m_reqjson)["type"].get<std::string>());
+        spdlog::warn("log type not found for " + reqJson->at("type").get<std::string>());
     }
-    m_requestId = (*m_reqjson)["requestId"];
-    m_payloadAsStr = (*m_reqjson)["payload"].dump();
+    m_requestId = reqJson->at("requestId");
+    payloadAsStr = reqJson->at("payload").dump();
 }
 
 std::shared_ptr<json> SpectreWebsocketRequest::GetPayload() const {
-    return std::make_shared<json>(((*m_reqjson)["payload"]));
+    return std::make_shared<json>((reqJson->at("payload")));
 }
 
 std::shared_ptr<json> SpectreWebsocketRequest::GetBaseJsonResponse() {
     json response;
-    response["requestId"] = m_requestId;
-    response["type"] = GetResponseType();
-    response["payload"] = json::object();
+    response.at("requestId") = m_requestId;
+    response.at("type") = GetResponseType();
+    response.at("payload") = json::object();
     return std::make_shared<json>(std::move(response));
 }
 
 void SpectreWebsocketRequest::SendEmptyResponse() {
-    m_websocket.SendPacket(GetBaseJsonResponse());
+    websocket.SendPacket(GetBaseJsonResponse());
 }
 
 std::string SpectreWebsocketRequest::GetResponseType() const {
-    std::string resType = m_requestType.GetName();
-    if (resType.size() >= 7 && resType.compare(resType.size() - 7, 7, "Request") == 0) {
+    std::string resType = requestType.GetName();
+    if (resType.size() >= 7 && resType.ends_with("Request")) {
         resType.erase(resType.size() - 7);
     }
     resType += "Response";

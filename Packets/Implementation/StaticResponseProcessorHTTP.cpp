@@ -7,7 +7,7 @@ void StaticResponseProcessorHTTP::Process(const http::request<http::string_body>
     res.result(http::status::ok);
     res.set(http::field::content_type, "application/json; charset=UTF-8");
     res.set(http::field::vary, "Origin");
-    res.body() = m_res->dump();
+    res.body() = staticRes->dump();
     res.prepare_payload();
     http::write(sock, res);
 }

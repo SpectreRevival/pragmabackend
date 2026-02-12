@@ -7,7 +7,9 @@ AuthLatch& AuthLatch::Get() {
 
 void AuthLatch::Put(const std::string& ip, const std::string& providerId, int seconds) {
     std::scoped_lock lk(mtx);
-    map[ip] = LatchEntry{providerId, std::chrono::steady_clock::now() + std::chrono::seconds(seconds)};
+    map[ip] = LatchEntry{
+        .providerId = providerId,
+        .expires = std::chrono::steady_clock::now() + std::chrono::seconds(seconds)};
 }
 
 std::string AuthLatch::TakeIfFresh(const std::string& ip) {

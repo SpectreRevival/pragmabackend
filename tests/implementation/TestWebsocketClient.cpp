@@ -6,15 +6,15 @@
 #include <TestHTTPClient.h>
 
 TestWebsocketClient::TestWebsocketClient(unsigned short port) :
-io_ctx(),
-work_guard(boost::asio::make_work_guard(io_ctx)),
+ioCtx(),
+workGuard(boost::asio::make_work_guard(ioCtx)),
 nextRequestId(0)
 {
-    io_thread = std::thread([this]{
-    io_ctx.run();
+    ioThread = std::thread([this]{
+    ioCtx.run();
     });
-    boost::asio::ip::tcp::resolver resolver(io_ctx);
-    ws = std::make_shared<boost::beast::websocket::stream<boost::asio::ip::tcp::socket>>(io_ctx);
+    boost::asio::ip::tcp::resolver resolver(ioCtx);
+    ws = std::make_shared<boost::beast::websocket::stream<boost::asio::ip::tcp::socket>>(ioCtx);
     HTTPFetch(8081, "/v1/submitproviderid", R"({"providerId": "76561199041068696"})", boost::beast::http::verb::post);
     boost::beast::http::response<boost::beast::http::string_body> authRes = HTTPFetch(8081, "/v1/account/authenticateorcreatev2", R"({
     "providerId": "STEAM",
@@ -39,34 +39,6 @@ nextRequestId(0)
 std::shared_ptr<boost::beast::websocket::stream<boost::asio::ip::tcp::socket>> TestWebsocketClient::GetRawSocket()
 {
     return ws;
-}
-
-boost::beast::flat_buffer TestWebsocketClient::SendPacket(const std::string& packet, const SpectreRpcType rpcType) const
-{
-    std::string final = "{\"requestId\":" + std::to_string(nextRequestId) + ",\"type\":\"" + rpcType.GetName() + "\",\"payload\":" + packet + "}";
-    ws->write(boost::asio::buffer(final));
-    boost::beast::flat_buffer buffer;
-    boost::asio::steady_timer timer(ws->get_executor());
-
-    // Timeout waiting for response after 3 seconds
-    timer.expires_after(std::chrono::seconds(3));
-    timer.async_wait([&](auto ec) {
-        if (!ec) {
-            boost::system::error_code ignore;
-            ws->next_layer().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ignore);
-            ws->next_layer().close(ignore);
-        }
-    });
-
-    boost::system::error_code ec;
-    ws->read(buffer, ec);
-
-    timer.cancel();
-
-    if (ec == boost::asio::error::operation_aborted) {
-        return {};
-    }
-    return buffer;
 }
 
 boost::beast::flat_buffer TestWebsocketClient::SendPacket(const nlohmann::json& packet, SpectreRpcType rpcType) const
@@ -98,8 +70,8 @@ boost::beast::flat_buffer TestWebsocketClient::SendPacket(const nlohmann::json& 
 }
 
 TestWebsocketClient::~TestWebsocketClient() {
-    work_guard.reset();   // allow io_context to stop
-    io_ctx.stop();        // stop any pending operations
-    if (io_thread.joinable())
-        io_thread.join(); // wait for background thread
+    workGuard.reset();   // allow io_context to stop
+    ioCtx.stop();        // stop any pending operations
+    if (ioThread.joinable())
+        ioThread.join(); // wait for background thread
 }
