@@ -5,7 +5,7 @@ void RegexPayloadProcessorWS::Process(SpectreWebsocketRequest& packet, SpectreWe
     std::string payloadStr = packet.GetPayload()->dump();
     for (const auto& [regex, payload] : resMap) {
         if (std::regex_search(payloadStr, regex.rx)) {
-            res->at("payload") = *payload;
+            (*res)["payload"] = *payload;
             sock.SendPacket(res);
             return;
         }

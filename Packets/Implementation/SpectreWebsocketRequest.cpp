@@ -22,9 +22,9 @@ std::shared_ptr<json> SpectreWebsocketRequest::GetPayload() const {
 
 std::shared_ptr<json> SpectreWebsocketRequest::GetBaseJsonResponse() {
     json response;
-    response.at("requestId") = m_requestId;
-    response.at("type") = GetResponseType();
-    response.at("payload") = json::object();
+    response["requestId"] = m_requestId;
+    response["type"] = GetResponseType();
+    response["payload"] = json::object();
     return std::make_shared<json>(std::move(response));
 }
 

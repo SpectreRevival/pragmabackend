@@ -45,7 +45,7 @@ void CreatePartyProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebso
     party->set_version("1");
 
     BroadcastPartyExtraInfo* pExtra = party->mutable_extbroadcastparty();
-    pExtra->mutable_standard()->at("mode") = "Standard";
+    (*pExtra->mutable_standard())["mode"] = "Standard";
     pExtra->set_lobbymode("standard_casual");
     pExtra->set_version("173322");
     pExtra->set_hasacceptableregion(true);

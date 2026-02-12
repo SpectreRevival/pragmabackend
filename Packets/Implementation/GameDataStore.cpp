@@ -47,8 +47,8 @@ static std::string InventoryStoreToPayload(const InventoryContent* invStore) { /
     curPos = jsonstr2.find("\"gameData\":{}");
     while (curPos != std::string::npos) {
         curPos += 11;
-        jsonstr2.at(curPos) = '\"';
-        jsonstr2.at(curPos + 1) = '\"';
+        jsonstr2[curPos] = '\"';
+        jsonstr2[curPos + 1] = '\"';
         curPos = jsonstr2.find("\"gameData\":{}");
     }
     curPos = jsonstr2.find(R"("gameData":"{\"contentId\":\"\")");

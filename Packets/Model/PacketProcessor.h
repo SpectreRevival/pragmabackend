@@ -13,12 +13,15 @@ class HTTPPacketProcessor {
   public:
     explicit HTTPPacketProcessor(std::string route)
         : route(std::move(route)) {
-        httpRoutes[route] = this;
+        httpRoutes[this->route] = this;
     };
     HTTPPacketProcessor(HTTPPacketProcessor& other) = delete;
     HTTPPacketProcessor(HTTPPacketProcessor&& other) = delete;
     virtual void Process(const http::request<http::string_body>& req, tcp::socket& sock) = 0;
-    virtual ~HTTPPacketProcessor() = default;
+    virtual ~HTTPPacketProcessor()
+    {
+        httpRoutes.erase(route);
+    }
     [[nodiscard]] const std::string& GetRoute() const {
         return route;
     }

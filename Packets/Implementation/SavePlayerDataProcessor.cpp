@@ -61,6 +61,6 @@ void SavePlayerDataProcessor::Process(SpectreWebsocketRequest& packet, SpectreWe
         PlayerDatabase::Get().SetField(FieldKey::PLAYER_DATA, &playerData, sock.GetPlayerId());
     }
     std::shared_ptr<json> res = packet.GetBaseJsonResponse();
-    res->at("payload").at("success") = true;
+    res->at("payload")["success"] = true;
     sock.SendPacket(res);
 }

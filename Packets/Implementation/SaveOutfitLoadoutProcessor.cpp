@@ -31,7 +31,7 @@ void SaveOutfitLoadoutProcessor::Process(SpectreWebsocketRequest& packet, Spectr
     }
     PlayerDatabase::Get().SetField(FieldKey::PLAYER_OUTFIT_LOADOUT, loadouts.get(), sock.GetPlayerId());
     std::shared_ptr<json> res = packet.GetBaseJsonResponse();
-    res->at("payload").at("success") = true;
-    res->at("payload").at("savedLoadoutId") = loadoutToSave->loadoutid();
+    res->at("payload")["success"] = true;
+    res->at("payload")["savedLoadoutId"] = loadoutToSave->loadoutid();
     sock.SendPacket(res);
 }

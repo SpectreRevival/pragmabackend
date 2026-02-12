@@ -61,8 +61,8 @@ const ws& SpectreWebsocket::GetRawSocket() const {
 
 void SpectreWebsocket::SendPacket(const std::shared_ptr<json>& res) {
     json packet;
-    packet.at("sequenceNumber") = curSequenceNumber;
-    packet.at("response") = *res;
+    packet["sequenceNumber"] = curSequenceNumber;
+    packet["response"] = *res;
     curSequenceNumber++;
     socket.text(true);
     // dont pass temporary because beast will fragment it
@@ -94,9 +94,9 @@ void SpectreWebsocket::SendPacket(const std::string& resPayload, int requestId, 
 
 void SpectreWebsocket::SendNotification(const std::shared_ptr<json>& notifPayload, const SpectreRpcType& notificationType) {
     json packet;
-    packet.at("sequenceNumber") = curSequenceNumber;
-    packet.at("notification").at("type") = notificationType.GetName();
-    packet.at("notification").at("payload") = *notifPayload;
+    packet["sequenceNumber"] = curSequenceNumber;
+    packet["notification"]["type"] = notificationType.GetName();
+    packet["notification"]["payload"] = *notifPayload;
     curSequenceNumber++;
     socket.text(true);
     std::string msg = packet.dump();

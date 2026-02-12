@@ -28,14 +28,14 @@ void UpdateItemsV0Processor::Process(SpectreWebsocketRequest& packet, SpectreWeb
     FullInventory* playerInv = playerI->mutable_full();
     int invLevel = stoi(playerInv->version());
     playerInv->set_version(std::to_string(invLevel + 1));
-    (*res).at("payload").at("segment").at("removedStackables") = json::array();
-    (*res).at("payload").at("segment").at("removedInstanced") = json::array();
-    (*res).at("payload").at("segment").at("previousVersion") = std::to_string(invLevel);
-    (*res).at("payload").at("segment").at("instanced") = json::array();
-    (*res).at("payload").at("segment").at("stackables") = json::array();
-    (*res).at("payload").at("segment").at("version") = playerInv->version();
-    (*res).at("payload").at("delta").at("instanced") = json::array();
-    (*res).at("payload").at("delta").at("stackables") = json::array();
+    res->at("payload").at("segment")["removedStackables"] = json::array();
+    res->at("payload").at("segment")["removedInstanced"] = json::array();
+    res->at("payload").at("segment")["previousVersion"] = std::to_string(invLevel);
+    res->at("payload").at("segment")["instanced"] = json::array();
+    res->at("payload").at("segment")["stackables"] = json::array();
+    res->at("payload").at("segment")["version"] = playerInv->version();
+    res->at("payload").at("delta")["instanced"] = json::array();
+    res->at("payload").at("delta")["stackables"] = json::array();
     std::unique_ptr<UpdatesItemMessage> itemUpdates = packet.GetPayloadAsMessage<UpdatesItemMessage>();
     pbuf::util::JsonPrintOptions options;
     options.always_print_fields_with_no_presence = true;
@@ -56,16 +56,16 @@ void UpdateItemsV0Processor::Process(SpectreWebsocketRequest& packet, SpectreWeb
             continue;
         }
         json curDelta;
-        curDelta.at("catalogId") = curItem->catalogid();
-        curDelta.at("operation") = "UPDATED";
-        curDelta.at("tags") = json::array();
+        curDelta["catalogId"] = curItem->catalogid();
+        curDelta["operation"] = "UPDATED";
+        curDelta["tags"] = json::array();
         std::string itemInitialStr;
         if (!pbu::MessageToJsonString(*curItem, &itemInitialStr, opts).ok()) {
             spdlog::error("Failed to convert item to string");
             throw std::runtime_error("Failed to convert item to string");
         }
         json itemInitial = json::parse(itemInitialStr);
-        curDelta.at("initial") = itemInitial;
+        curDelta["initial"] = itemInitial;
         PerformItemUpdate(*curItem, itemUpdate);
         std::string finalItemStr;
         if (!pbu::MessageToJsonString(*curItem, &finalItemStr, opts).ok()) {
@@ -73,7 +73,7 @@ void UpdateItemsV0Processor::Process(SpectreWebsocketRequest& packet, SpectreWeb
             throw std::runtime_error("Failed to convert item to string");
         }
         json finalItem = json::parse(finalItemStr);
-        curDelta.at("final") = finalItem;
+        curDelta["final"] = finalItem;
         res->at("payload").at("delta").at("instanced").push_back(curDelta);
         res->at("payload").at("segment").at("instanced").push_back(finalItem);
     }
