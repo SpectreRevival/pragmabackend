@@ -10,7 +10,7 @@ class RegexPayloadProcessorHTTP : public HTTPPacketProcessor {
 
   public:
     RegexPayloadProcessorHTTP(const std::string& route, const std::unordered_map<regex, std::shared_ptr<json>>& resMap)
-        : HTTPPacketProcessor(route), m_resMap(resMap){};
+        : HTTPPacketProcessor(route), m_resMap(resMap) {};
 
     void Process(const http::request<http::string_body>& req, tcp::socket& sock) override;
 };

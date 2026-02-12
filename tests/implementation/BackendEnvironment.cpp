@@ -8,9 +8,11 @@ void BackendEnvironment::SetUp()
 #if defined(_WIN32)
     std::filesystem::path exePath = ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() /
                                     "pragmabackend.exe";
+    std::system("taskkill /f /im pragmabackend.exe");
 #elif defined(__linux__)
     std::filesystem::path exePath = ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() /
                                     "pragmabackend";
+    std::system("pkill -9 pragmabackend");
 #endif
     std::filesystem::remove(
         ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() / "playerdata.sqlite");
