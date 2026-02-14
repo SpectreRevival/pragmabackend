@@ -1,10 +1,10 @@
-#include <queue>
-#include <SequencedRequestTest.h>
 #include <HTTPRequestTest.h>
+#include <SequencedRequestTest.h>
 #include <WebsocketRequestTest.h>
 #include <fstream>
-#include <vector>
+#include <queue>
 #include <ranges>
+#include <vector>
 
 static std::vector<std::string> SplitString(std::string_view s, char delim) {
     std::vector<std::string> out;
@@ -17,7 +17,7 @@ static std::vector<std::string> SplitString(std::string_view s, char delim) {
 }
 
 static void ApplyTestRequestInserts(json& payload, const std::vector<json>& responses) {
-    for (auto& [key, value]: payload.items()) {
+    for (auto& [key, value] : payload.items()) {
         if (!value.is_string()) {
             continue;
         }

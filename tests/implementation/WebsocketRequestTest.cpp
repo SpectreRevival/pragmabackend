@@ -1,11 +1,11 @@
-#include <WebsocketRequestTest.h>
-#include <fstream>
-#include <JsonTestUtil.h>
-#include <TestWebsocketClient.h>
 #include "boost/asio/buffers_iterator.hpp"
 
-void RunWebsocketTest(const fs::path& testJsonPath, json& outResponse)
-{
+#include <JsonTestUtil.h>
+#include <TestWebsocketClient.h>
+#include <WebsocketRequestTest.h>
+#include <fstream>
+
+void RunWebsocketTest(const fs::path& testJsonPath, json& outResponse) {
     std::ifstream testFile(testJsonPath);
     std::stringstream ss;
     ss << testFile.rdbuf();

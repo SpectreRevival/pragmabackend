@@ -1,10 +1,9 @@
 #include <BackendEnvironment.h>
-#include <thread>
 #include <ResourcesUtilities.h>
 #include <filesystem>
+#include <thread>
 
-void BackendEnvironment::SetUp()
-{
+void BackendEnvironment::SetUp() {
 #if defined(_WIN32)
     std::filesystem::path exePath = ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() /
                                     "pragmabackend.exe";
@@ -28,8 +27,7 @@ void BackendEnvironment::SetUp()
     std::this_thread::sleep_for(std::chrono::seconds(3));
 }
 
-void BackendEnvironment::TearDown()
-{
+void BackendEnvironment::TearDown() {
     if (server) {
         server->kill();
         std::this_thread::sleep_for(std::chrono::seconds(1)); // wait for windows to release file handle

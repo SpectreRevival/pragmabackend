@@ -1,11 +1,10 @@
 #include <HTTPRequestTest.h>
-#include <fstream>
-#include <boost/beast/http.hpp>
-#include <TestHTTPClient.h>
 #include <JsonTestUtil.h>
+#include <TestHTTPClient.h>
+#include <boost/beast/http.hpp>
+#include <fstream>
 
-void RunHTTPTest(const fs::path& testPath, json& outResponse)
-{
+void RunHTTPTest(const fs::path& testPath, json& outResponse) {
     std::ifstream testFile(testPath);
     std::stringstream ss;
     ss << testFile.rdbuf();
@@ -14,9 +13,7 @@ void RunHTTPTest(const fs::path& testPath, json& outResponse)
     return RunHTTPTest(testJson, outResponse);
 }
 
-
-void RunHTTPTest(json testJson, json& outResponse)
-{
+void RunHTTPTest(json testJson, json& outResponse) {
     std::cout << "Test info: " << '\n';
     std::cout << "Path: " << testJson["path"].dump() << '\n';
     std::cout << "method: " << testJson["method"].dump() << '\n';

@@ -1,13 +1,11 @@
 #include <RequestTest.h>
 
-void RequestTest::SetUp()
-{
+void RequestTest::SetUp() {
     backend = std::make_unique<BackendEnvironment>();
     backend->SetUp();
 }
 
-void RequestTest::TearDown()
-{
+void RequestTest::TearDown() {
     backend->TearDown();
     backend.reset();
 }

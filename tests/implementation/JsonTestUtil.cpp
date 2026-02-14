@@ -1,8 +1,7 @@
 #include <JsonTestUtil.h>
 #include <iostream>
 
-bool JsonMatchesSchema(const json& response, const json& expectedResponse, bool ignoreReplace, bool ignoreAdd)
-{
+bool JsonMatchesSchema(const json& response, const json& expectedResponse, bool ignoreReplace, bool ignoreAdd) {
     json diff = json::diff(expectedResponse, response);
     std::cout << "DIFF: " << '\n';
     std::cout << diff.dump() << '\n';
