@@ -22,7 +22,7 @@ static std::filesystem::path GetAppDataPath_win()
 }
 #endif
 #ifdef __linux__
-std::filesystem::path PersistenceUtilities::GetAppDataPath_linux()
+static std::filesystem::path GetAppDataPath_linux()
 {
     const char* xdg = std::getenv("XDG_DATA_HOME");
     if (xdg && *xdg)

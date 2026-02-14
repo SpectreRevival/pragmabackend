@@ -26,11 +26,12 @@ static void ApplyTestRequestInserts(json& payload, const std::vector<json>& resp
         if (!expression.starts_with("${") || endPos == std::string::npos) {
             continue;
         }
-        std::string toInterpret = expression.substr(3, value.size() - 2 - endPos);
+        std::string toInterpret = expression.substr(2, expression.size() - (expression.size() - endPos) - 2);
         if (toInterpret.starts_with("responses")) {
             size_t endBrace = toInterpret.find(']');
-            int resNumber = stoi(toInterpret.substr(11, toInterpret.size() - endBrace));
-            std::string jsonPath = toInterpret.substr(endBrace + 1, toInterpret.size());
+            std::string resNumberStr = toInterpret.substr(10, endBrace - 10);
+            int resNumber = stoi(resNumberStr);
+            std::string jsonPath = toInterpret.substr(endBrace + 1, toInterpret.size() - endBrace - 1);
             std::vector<std::string> pathSplit = SplitString(jsonPath, '.');
             json valueToEmplace = responses.at(resNumber).at(pathSplit.front());
             for (int i = 1; i < pathSplit.size(); i++) {

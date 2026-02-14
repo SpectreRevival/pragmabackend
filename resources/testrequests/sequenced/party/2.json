@@ -1,6 +1,6 @@
 {
   "requestBody": {
-    "partyId": "${responses[1]party.extBroadcastParty.partyId}",
+    "partyId": "${responses[1]party.partyId}",
     "requestExt": {
       "acceptableRegions": [
       ],
