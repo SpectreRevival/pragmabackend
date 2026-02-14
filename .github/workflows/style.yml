@@ -70,11 +70,11 @@ jobs:
 
       - name: Upload patch if exists
         uses: actions/upload-artifact@v4
-        if: ${{hashFiles('autoformat.patch') != ''}}
+        if: ${{hashFiles('clang-tidy.patch') != ''}}
         with:
           path: clang-tidy.patch
 
       - name: Fail if patch exists
-        if: ${{hashFiles('autoformat.patch') != ''}}
+        if: ${{hashFiles('clang-tidy.patch') != ''}}
         run: |
           exit 1

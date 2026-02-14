@@ -43,11 +43,11 @@ jobs:
 
       - name: Upload patch if exists
         uses: actions/upload-artifact@v4
-        if: ${{hashFiles('autoformat.patch') != ''}}
+        if: ${{hashFiles('clang-format.patch') != ''}}
         with:
           path: clang-format.patch
 
       - name: Fail if patch exists
-        if: ${{hashFiles('autoformat.patch') != ''}}
+        if: ${{hashFiles('clang-format.patch') != ''}}
         run: |
           exit 1
