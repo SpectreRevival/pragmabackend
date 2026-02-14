@@ -8,6 +8,8 @@
 #include <ResourcesUtilities.h>
 #include <WeaponLoadout.pb.h>
 
+#include "PersistenceUtilities.h"
+
 PlayerDatabase::PlayerDatabase(const fs::path& path)
     : Database(path, "players", "PlayerID", "TEXT") {
     AddPrototype<Inventory>(FieldKey::PLAYER_INVENTORY, ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultInventory.json");
@@ -18,7 +20,7 @@ PlayerDatabase::PlayerDatabase(const fs::path& path)
     AddPrototype<LegacyPlayerData>(FieldKey::PLAYER_LEGACY_DATA, ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultLegacyData.json");
 }
 
-PlayerDatabase PlayerDatabase::inst("playerdata.sqlite");
+PlayerDatabase PlayerDatabase::inst(PersistenceUtilities::GetSavePath() / "playerdata.sqlite");
 
 PlayerDatabase& PlayerDatabase::Get() {
     return inst;

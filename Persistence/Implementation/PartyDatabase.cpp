@@ -1,6 +1,8 @@
 #include <PartyDatabase.h>
 #include <google/protobuf/util/json_util.h>
 
+#include "PersistenceUtilities.h"
+
 PartyDatabase::PartyDatabase(const fs::path& path)
     : Database(path, "parties", "PartyID", "TEXT") {
     sql::Statement colQuery(GetRawRef(), "PRAGMA table_info(" + GetTableName() + ");");
@@ -18,7 +20,7 @@ PartyDatabase::PartyDatabase(const fs::path& path)
     AddPrototype<PartyMembers>(FieldKey::PARTY_MEMBERS);
 }
 
-PartyDatabase PartyDatabase::inst("playerdata.sqlite");
+PartyDatabase PartyDatabase::inst(PersistenceUtilities::GetSavePath() / "playerdata.sqlite");
 
 PartyDatabase& PartyDatabase::Get() {
     return inst;

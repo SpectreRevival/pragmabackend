@@ -53,6 +53,7 @@
 #include <spdlog/spdlog.h>
 #include <string>
 #include <thread>
+#include <PersistenceUtilities.h>
 
 static uint16_t gamePort = 8081;
 static uint16_t socialPort = 8082;
@@ -68,7 +69,7 @@ static std::shared_ptr<spdlog::logger> logger;
 
 static void SetupLogger() {
     auto consoleSink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-    auto fileSink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/app.log", true);
+    auto fileSink = std::make_shared<spdlog::sinks::basic_file_sink_mt>((PersistenceUtilities::GetSavePath() / "logs" / "app.log").string(), true);
 
     // Optional: Customize sink formats
     consoleSink->set_pattern("[%T] [%^%l%$] %v");
