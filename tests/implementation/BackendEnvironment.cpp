@@ -3,6 +3,8 @@
 #include <filesystem>
 #include <thread>
 
+#include "PersistenceUtilities.h"
+
 void BackendEnvironment::SetUp() {
 #if defined(_WIN32)
     std::filesystem::path exePath = ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() /
@@ -13,8 +15,7 @@ void BackendEnvironment::SetUp() {
                                     "pragmabackend";
     std::system("pkill -9 pragmabackend"); // NOLINT
 #endif
-    std::filesystem::remove(
-        ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() / "playerdata.sqlite");
+    std::filesystem::remove(PersistenceUtilities::GetSavePath() / "playerdata.sqlite");
     server = std::make_unique<TinyProcessLib::Process>(
         std::string(std::filesystem::absolute(exePath).string() + " 8081 8082 8083"),
         ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path().string(),
@@ -33,6 +34,5 @@ void BackendEnvironment::TearDown() {
         std::this_thread::sleep_for(std::chrono::seconds(1)); // wait for windows to release file handle
         server.reset();
     }
-    std::filesystem::remove(
-        ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() / "playerdata.sqlite");
+    std::filesystem::remove(PersistenceUtilities::GetSavePath() / "playerdata.sqlite");
 }
