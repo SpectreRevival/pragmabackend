@@ -73,6 +73,7 @@ jobs:
         if: ${{hashFiles('clang-tidy.patch') != ''}}
         with:
           path: clang-tidy.patch
+          name: clang-tidy.patch
 
       - name: Fail if patch exists
         if: ${{hashFiles('clang-tidy.patch') != ''}}

@@ -46,6 +46,7 @@ jobs:
         if: ${{hashFiles('clang-format.patch') != ''}}
         with:
           path: clang-format.patch
+          name: clang-format.patch
 
       - name: Fail if patch exists
         if: ${{hashFiles('clang-format.patch') != ''}}
