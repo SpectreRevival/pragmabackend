@@ -24,7 +24,7 @@ void BackendEnvironment::SetUp() {
         [](const char* bytes, size_t n) {
             std::cerr << std::string(bytes, n);
         });
-    std::this_thread::sleep_for(std::chrono::seconds(3));
+    std::this_thread::sleep_for(std::chrono::seconds(7));
 }
 
 void BackendEnvironment::TearDown() {
