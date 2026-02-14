@@ -7,7 +7,7 @@
 
 #include <SpectreRpcType.h>
 namespace fs = std::filesystem;
-using namespace nlohmann;
+using json = nlohmann::json;
 
 void DeduplicateWebsocketRequests(const std::string& reqFolder)
 {
@@ -63,14 +63,14 @@ void DeduplicateWebsocketRequests(const std::string& reqFolder)
     }
 }
 
-long long parseTimestamp(std::string s)
+int64_t parseTimestamp(std::string s)
 {
     s = s.substr(0, 19);
 
     std::tm tm{};
     std::istringstream ss(s);
     ss >> std::get_time(&tm, "%Y-%m-%dT%H:%M:%S");
-    long long unixTime;
+    int64_t unixTime;
 #if _WIN32
     unixTime = _mkgmtime(&tm);
 #else
@@ -82,7 +82,7 @@ long long parseTimestamp(std::string s)
 
 void DeduplicateHTTPRequests(const std::string& reqFolder)
 {
-    std::unordered_map<std::string, std::pair<fs::path, long long>> filesToKeep;
+    std::unordered_map<std::string, std::pair<fs::path, int64_t>> filesToKeep;
     for (const auto& item : fs::directory_iterator(reqFolder))
     {
         if (!item.is_regular_file())
@@ -99,7 +99,7 @@ void DeduplicateHTTPRequests(const std::string& reqFolder)
         std::string testFileStr = ss.str();
         json testJson = json::parse(testFileStr);
         std::string path = testJson["path"];
-        long long timeUnix = parseTimestamp(testJson["testAge"].get<std::string>());
+        int64_t timeUnix = parseTimestamp(testJson["testAge"].get<std::string>());
         if (filesToKeep.contains(path))
         {
             if (filesToKeep.at(path).second < timeUnix)
@@ -134,7 +134,7 @@ void DeduplicateHTTPRequests(const std::string& reqFolder)
     }
 }
 
-int main()
+int main() // NOLINT
 {
     std::string reqFolder;
     std::cout << "Enter the folder with the requests: ";

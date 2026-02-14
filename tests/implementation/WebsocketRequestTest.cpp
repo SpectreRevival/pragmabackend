@@ -14,7 +14,7 @@ void RunWebsocketTest(fs::path testJsonPath, json& outResponse)
     RunWebsocketTest(testJson, outResponse);
 }
 
-void RunWebsocketTest(json testJson, json& outResponse)
+void RunWebsocketTest(json testJson, json& outResponse) // NOLINT
 {
     TestWebsocketClient wsClient(8082);
     SpectreRpcType reqType = SpectreRpcType(testJson.at("rpcType").get<std::string>());

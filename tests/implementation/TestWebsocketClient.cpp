@@ -53,8 +53,8 @@ boost::beast::flat_buffer TestWebsocketClient::SendPacket(const nlohmann::json& 
     timer.async_wait([&](auto ec) {
         if (!ec) {
             boost::system::error_code ignore;
-            ws->next_layer().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ignore);
-            ws->next_layer().close(ignore);
+            ws->next_layer().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ignore); //NOLINT
+            ws->next_layer().close(ignore); // NOLINT
         }
     });
 

@@ -6,7 +6,7 @@
 #include <string>
 #include <regex>
 
-using namespace nlohmann;
+using json = nlohmann::json;
 namespace fs = std::filesystem;
 
 bool GetResponseToReqId(int reqId, json& session, json& res)
