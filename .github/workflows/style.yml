@@ -50,8 +50,8 @@ jobs:
         run: |
           FILES=$(
           find . \( \
-          -regex '\./\(Persistence\|Packets\|tests\)/Implementation/.*\.cpp' -o \
-          -regex '\./\(Persistence\|Packets\|tests\)/Model/.*\.h' \
+          -iregex '\./\(Persistence\|Packets\|tests\)/Implementation/.*\.cpp' -o \
+          -iregex '\./\(Persistence\|Packets\|tests\)/Model/.*\.h' \
           \) \
           | grep -vE 'out/|vcpkg_installed/|vcpkg/'
           )
