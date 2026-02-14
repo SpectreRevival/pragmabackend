@@ -3,6 +3,6 @@
 
 void StaticResponseProcessorWS::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
     std::shared_ptr<json> res = packet.GetBaseJsonResponse();
-    (*res)["payload"] = *res;
+    (*res)["payload"] = *staticRes;
     sock.SendPacket(res);
 }

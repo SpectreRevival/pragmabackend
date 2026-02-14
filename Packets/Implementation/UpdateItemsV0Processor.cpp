@@ -28,14 +28,14 @@ void UpdateItemsV0Processor::Process(SpectreWebsocketRequest& packet, SpectreWeb
     FullInventory* playerInv = playerI->mutable_full();
     int invLevel = stoi(playerInv->version());
     playerInv->set_version(std::to_string(invLevel + 1));
-    res->at("payload").at("segment")["removedStackables"] = json::array();
-    res->at("payload").at("segment")["removedInstanced"] = json::array();
-    res->at("payload").at("segment")["previousVersion"] = std::to_string(invLevel);
-    res->at("payload").at("segment")["instanced"] = json::array();
-    res->at("payload").at("segment")["stackables"] = json::array();
-    res->at("payload").at("segment")["version"] = playerInv->version();
-    res->at("payload").at("delta")["instanced"] = json::array();
-    res->at("payload").at("delta")["stackables"] = json::array();
+    res->at("payload")["segment"]["removedStackables"] = json::array();
+    res->at("payload")["segment"]["removedInstanced"] = json::array();
+    res->at("payload")["segment"]["previousVersion"] = std::to_string(invLevel);
+    res->at("payload")["segment"]["instanced"] = json::array();
+    res->at("payload")["segment"]["stackables"] = json::array();
+    res->at("payload")["segment"]["version"] = playerInv->version();
+    res->at("payload")["delta"]["instanced"] = json::array();
+    res->at("payload")["delta"]["stackables"] = json::array();
     std::unique_ptr<UpdatesItemMessage> itemUpdates = packet.GetPayloadAsMessage<UpdatesItemMessage>();
     pbuf::util::JsonPrintOptions options;
     options.always_print_fields_with_no_presence = true;
@@ -74,8 +74,8 @@ void UpdateItemsV0Processor::Process(SpectreWebsocketRequest& packet, SpectreWeb
         }
         json finalItem = json::parse(finalItemStr);
         curDelta["final"] = finalItem;
-        res->at("payload").at("delta").at("instanced").push_back(curDelta);
-        res->at("payload").at("segment").at("instanced").push_back(finalItem);
+        res->at("payload")["delta"]["instanced"].push_back(curDelta);
+        res->at("payload")["segment"]["instanced"].push_back(finalItem);
     }
     PlayerDatabase::Get().SetField(FieldKey::PLAYER_INVENTORY, playerI.get(), sock.GetPlayerId());
     sock.SendPacket(res);
