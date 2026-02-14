@@ -56,4 +56,25 @@ jobs:
           | grep -vE 'out/|vcpkg_installed/|vcpkg/'
           )
           
-          clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -p out/build/x64-debug-linux
+          clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux
+
+      - name: Create diff
+        run: |
+          if ! git diff --quiet; then
+            git diff > clang-tidy.patch
+            echo "Patch created, apply the patch from the action artifact to fix"
+            echo "Note that manual changes may be required for things that clang-tidy is unable to automatically fix"
+          else
+            echo "No changes required"
+          fi
+
+      - name: Upload patch if exists
+        uses: actions/upload-artifact@v4
+        if: ${{hashFiles('autoformat.patch') != ''}}
+        with:
+          path: clang-tidy.patch
+
+      - name: Fail if patch exists
+        if: ${{hashFiles('autoformat.patch') != ''}}
+        run: |
+          exit 1

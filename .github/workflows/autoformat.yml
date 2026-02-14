@@ -30,4 +30,24 @@ jobs:
             | grep -vE 'out/|vcpkg_installed/|vcpkg/'
             )
           
-          clang-format -i --dry-run -Werror $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp
+          clang-format -i $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp
+
+      - name: Create diff
+        run: |
+          if ! git diff --quiet; then
+            git diff > clang-format.patch
+            echo "Patch created, apply the patch from the action artifact to fix"
+          else
+            echo "No changes required"
+          fi
+
+      - name: Upload patch if exists
+        uses: actions/upload-artifact@v4
+        if: ${{hashFiles('autoformat.patch') != ''}}
+        with:
+          path: clang-format.patch
+
+      - name: Fail if patch exists
+        if: ${{hashFiles('autoformat.patch') != ''}}
+        run: |
+          exit 1
