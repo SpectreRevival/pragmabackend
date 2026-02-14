@@ -56,9 +56,10 @@ jobs:
           | grep -vE 'out/|vcpkg_installed/|vcpkg/'
           )
           
-          clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux
+          clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux -extra-arg=-Werror 
 
       - name: Create diff
+        if: always()
         run: |
           if ! git diff --quiet; then
             git diff > clang-tidy.patch
@@ -74,8 +75,3 @@ jobs:
         with:
           path: clang-tidy.patch
           name: clang-tidy.patch
-
-      - name: Fail if patch exists
-        if: ${{hashFiles('clang-tidy.patch') != ''}}
-        run: |
-          exit 1
