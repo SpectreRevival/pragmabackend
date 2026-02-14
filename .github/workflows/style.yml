@@ -56,7 +56,7 @@ jobs:
           | grep -vE 'out/|vcpkg_installed/|vcpkg/'
           )
           
-          clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux -extra-arg=-Werror 
+          run-clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux -extra-arg=-Werror 
 
       - name: Create diff
         if: always()
