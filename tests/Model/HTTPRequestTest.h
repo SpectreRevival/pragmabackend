@@ -8,5 +8,5 @@ using json = nlohmann::ordered_json;
 class HTTPRequestTest : public RequestTest {
 };
 
-void RunHTTPTest(fs::path testPath, json& outResponse);
+void RunHTTPTest(const fs::path& testPath, json& outResponse);
 void RunHTTPTest(json testJson, json& outResponse);

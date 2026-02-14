@@ -92,7 +92,7 @@ void ProcessHTTPSession(json& session)
     outTestFile.close();
 }
 
-int main(int argc, char** argv)
+int main(int  /*argc*/, char**  /*argv*/)
 {
     std::cout << "Enter the path of the fiddler log to open(make sure it's exported as a HTTP archive v1.2): ";
     std::string reqLogPath;
@@ -103,7 +103,7 @@ int main(int argc, char** argv)
     std::ifstream reqLog(reqLogPath);
     if (!reqLog.is_open())
     {
-        std::cerr << "Failed to open request log" << std::endl;
+        std::cerr << "Failed to open request log" << '\n';
         return -1;
     }
     std::stringstream ss;
@@ -114,7 +114,7 @@ int main(int argc, char** argv)
         reqJson = json::parse(ss.str());
     } catch (json::parse_error& e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << e.what() << '\n';
         return -1;
     }
     for (auto session : reqJson["log"]["entries"])
@@ -125,11 +125,11 @@ int main(int argc, char** argv)
         }
         if (session.contains("_webSocketMessages"))
         {
-            std::cout << "Processing WS session" << std::endl;
+            std::cout << "Processing WS session" << '\n';
             ProcessWebsocketSession(session);
         } else
         {
-            std::cout << "Processing HTTP Request" << std::endl;
+            std::cout << "Processing HTTP Request" << '\n';
             ProcessHTTPSession(session);
         }
     }

@@ -4,8 +4,8 @@
 bool JsonMatchesSchema(const json& response, const json& expectedResponse, bool ignoreReplace, bool ignoreAdd)
 {
     json diff = json::diff(expectedResponse, response);
-    std::cout << "DIFF: " << std::endl;
-    std::cout << diff.dump() << std::endl;
+    std::cout << "DIFF: " << '\n';
+    std::cout << diff.dump() << '\n';
     // Have to do it this way for the * check to work, but the source expectedResponse one is printed because it makes more sense
     json testDiff = json::diff(response, expectedResponse);
     for (const auto& entry : testDiff) // NOLINT(*-use-anyofallof)

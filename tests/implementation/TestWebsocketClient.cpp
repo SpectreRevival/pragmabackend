@@ -6,7 +6,7 @@
 #include <TestHTTPClient.h>
 
 TestWebsocketClient::TestWebsocketClient(unsigned short port) :
-ioCtx(),
+
 workGuard(boost::asio::make_work_guard(ioCtx)),
 nextRequestId(0)
 {
@@ -43,7 +43,7 @@ std::shared_ptr<boost::beast::websocket::stream<boost::asio::ip::tcp::socket>> T
 
 boost::beast::flat_buffer TestWebsocketClient::SendPacket(const nlohmann::json& packet, SpectreRpcType rpcType) const
 {
-    std::string final = "{\"requestId\":" + std::to_string(nextRequestId) + ",\"type\":\"" + rpcType.GetName() + "\",\"payload\":" + packet.dump() + "}";
+    std::string final = "{\"requestId\":" + std::to_string(nextRequestId) + R"(,"type":")" + rpcType.GetName() + R"(","payload":)" + packet.dump() + "}";
     ws->write(boost::asio::buffer(final));
     boost::beast::flat_buffer buffer;
     boost::asio::steady_timer timer(ws->get_executor());
@@ -72,6 +72,7 @@ boost::beast::flat_buffer TestWebsocketClient::SendPacket(const nlohmann::json& 
 TestWebsocketClient::~TestWebsocketClient() {
     workGuard.reset();   // allow io_context to stop
     ioCtx.stop();        // stop any pending operations
-    if (ioThread.joinable())
+    if (ioThread.joinable()) {
         ioThread.join(); // wait for background thread
+}
 }

@@ -8,5 +8,5 @@ using json = nlohmann::ordered_json;
 class WebsocketRequestTest : public RequestTest {
 };
 
-void RunWebsocketTest(fs::path testPath, json& outResponse);
+void RunWebsocketTest(const fs::path& testJsonPath, json& outResponse);
 void RunWebsocketTest(json testJson, json& outResponse);

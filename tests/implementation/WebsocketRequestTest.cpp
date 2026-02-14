@@ -4,7 +4,7 @@
 #include <TestWebsocketClient.h>
 #include "boost/asio/buffers_iterator.hpp"
 
-void RunWebsocketTest(fs::path testJsonPath, json& outResponse)
+void RunWebsocketTest(const fs::path& testJsonPath, json& outResponse)
 {
     std::ifstream testFile(testJsonPath);
     std::stringstream ss;
@@ -18,10 +18,10 @@ void RunWebsocketTest(json testJson, json& outResponse) // NOLINT
 {
     TestWebsocketClient wsClient(8082);
     SpectreRpcType reqType = SpectreRpcType(testJson.at("rpcType").get<std::string>());
-    std::cout << "Test info: " << std::endl;
-    std::cout << "RPC type: " << reqType.GetName() << std::endl;
-    std::cout << "Request payload: " << testJson.at("requestBody").dump() << std::endl;
-    std::cout << "Expected response payload: " << testJson.at("responsePayload").dump() << std::endl;
+    std::cout << "Test info: " << '\n';
+    std::cout << "RPC type: " << reqType.GetName() << '\n';
+    std::cout << "Request payload: " << testJson.at("requestBody").dump() << '\n';
+    std::cout << "Expected response payload: " << testJson.at("responsePayload").dump() << '\n';
     json& reqBody = testJson.at("requestBody");
     boost::beast::flat_buffer res = wsClient.SendPacket(reqBody, reqType);
     std::string resStr(boost::asio::buffers_begin(res.data()), boost::asio::buffers_end(res.data()));

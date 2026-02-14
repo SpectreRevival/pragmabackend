@@ -1,10 +1,10 @@
 #include <TestHTTPClient.h>
-
 #include <boost/asio/ip/tcp.hpp>
+#include <utility>
 
 namespace beast = boost::beast; namespace http = beast::http; namespace net = boost::asio; using tcp = net::ip::tcp;
 
-http::response<http::string_body> HTTPFetch(unsigned short port, std::string path, std::string packet, http::verb method)
+http::response<http::string_body> HTTPFetch(unsigned short port, const std::string& path, std::string packet, http::verb method)
 {
     boost::asio::io_context ioc;
     boost::asio::ip::tcp::resolver resolver(ioc);
@@ -15,7 +15,7 @@ http::response<http::string_body> HTTPFetch(unsigned short port, std::string pat
     method, path, 11
     };
     req.set(http::field::host, "127.0.0.1");
-    req.body() = packet;
+    req.body() = std::move(packet);
     req.prepare_payload();
     http::write(stream, req);
     beast::flat_buffer buffer;

@@ -57,20 +57,21 @@ void DeduplicateWebsocketRequests(const std::string& reqFolder)
             }
         );
 
-        if (keep)
+        if (keep) {
             continue;
+}
         fs::remove(item);
     }
 }
 
-int64_t parseTimestamp(std::string s)
+int64_t ParseTimestamp(std::string s)
 {
     s = s.substr(0, 19);
 
     std::tm tm{};
     std::istringstream ss(s);
     ss >> std::get_time(&tm, "%Y-%m-%dT%H:%M:%S");
-    int64_t unixTime;
+    int64_t unixTime = 0;
 #if _WIN32
     unixTime = _mkgmtime(&tm);
 #else
@@ -99,7 +100,7 @@ void DeduplicateHTTPRequests(const std::string& reqFolder)
         std::string testFileStr = ss.str();
         json testJson = json::parse(testFileStr);
         std::string path = testJson["path"];
-        int64_t timeUnix = parseTimestamp(testJson["testAge"].get<std::string>());
+        int64_t timeUnix = ParseTimestamp(testJson["testAge"].get<std::string>());
         if (filesToKeep.contains(path))
         {
             if (filesToKeep.at(path).second < timeUnix)
@@ -128,8 +129,9 @@ void DeduplicateHTTPRequests(const std::string& reqFolder)
             }
         );
 
-        if (keep)
+        if (keep) {
             continue;
+}
         fs::remove(item);
     }
 }
@@ -150,7 +152,7 @@ int main() // NOLINT
         DeduplicateHTTPRequests(reqFolder);
     } else
     {
-        std::cout << "Unknown option entered" << std::endl;
+        std::cout << "Unknown option entered" << '\n';
         return -1;
     }
 }

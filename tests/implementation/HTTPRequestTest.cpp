@@ -4,7 +4,7 @@
 #include <TestHTTPClient.h>
 #include <JsonTestUtil.h>
 
-void RunHTTPTest(fs::path testPath, json& outResponse)
+void RunHTTPTest(const fs::path& testPath, json& outResponse)
 {
     std::ifstream testFile(testPath);
     std::stringstream ss;
@@ -17,18 +17,18 @@ void RunHTTPTest(fs::path testPath, json& outResponse)
 
 void RunHTTPTest(json testJson, json& outResponse)
 {
-    std::cout << "Test info: " << std::endl;
-    std::cout << "Path: " << testJson["path"].dump() << std::endl;
-    std::cout << "method: " << testJson["method"].dump() << std::endl;
-    std::cout << "request payload: " << testJson["request"].dump() << std::endl;
-    std::cout << "response payload: " << testJson["response"].dump() << std::endl;
+    std::cout << "Test info: " << '\n';
+    std::cout << "Path: " << testJson["path"].dump() << '\n';
+    std::cout << "method: " << testJson["method"].dump() << '\n';
+    std::cout << "request payload: " << testJson["request"].dump() << '\n';
+    std::cout << "response payload: " << testJson["response"].dump() << '\n';
     boost::beast::http::response<boost::beast::http::string_body> res;
     if (testJson["method"] == "GET") {
         res = HTTPFetch(8081, testJson["path"], testJson["request"], boost::beast::http::verb::get);
     } else if (testJson["method"] == "POST") {
         res = HTTPFetch(8081, testJson["path"], testJson["request"], boost::beast::http::verb::post);
     } else {
-        std::cerr << "Unrecognized http verb: " << testJson["method"] << std::endl;
+        std::cerr << "Unrecognized http verb: " << testJson["method"] << '\n';
         GTEST_FATAL_FAILURE_("Unrecognized http verb");
     }
     if (res.body().empty()) {
