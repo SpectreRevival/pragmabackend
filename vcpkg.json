@@ -7,7 +7,6 @@
     "boost-bimap",
     "boost-uuid",
     "boost-process",
-    "date",
     "gtest",
     {
       "name": "jwt-cpp",
@@ -19,7 +18,6 @@
     "openssl",
     "picojson",
     "protobuf",
-    "safetyhook",
     "spdlog",
     {
       "name": "sqlite3",
