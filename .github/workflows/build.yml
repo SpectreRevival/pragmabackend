@@ -7,6 +7,9 @@ on:
 jobs:
   build-ubuntu:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{github.workflow}}-${{github.ref}}
+      cancel-in-progress: true
     strategy:
       fail-fast: false
       matrix:
@@ -20,25 +23,27 @@ jobs:
       - name: Install compiler
         run: |
           sudo apt update
-          sudo apt install -y build-essential ninja-build curl zip unzip tar autoconf autoconf-archive automake libtool linux-libc-dev pkg-config software-properties-common lsb-release
-          sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
-          sudo apt-key adv --fetch-keys https://apt.kitware.com/keys/kitware-archive-latest.asc
+          sudo apt install -y build-essential ninja-build curl zip unzip tar autoconf autoconf-archive automake libtool linux-libc-dev pkg-config software-properties-common lsb-release nasm bison flex python3 python3.12-venv libx11-dev libxext-dev libxrender-dev libxtst-dev libxrandr-dev libltdl-dev libxi-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu1-mesa-dev libasound2-dev libvulkan-dev libwayland-dev libxkbcommon-dev libssl-dev libbz2-dev liblzma-dev libudev-dev libdrm-dev libglfw3-dev libgtk-3-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libswresample-dev curl
+          sudo curl -fsSL https://apt.kitware.com/keys/kitware-archive-latest.asc -o /usr/share/keyrings/kitware-archive-keyring.asc
+          echo "deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.asc] https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/kitware.list  
           sudo apt-get update
           sudo apt-get install -y cmake
 
       - name: Create auth.json
         shell: bash
-        # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
         run: |
           echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > auth.json
+
+      - name: Get vcpkg commit
+        run: git submodule status vcpkg > vcpkgcommit.txt
 
       - name: Cache vcpkg archives directory
         uses: actions/cache@v4
         with:
           path: ~/.cache/vcpkg/archives
-          key: vcpkg-${{hashFiles('vcpkg/**')}}-${{hashFiles('vcpkg.json')}}
+          key: ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}-${{hashFiles('vcpkg.json')}}
           restore-keys: |
-            vcpkg-${{hashFiles('vcpkg/**')}}
+            ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}
 
       - name: Configure ${{matrix.build_type}} ${{matrix.os}}
         run: |
@@ -91,36 +96,38 @@ jobs:
           with:
             submodules: recursive
 
-        - name: Install cmake (windows only)
-          run: winget install -e --id Kitware.CMake --disable-interactivity --accept-source-agreements --accept-package-agreements
-
-        - name: Create auth.json
-          shell: bash
-          # secret isn't actually written since I don't have access to create new secrets, but the file just needs to exist so its okay
+        - name: Ensure CMake and Ninja are installed
+          shell: powershell
           run: |
-            echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > auth.json
-            
+            choco install cmake ninja -y --force
+            echo "C:\Program Files\CMake\bin" >> $GITHUB_PATH
+            echo "C:\ProgramData\chocolatey\bin" >> $GITHUB_PATH
+
+        - name: Setup MSVC
+          uses: ilammy/msvc-dev-cmd@v1
+          with:
+            arch: x64
+
         - name: Resolve LOCALAPPDATA
           id: localappdata
-          shell: pwsh
+          shell: powershell
           run: |
             echo "value=$env:LOCALAPPDATA" >> $env:GITHUB_OUTPUT
+
+        - name: Get vcpkg commit
+          shell: powershell
+          run: git submodule status vcpkg | Out-File -Encoding utf8 vcpkgcommit.txt
 
         - name: Cache vcpkg archives directory
           uses: actions/cache@v4
           with:
-            path: ${{ steps.localappdata.outputs.value }}\vcpkg\archives
-            key: vcpkg-${{hashFiles('vcpkg/**')}}-${{hashFiles('vcpkg.json')}}
+            path: ${{steps.localappdata.outputs.value}}\vcpkg\archives
+            key: ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}-${{hashFiles('vcpkg.json')}}
             restore-keys: |
-              vcpkg-${{hashFiles('vcpkg/**')}}
+              ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}
 
         - name: Configure and build ${{matrix.build_type}}
-          if: matrix.build_type == 'debug'
-          run: cmake -S . -B out/build/x64-debug-win -A x64 -T host=x64 -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
-
-        - name: Configure and build ${{matrix.build_type}}
-          if: matrix.build_type == 'release'
-          run: cmake -S . -B out/build/x64-release-win -A x64 -T host=x64 -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
+          run: cmake . --preset x64-${{matrix.build_type}}-win
 
         - name: Build ${{matrix.build_type}}
           run: cmake --build out/build/x64-${{matrix.build_type}}-win
@@ -161,11 +168,11 @@ jobs:
             retention-days: 1
 
         - name: Clean up vcpkg folder
-          shell: bash
+          shell: powershell
           run: |
-            rm -rf ./vcpkg/buildtrees
-            rm -rf ./vcpkg/downloads
-            rm -rf ./vcpkg/packages
+            Remove-Item ./vcpkg/buildtrees -Recurse -Force
+            Remove-Item ./vcpkg/downloads -Recurse -Force
+            Remove-Item ./vcpkg/packages -Recurse -Force
 
   test-ubuntu:
     needs: build-ubuntu

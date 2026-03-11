@@ -7,6 +7,9 @@ on:
 jobs:
   clang-tidy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: clang-tidy-${{github.ref}}
+      cancel-in-progress: true
     steps:
       - name: Clone repo
         uses: actions/checkout@v4
@@ -26,18 +29,24 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y build-essential ninja-build curl zip unzip tar autoconf autoconf-archive automake libtool linux-libc-dev pkg-config software-properties-common lsb-release
-          sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
-          sudo apt-key adv --fetch-keys https://apt.kitware.com/keys/kitware-archive-latest.asc
+          sudo curl -fsSL https://apt.kitware.com/keys/kitware-archive-latest.asc -o /usr/share/keyrings/kitware-archive-keyring.asc
+          echo "deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.asc] https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/kitware.list  
           sudo apt-get update
           sudo apt-get install -y cmake
 
+      - name: Get vcpkg commit
+        shell: bash
+        run: git submodule status vcpkg > vcpkgcommit.txt
+
       - name: Cache vcpkg archives directory
+        id: cachefetch
         uses: actions/cache@v4
         with:
           path: ~/.cache/vcpkg/archives
-          key: vcpkg-${{hashFiles('vcpkg/**')}}-${{hashFiles('vcpkg.json')}}
+          key: ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}-${{hashFiles('vcpkg.json')}}
           restore-keys: |
-            vcpkg-${{hashFiles('vcpkg/**')}}
+            ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}
+          fail-on-cache-miss: true
 
       - name: Configure
         run: |
@@ -48,15 +57,9 @@ jobs:
 
       - name: Run clang tidy
         run: |
-          FILES=$(
-          find . \( \
-          -iregex '\./\(Persistence\|Packets\|tests\)/Implementation/.*\.cpp' -o \
-          -iregex '\./\(Persistence\|Packets\|tests\)/Model/.*\.h' \
-          \) \
-          | grep -vE 'out/|vcpkg_installed/|vcpkg/'
-          )
+          FILES=$(find . -type f -regex '\./\(Packets\|Persistence\|tests\)/.*\.\(h\|cpp\)$')
           
-          run-clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux -extra-arg=-Werror 
+          run-clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux -extra-arg=-Werror
 
       - name: Create diff
         if: always()
