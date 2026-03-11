@@ -4,12 +4,13 @@ on:
     branches: [master]
   pull_request:
 
+concurrency:
+  group: build-${{github.ref}}
+  cancel-in-progress: true
+
 jobs:
   build-ubuntu:
     runs-on: ubuntu-latest
-    concurrency:
-      group: build-${{matrix.os}}-${{github.ref}}-${{matrix.build_type}}
-      cancel-in-progress: true
     strategy:
       fail-fast: false
       matrix:
@@ -90,9 +91,6 @@ jobs:
         fail-fast: false
         matrix:
           build_type: [debug, release]
-      concurrency:
-        group: build-${{matrix.os}}-${{github.ref}}-${{matrix.build_type}}
-        cancel-in-progress: true
       steps:
         - name: Clone repo
           uses: actions/checkout@v4
@@ -184,9 +182,6 @@ jobs:
       fail-fast: false
       matrix:
         build_type: [debug, release]
-    concurrency:
-      group: test-${{matrix.os}}-${{github.ref}}-${{matrix.build_type}}
-      cancel-in-progress: true
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -208,9 +203,6 @@ jobs:
       fail-fast: false
       matrix:
         build_type: [debug, release]
-    concurrency:
-      group: test-${{matrix.os}}-${{github.ref}}-${{matrix.build_type}}
-      cancel-in-progress: true
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
