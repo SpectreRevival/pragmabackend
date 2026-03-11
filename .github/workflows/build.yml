@@ -50,22 +50,34 @@ jobs:
         run: /usr/bin/cmake --build out/build/x64-${{matrix.build_type}}-linux
 
       - name: Create artifact
+        shell: bash
         run: |
           mkdir package
-          chmod +x out/build/x64-${{matrix.build_type}}-linux/pragmabackend
-          chmod +x out/build/x64-${{matrix.build_type}}-linux/tests/tests
-          cp -r out/build/x64-${{matrix.build_type}}-linux/* package
+          cp -r out/build/x64-${{matrix.build_type}}-win/* package/
           rm package/*.h
           rm package/*.cc
-          rm package/*.log
-          rm -rf package/*CMakeFiles
-          rm -rf package/tests/CMakeFiles
-          rm -rf package/tests/*.cmake
+          rm -rf package/.cmake
+          rm -rf package/CMakeFiles
+          rm package/*.cmake
           rm -rf package/vcpkg_installed
+          rm package/auth.json
           rm package/build.ninja
           rm package/*.cmake
+          rm package/compile_commands.json
           rm package/CMakeCache.txt
-          rm package/auth.json
+          rm -rf package/CMakeFiles
+          rm package/*.ilk
+          rm package/*.pdb
+          find . -type d -name CMakeFiles -print0 |
+            while IFS= read -r -d '' dir; do
+            parent="$(dirname "$dir")"
+            echo "Processing: $parent"
+            rm -rf $parent/CMakeFiles
+            rm $parent/*.cmake
+            rm $parent/*.ilk
+            rm $parent/*.pdb
+            rm $parent/*.json
+          done
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -133,29 +145,31 @@ jobs:
           shell: bash
           run: |
             mkdir package
-            cp -r out/build/x64-${{matrix.build_type}}-win/* package*
+            cp -r out/build/x64-${{matrix.build_type}}-win/* package/
             rm package/*.h
             rm package/*.cc
-            rm package/*.vcxproj*
-            rm package/*.log
             rm -rf package/.cmake
             rm -rf package/CMakeFiles
             rm package/*.cmake
-            rm -rf package/*.dir
             rm -rf package/vcpkg_installed
-            cp package/Debug/*.dll package/
-            cp package/Debug/*.lib package/
-            cp package/Debug/pragmabackend.exe package/
-            cp package/tests/Debug/*.dll package/tests
-            cp package/tests/Debug/*.exe package/tests
-            rm -rf package/x64
-            rm -rf package/Debug
-            rm package/tests/*.vcxproj*
-            rm package/tests/*.cmake
-            rm -rf package/tests/*.dir
-            rm -rf package/tests/CMakeFiles
-            rm -rf package/tests/Debug
             rm package/auth.json
+            rm package/build.ninja
+            rm package/*.cmake
+            rm package/compile_commands.json
+            rm package/CMakeCache.txt
+            rm -rf package/CMakeFiles
+            rm package/*.ilk
+            rm package/*.pdb
+            find . -type d -name CMakeFiles -print0 |
+              while IFS= read -r -d '' dir; do
+              parent="$(dirname "$dir")"
+              echo "Processing: $parent"
+              rm -rf $parent/CMakeFiles
+              rm $parent/*.cmake
+              rm $parent/*.ilk
+              rm $parent/*.pdb
+              rm $parent/*.json
+            done
 
         - name: Upload artifact
           uses: actions/upload-artifact@v4
