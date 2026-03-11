@@ -4,10 +4,6 @@ on:
     branches: [master]
   pull_request:
 
-concurrency:
-  group: build-${{github.ref}}
-  cancel-in-progress: true
-
 jobs:
   build-ubuntu:
     runs-on: ubuntu-latest
