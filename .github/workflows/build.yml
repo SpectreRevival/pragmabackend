@@ -53,7 +53,7 @@ jobs:
         shell: bash
         run: |
           mkdir package
-          cp -r out/build/x64-${{matrix.build_type}}-win/* package/
+          cp -r out/build/x64-${{matrix.build_type}}-linux/* package/
           rm package/*.h
           rm package/*.cc
           rm -rf package/.cmake
