@@ -8,7 +8,7 @@ jobs:
   build-ubuntu:
     runs-on: ubuntu-latest
     concurrency:
-      group: ${{github.workflow}}-${{github.ref}}-${{matrix.build_type}}
+      group: build-${{matrix.os}}-${{github.ref}}-${{matrix.build_type}}
       cancel-in-progress: true
     strategy:
       fail-fast: false
@@ -91,7 +91,7 @@ jobs:
         matrix:
           build_type: [debug, release]
       concurrency:
-        group: ${{github.workflow}}-${{github.ref}}-${{matrix.build_type}}
+        group: build-${{matrix.os}}-${{github.ref}}-${{matrix.build_type}}
         cancel-in-progress: true
       steps:
         - name: Clone repo
@@ -184,6 +184,9 @@ jobs:
       fail-fast: false
       matrix:
         build_type: [debug, release]
+    concurrency:
+      group: test-${{matrix.os}}-${{github.ref}}-${{matrix.build_type}}
+      cancel-in-progress: true
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -205,6 +208,9 @@ jobs:
       fail-fast: false
       matrix:
         build_type: [debug, release]
+    concurrency:
+      group: test-${{matrix.os}}-${{github.ref}}-${{matrix.build_type}}
+      cancel-in-progress: true
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
