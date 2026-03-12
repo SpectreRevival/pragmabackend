@@ -16,7 +16,7 @@ static std::vector<std::string> SplitString(std::string_view s, char delim) {
     return out;
 }
 
-static void ApplyTestRequestInserts(json& payload, const std::vector<json>& responses) { //NOLINT
+static void ApplyTestRequestInserts(json& payload, const std::vector<json>& responses) { // NOLINT
     for (auto& [key, value] : payload.items()) {
         if (value.is_object()) {
             ApplyTestRequestInserts(value, responses);
