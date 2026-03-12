@@ -1,5 +1,7 @@
 #include "PlayerDatabase.h"
 
+#include "PersistenceUtilities.h"
+
 #include <Inventory.pb.h>
 #include <LegacyPlayerData.pb.h>
 #include <OutfitLoadout.pb.h>
@@ -7,8 +9,6 @@
 #include <ProfileData.pb.h>
 #include <ResourcesUtilities.h>
 #include <WeaponLoadout.pb.h>
-
-#include "PersistenceUtilities.h"
 
 PlayerDatabase::PlayerDatabase(const fs::path& path)
     : Database(path, "players", "PlayerID", "TEXT") {

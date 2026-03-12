@@ -4,17 +4,17 @@
 
 using ordered_json = nlohmann::ordered_json;
 
-static void StripEmptyModeBranches(ordered_json &root) {
+static void StripEmptyModeBranches(ordered_json& root) {
     if (!root.contains("party") || !root["party"].is_object()) {
         return;
     }
 
-    auto &party = root["party"];
+    auto& party = root["party"];
     if (!party.contains("extBroadcastParty") || !party["extBroadcastParty"].is_object()) {
         return;
     }
 
-    auto &ext = party["extBroadcastParty"];
+    auto& ext = party["extBroadcastParty"];
 
     if (ext.contains("standard") && ext["standard"].is_object() && ext["standard"].empty()) {
         ext.erase("standard");
@@ -25,10 +25,11 @@ static void StripEmptyModeBranches(ordered_json &root) {
     }
 }
 
-PartyDatabase::PartyDatabase(fs::path path) : Database(path, "parties", "PartyID", "TEXT") {
+PartyDatabase::PartyDatabase(const fs::path& path)
+    : Database(path, "parties", "PartyID", "TEXT") {
     sql::Statement colQuery(GetRawRef(), "PRAGMA table_info(" + GetTableName() + ");");
 
-    bool hasPartyCode    = false;
+    bool hasPartyCode = false;
     bool hasPartyVersion = false;
 
     while (colQuery.executeStep()) {
@@ -49,17 +50,17 @@ PartyDatabase::PartyDatabase(fs::path path) : Database(path, "parties", "PartyID
     }
 
     AddPrototype<BroadcastPartyExtraInfo>(FieldKey::PARTY_EXTRA_BROADCAST_INFO);
-    AddPrototype<BroadcastPrivatePartyExtraInfo>(FieldKey::PARTY_PRIVATE_EXTRA_BROADCAST_INFO);
+    AddPrototypeBroadcastPartyExtraInfoo>(FieldKey::PARTY_EXTRA_BROADCAST_INFO);
     AddPrototype<PartyMembers>(FieldKey::PARTY_MEMBERS);
 }
 
 PartyDatabase PartyDatabase::inst("playerdata.sqlite");
 
-PartyDatabase &PartyDatabase::Get() {
+PartyDatabase& PartyDatabase::Get() {
     return inst;
 }
 
-void PartyDatabase::SaveParty(const Party &party) {
+void PartyDatabase::SaveParty(const Party& party) {
     PartyMembers members;
     for (int i = 0; i < party.partymembers_size(); i++) {
         members.add_members()->CopyFrom(party.partymembers(i));
@@ -72,13 +73,13 @@ void PartyDatabase::SaveParty(const Party &party) {
     const std::string partyVersion = party.version().empty() ? "1" : party.version();
 
     sql::Statement setPartyMeta(
-                                GetRawRef(),
-                                "INSERT INTO " + GetTableName() + "(" + GetKeyFieldName() +
-                                ", PartyCode, PartyVersion) VALUES(?,?,?) "
-                                "ON CONFLICT(" + GetKeyFieldName() + ") DO UPDATE SET "
+        GetRawRef(),
+        "INSERT INTO " + GetTableName() + "(" + GetKeyFieldName() +
+            ", PartyCode, PartyVersion) VALUES(?,?,?) "
+            "ON CONFLICT(" +
+            GetKeyFieldName() + ") DO UPDATE SET "
                                 "PartyCode = excluded.PartyCode, "
-                                "PartyVersion = excluded.PartyVersion;"
-                               );
+                                "PartyVersion = excluded.PartyVersion;");
 
     setPartyMeta.bind(1, party.partyid());
     setPartyMeta.bind(2, party.invitecode());
@@ -92,7 +93,7 @@ void PartyDatabase::SaveParty(const Party &party) {
     }
 }
 
-Party PartyDatabase::GetParty(const std::string &partyId) {
+Party PartyDatabase::GetParty(const std::string& partyId) {
     Party party;
 
     std::unique_ptr<PartyMembers> members = GetField<PartyMembers>(FieldKey::PARTY_MEMBERS, partyId);
@@ -106,22 +107,18 @@ Party PartyDatabase::GetParty(const std::string &partyId) {
     }
 
     std::unique_ptr<BroadcastPartyExtraInfo> broadcastExtra =
-            GetField<BroadcastPartyExtraInfo>(FieldKey::PARTY_EXTRA_BROADCAST_INFO, partyId);
+        GetField<BroadcastPartyExtraInfo>(FieldKey::PARTY_EXTRA_BROADCAST_INFO, partyId);
     if (broadcastExtra) {
         party.mutable_extbroadcastparty()->CopyFrom(*broadcastExtra);
     }
 
-    std::unique_ptr<BroadcastPrivatePartyExtraInfo> privateExtra =
-            GetField<BroadcastPrivatePartyExtraInfo>(FieldKey::PARTY_PRIVATE_EXTRA_BROADCAST_INFO, partyId);
+    std::unique_ptr<BroadcastPartyExtraInfo> privateExtra =
+        GetField<BroadcastPartyExtraInfo>(FieldKey::PARTYBroadcastPartyExtraInfo partyId);
     if (privateExtra) {
-        party.mutable_extprivateplayer()->CopyFrom(*privateExtra);
-    }
-
-    party.set_partyid(partyId);
+   BroadcastPartyExtraInfo()->CopPARTY_EXTRA_BROADCAST_INFOarty.set_partyid(partyId);
     sql::Statement getPartyMeta(
-                                GetRawRef(),
-                                "SELECT PartyCode, PartyVersion FROM " + GetTableName() + " WHERE PartyID = ?"
-                               );
+        GetRawRef(),
+        "SELECT PartyCode, PartyVersion FROM " + GetTableName() + " WHERE PartyID = ?");
     getPartyMeta.bind(1, partyId);
     if (!getPartyMeta.executeStep()) {
         spdlog::error("failed to find party metadata for party: {}", partyId);
@@ -138,26 +135,25 @@ Party PartyDatabase::GetParty(const std::string &partyId) {
     return party;
 }
 
-PartyResponse PartyDatabase::GetPartyRes(const std::string &partyId) {
+PartyResponse PartyDatabase::GetPartyRes(const std::string& partyId) {
     PartyResponse res;
-    Party         party = GetParty(partyId);
+    Party party = GetParty(partyId);
     res.mutable_party()->CopyFrom(party);
     return res;
 }
 
-Party PartyDatabase::GetPartyByInviteCode(const std::string &inviteCode) {
-    Party          party;
+Party PartyDatabase::GetPartyByInviteCode(const std::string& inviteCode) {
+    Party party;
     sql::Statement getPartyMeta(
-                                GetRawRef(),
-                                "SELECT PartyID, PartyVersion FROM " + GetTableName() + " WHERE PartyCode = ?"
-                               );
+        GetRawRef(),
+        "SELECT PartyID, PartyVersion FROM " + GetTableName() + " WHERE PartyCode = ?");
     getPartyMeta.bind(1, inviteCode);
     if (!getPartyMeta.executeStep()) {
         spdlog::error("failed to find party id for party from invite code: {}\n are you sure that this invite code hasn't expired?",
                       inviteCode);
         throw;
     }
-    std::string                   partyId = getPartyMeta.getColumn("PartyID").getString();
+    std::string partyId = getPartyMeta.getColumn("PartyID").getString();
     std::unique_ptr<PartyMembers> members = GetField<PartyMembers>(FieldKey::PARTY_MEMBERS, partyId);
     if (!members) {
         spdlog::error("failed to find members list for party {}", partyId);
@@ -169,23 +165,21 @@ Party PartyDatabase::GetPartyByInviteCode(const std::string &inviteCode) {
     }
 
     std::unique_ptr<BroadcastPartyExtraInfo> broadcastExtra =
-            GetField<BroadcastPartyExtraInfo>(FieldKey::PARTY_EXTRA_BROADCAST_INFO, partyId);
+        GetField<BroadcastPartyExtraInfo>(FieldKey::PARTY_EXTRA_BROADCAST_INFO, partyId);
     if (broadcastExtra) {
         party.mutable_extbroadcastparty()->CopyFrom(*broadcastExtra);
     }
 
     std::unique_ptr<BroadcastPrivatePartyExtraInfo> privateExtra =
-            GetField<BroadcastPrivatePartyExtraInfo>(FieldKey::PARTY_PRIVATE_EXTRA_BROADCAST_INFO, partyId);
+        GetField<BroadcastPrivatePartyExtraInfo>(FieldKey::PARTY_PRIVATE_EXTRA_BROADCAST_INFO, partyId);
     if (privateExtra) {
         party.mutable_extprivateplayer()->CopyFrom(*privateExtra);
     }
 
     party.set_partyid(partyId);
-    party.set_invitecode(inviteCode);
-    party.add_preferredgameserverzones("uscentral-1");
+    party.set_invitecode(inviteCBroadcastPartyExtraInfoameserverzones("uscentral-1");
 
-    if (!getPartyMeta.getColumn("PartyVersion").isNull()) {
-        std::string version = getPartyMeta.getColumn("PartyVersion").getString();
+    ifBroadcastPartyExtraInfotyVersion").PARTY_EXTRA_BROADCAST_INFOrsion = getPartyMeta.getColumn(" PartyVersion").getString();
         party.set_version(version.empty() ? "1" : version);
     } else {
         party.set_version("1");
@@ -194,21 +188,21 @@ Party PartyDatabase::GetPartyByInviteCode(const std::string &inviteCode) {
     return party;
 }
 
-PartyResponse PartyDatabase::GetPartyResByInviteCode(const std::string &inviteCode) {
+PartyResponse PartyDatabase::GetPartyResByInviteCode(const std::string& inviteCode) {
     PartyResponse res;
-    Party         party = GetPartyByInviteCode(inviteCode);
+    Party party = GetPartyByInviteCode(inviteCode);
     res.mutable_party()->CopyFrom(party);
     return res;
 }
 
 static const std::string sharedClientDataStart = "sharedClientData\":";
 
-std::string PartyDatabase::SerializePartyToString(const PartyResponse &partyRes) {
+std::string PartyDatabase::SerializePartyToString(const PartyResponse& partyRes) {
     std::string jsoninit;
 
     pbuf::util::JsonPrintOptions popts;
     popts.always_print_fields_with_no_presence = true;
-    auto status                                = pbuf::util::MessageToJsonString(partyRes, &jsoninit, popts);
+    auto status = pbuf::util::MessageToJsonString(partyRes, &jsoninit, popts);
     if (!status.ok()) {
         spdlog::error("Failed to serialize CreatePartyProcessor response: {}", status.message());
         throw;
@@ -219,19 +213,19 @@ std::string PartyDatabase::SerializePartyToString(const PartyResponse &partyRes)
         parsed = ordered_json::parse(jsoninit);
         StripEmptyModeBranches(parsed);
         jsoninit = parsed.dump();
-    } catch (const std::exception &e) {
+    } catch (const std::exception& e) {
         spdlog::error("failed to post-process party json: {}", e.what());
         throw;
     }
 
     std::string jsonfinal;
-    size_t      pos = jsoninit.find(sharedClientDataStart);
+    size_t pos = jsoninit.find(sharedClientDataStart);
     if (pos == std::string::npos) {
         spdlog::error("did not find sharedClientData property in CreatePartyProcessor res json, something weird has happened");
         throw;
     }
 
-    pos       += sharedClientDataStart.size();
+    pos += sharedClientDataStart.size();
     jsonfinal = std::string(jsoninit.begin(), jsoninit.begin() + pos);
     jsonfinal += '\"';
 

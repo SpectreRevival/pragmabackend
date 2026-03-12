@@ -1,10 +1,9 @@
+#include "PersistenceUtilities.h"
+
 #include <BackendEnvironment.h>
 #include <ResourcesUtilities.h>
 #include <filesystem>
 #include <thread>
-
-#include "PersistenceUtilities.h"
-#include <filesystem>
 
 namespace fs = std::filesystem;
 
@@ -28,10 +27,8 @@ void BackendEnvironment::SetUp() {
         [](const char* bytes, size_t n) {
             std::cerr << std::string(bytes, n);
         });
-    while (true)
-    {
-        if (fs::exists(ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() / "server.lock"))
-        {
+    while (true) {
+        if (fs::exists(ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() / "server.lock")) {
             break;
         }
     }

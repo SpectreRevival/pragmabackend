@@ -1,10 +1,10 @@
 #pragma once
 #include <filesystem>
 
-class PersistenceUtilities
-{
-private:
+class PersistenceUtilities {
+  private:
     static std::filesystem::path GetAppDataPath();
-public:
+
+  public:
     static std::filesystem::path GetSavePath();
 };

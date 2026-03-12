@@ -18,12 +18,10 @@ static std::vector<std::string> SplitString(std::string_view s, char delim) {
 
 static void ApplyTestRequestInserts(json& payload, const std::vector<json>& responses) {
     for (auto& [key, value] : payload.items()) {
-        if (value.is_object())
-        {
+        if (value.is_object()) {
             ApplyTestRequestInserts(value, responses);
         }
-        if (value.is_array())
-        {
+        if (value.is_array()) {
             ApplyTestRequestInserts(value, responses);
         }
         if (!value.is_string()) {

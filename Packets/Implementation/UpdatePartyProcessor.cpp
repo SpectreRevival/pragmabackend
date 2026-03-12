@@ -1,12 +1,13 @@
+#include <PartyDatabase.h>
 #include <UpdatePartyProcessor.h>
 #include <UpdatePartyRequest.pb.h>
-#include <PartyDatabase.h>
 
-UpdatePartyProcessor::UpdatePartyProcessor(SpectreRpcType rpcType) : WebsocketPacketProcessor(rpcType) {
+UpdatePartyProcessor::UpdatePartyProcessor(SpectreRpcType rpcType)
+    : WebsocketPacketProcessor(rpcType) {
 }
 
 namespace {
-    void BumpPartyVersion(Party *party) {
+    void BumpPartyVersion(Party* party) {
         long long version = 0;
 
         if (!party->version().empty()) {
@@ -18,14 +19,14 @@ namespace {
         }
 
         party->set_version(std::to_string(version + 1));
-    }
-}
+     // namespace }
+} // namespace
 
-void UpdatePartyProcessor::Process(SpectreWebsocketRequest &packet, SpectreWebsocket &sock) {
-    std::unique_ptr<UpdatePartyRequest> req            = packet.GetPayloadAsMessage<UpdatePartyRequest>();
-    PartyResponse                       res            = PartyDatabase::Get().GetPartyRes(req->partyid());
-    Party *                             party          = res.mutable_party();
-    BroadcastPartyExtraInfo *           broadcastExtra = party->mutable_extbroadcastparty();
+void UpdatePartyProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
+    std::unique_ptr<UpdatePartyRequest> req = packet.GetPayloadAsMessage<UpdatePartyRequest>();
+    PartyResponse res = PartyDatabase::Get().GetPartyRes(req->partyid());
+    Party* party = res.mutable_party();
+    BroadcastPartyExtraInfo* broadcastExtra = party->mutable_extbroadcastparty();
     broadcastExtra->set_pool(req->requestext().pool());
     broadcastExtra->set_lobbymode(req->requestext().lobbymode());
     broadcastExtra->set_version(req->requestext().version());
@@ -44,7 +45,7 @@ void UpdatePartyProcessor::Process(SpectreWebsocketRequest &packet, SpectreWebso
     if (isCustomParty) {
         broadcastExtra->mutable_custom()->CopyFrom(req->requestext().custom());
     } else {
-        for (const auto &entry: req->requestext().standard()) {
+        for (const auto& entry : req->requestext().standard()) {
             (*broadcastExtra->mutable_standard())[entry.first] = entry.second;
         }
     }

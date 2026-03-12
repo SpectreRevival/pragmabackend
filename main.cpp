@@ -21,6 +21,7 @@
 #include <LegacyPlayerData.pb.h>
 #include <OutfitLoadout.pb.h>
 #include <PacketProcessor.h>
+#include <PersistenceUtilities.h>
 #include <PlayerDatabase.h>
 #include <SaveOutfitLoadoutProcessor.h>
 #include <SavePlayerDataProcessor.h>
@@ -42,6 +43,7 @@
 #include <boost/beast/ssl.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/beast/websocket/ssl.hpp>
+#include <csignal>
 #include <ctime>
 #include <filesystem>
 #include <iostream>
@@ -53,9 +55,6 @@
 #include <spdlog/spdlog.h>
 #include <string>
 #include <thread>
-#include <PersistenceUtilities.h>
-#include <filesystem>
-#include <signal.h>
 
 static uint16_t gamePort = 8081;
 static uint16_t socialPort = 8082;
