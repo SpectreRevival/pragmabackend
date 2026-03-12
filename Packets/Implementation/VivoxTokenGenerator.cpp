@@ -1,10 +1,10 @@
 #include <VivoxTokenGenerator.h>
-#include <openssl/hmac.h>
-#include <openssl/evp.h>
 #include <ctime>
-#include <sstream>
+#include <openssl/evp.h>
+#include <openssl/hmac.h>
 #include <random>
-//#include "spdlog/spdlog.h"
+#include <sstream>
+// #include "spdlog/spdlog.h"
 
 static const std::string B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 static unsigned int global_vxi = 0;
@@ -40,8 +40,7 @@ std::string VivoxTokenGenerator::hmac_sha256_b64url(const std::string& key, cons
         reinterpret_cast<const unsigned char*>(msg.data()),
         msg.size(),
         hash,
-        &len
-    );
+        &len);
 
     return base64url_encode(std::string(reinterpret_cast<char*>(hash), len));
 }
@@ -52,8 +51,7 @@ std::string VivoxTokenGenerator::Generate(
     const std::string& domain,
     const std::string& subject,
     const std::string& action,
-    const std::string& channel
-) {
+    const std::string& channel) {
     const int exp = static_cast<int>(std::time(nullptr) + 100);
     const int vxi = ++global_vxi;
 
@@ -77,14 +75,13 @@ std::string VivoxTokenGenerator::Generate(
 
     payload << "}";
 
-
     const std::string header = "e30"; // empty header \ {}
     const std::string payload_b64 = base64url_encode(payload.str());
 
     const std::string signing_input = header + "." + payload_b64;
     const std::string signature = hmac_sha256_b64url(secretKey, signing_input);
 
-    //spdlog::info("Generated Token {}", signing_input + "." + signature);
+    // spdlog::info("Generated Token {}", signing_input + "." + signature);
 
     return signing_input + "." + signature;
 }

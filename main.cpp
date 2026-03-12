@@ -19,6 +19,7 @@
 #include <Inventory.pb.h>
 #include <IsInPartyHandler.h>
 #include <LegacyPlayerData.pb.h>
+#include <LoginToChatProcessor.h>
 #include <OutfitLoadout.pb.h>
 #include <PacketProcessor.h>
 #include <PersistenceUtilities.h>
@@ -55,8 +56,6 @@
 #include <spdlog/spdlog.h>
 #include <string>
 #include <thread>
-#include <EnterMatchmakingProcessor.h>
-#include <LoginToChatProcessor.h>
 
 static uint16_t gamePort = 8081;
 static uint16_t socialPort = 8082;
@@ -179,9 +178,9 @@ static void ConnectionAcceptor(unsigned short port) {
     }
 }
 
-bool bStop = false;
+static bool bStop = false;
 
-void HandleInterrupt(int /*sigint*/) {
+static void HandleInterrupt(int /*sigint*/) {
     bStop = true;
 }
 
@@ -247,8 +246,7 @@ int main(int argc, char** argv) {
         new IsInPartyHandler(
             SpectreRpcType("MultiplayerRpc.SyncPartyV1Request"));
         new LoginToChatProcessor(
-    SpectreRpcType("MtnChatServiceRpc.LoginToChatV2Request")
-);
+            SpectreRpcType("MtnChatServiceRpc.LoginToChatV2Request"));
 
         std::thread gameThread = std::thread([] {
             ConnectionAcceptor(gamePort); // game

@@ -9,7 +9,7 @@ class StaticResponseProcessorWS : public WebsocketPacketProcessor {
 
   public:
     StaticResponseProcessorWS(const SpectreRpcType rpcType, const std::shared_ptr<json>& res)
-        : WebsocketPacketProcessor(rpcType), staticRes(res){};
+        : WebsocketPacketProcessor(rpcType), staticRes(res) {};
 
     void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

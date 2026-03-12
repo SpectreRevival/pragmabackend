@@ -20,9 +20,9 @@ class SpectreRpcType {
         : typeId(0) {}
     SpectreRpcType(const SpectreRpcType& type) = default;
     explicit SpectreRpcType(int typeId)
-        : typeId(typeId){};
+        : typeId(typeId) {};
     explicit SpectreRpcType(const std::string& name)
-        : typeId(typeIdToName.left.at(name)){};
+        : typeId(typeIdToName.left.at(name)) {};
 
     [[nodiscard]] std::string GetName() const {
         return typeIdToName.right.at(typeId);

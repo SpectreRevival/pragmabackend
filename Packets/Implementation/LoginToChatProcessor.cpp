@@ -1,9 +1,10 @@
+#include "SpectreRpcType.h"
+
 #include <LoginToChatProcessor.h>
 #include <VivoxTokenGenerator.h>
-#include <spdlog/spdlog.h>
-#include "SpectreRpcType.h"
-#include <nlohmann/json.hpp>
 #include <fstream>
+#include <nlohmann/json.hpp>
+#include <spdlog/spdlog.h>
 
 struct VivoxConfig {
     std::string domain;
@@ -20,7 +21,7 @@ static std::optional<VivoxConfig> LoadVivoxCfg() {
 
         nlohmann::json j;
         f >> j;
-        const auto&  v = j["vivox"];
+        const auto& v = j["vivox"];
 
         cfg.domain = v.value("domain", "");
         cfg.issuer = v.value("issuer", "");
@@ -35,7 +36,7 @@ static std::optional<VivoxConfig> LoadVivoxCfg() {
     return cfg;
 }
 
-LoginToChatProcessor::LoginToChatProcessor(const SpectreRpcType &rpcType) : WebsocketPacketProcessor(rpcType) {}
+LoginToChatProcessor::LoginToChatProcessor(const SpectreRpcType& rpcType) : WebsocketPacketProcessor(rpcType) {}
 
 void LoginToChatProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
     const auto cfgOpt = LoadVivoxCfg();
@@ -54,8 +55,7 @@ void LoginToChatProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebso
         cfg.issuer,
         cfg.domain,
         playerId,
-        "login"
-        );
+        "login");
 
     const std::string joinToken = VivoxTokenGenerator::Generate(
         cfg.key,
@@ -63,8 +63,7 @@ void LoginToChatProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebso
         cfg.domain,
         playerId,
         "join",
-        "global"
-        );
+        "global");
 
     payload["success"] = true;
     payload["token"] = loginToken;

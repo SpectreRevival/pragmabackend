@@ -2,8 +2,7 @@
 #include <string>
 
 class VivoxTokenGenerator {
-    public:
-
+  public:
     static std::string Generate(
         const std::string& secretKey,
         const std::string& issuer,
@@ -12,8 +11,7 @@ class VivoxTokenGenerator {
         const std::string& action,
         const std::string& channel = "");
 
-    private:
-
+  private:
     static std::string base64url_encode(const std::string& in);
     static std::string hmac_sha256_b64url(const std::string& key, const std::string& msg);
 };

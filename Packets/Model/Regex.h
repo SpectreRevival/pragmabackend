@@ -9,7 +9,7 @@ namespace betterrx {
         std::regex rx;
 
         explicit Regex(const std::string& pattern)
-            : pattern(pattern), rx(pattern){};
+            : pattern(pattern), rx(pattern) {};
         bool operator==(const Regex& other) const {
             return pattern == other.pattern;
         }
