@@ -2,7 +2,6 @@ name: autoformat
 on:
   pull_request:
   push:
-    branches: [master]
 jobs:
   clang-format:
     runs-on: ubuntu-latest

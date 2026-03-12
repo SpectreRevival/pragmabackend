@@ -1,7 +1,6 @@
 name: build.yml
 on:
   push:
-    branches: [master]
   pull_request:
 
 jobs:
