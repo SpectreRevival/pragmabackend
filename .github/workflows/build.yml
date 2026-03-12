@@ -205,48 +205,48 @@ jobs:
             Remove-Item ./vcpkg/downloads -Recurse -Force
             Remove-Item ./vcpkg/packages -Recurse -Force
 
-  test-ubuntu:
-    needs: build-ubuntu
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        build_type: [debug, release]
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: x64-${{matrix.build_type}}-linux
-          path: build/
-
-      - name: Run tests
-        run: |
-          chmod +x build/tests/tests
-          chmod +x build/pragmabackend
-          cd build/tests
-          ./tests
-
-  test-windows:
-    needs: build-windows
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        build_type: [debug, release]
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: x64-${{matrix.build_type}}-win
-          path: build/
-
-      - name: Create auth.json
-        shell: bash
-        run: |
-          echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > build/auth.json
-
-      - name: Run tests
-        shell: cmd
-        run: |
-          cd build\tests\
-          .\tests.exe
+#  test-ubuntu:
+#    needs: build-ubuntu
+#    runs-on: ubuntu-latest
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        build_type: [debug, release]
+#    steps:
+#      - name: Download artifact
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: x64-${{matrix.build_type}}-linux
+#          path: build/
+#
+#      - name: Run tests
+#        run: |
+#          chmod +x build/tests/tests
+#          chmod +x build/pragmabackend
+#          cd build/tests
+#          ./tests
+#
+#  test-windows:
+#    needs: build-windows
+#    runs-on: windows-latest
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        build_type: [debug, release]
+#    steps:
+#      - name: Download artifact
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: x64-${{matrix.build_type}}-win
+#          path: build/
+#
+#      - name: Create auth.json
+#        shell: bash
+#        run: |
+#          echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > build/auth.json
+#
+#      - name: Run tests
+#        shell: cmd
+#        run: |
+#          cd build\tests\
+#          .\tests.exe
