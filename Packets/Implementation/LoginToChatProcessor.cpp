@@ -36,7 +36,8 @@ static std::optional<VivoxConfig> LoadVivoxCfg() {
     return cfg;
 }
 
-LoginToChatProcessor::LoginToChatProcessor(const SpectreRpcType& rpcType) : WebsocketPacketProcessor(rpcType) {}
+LoginToChatProcessor::LoginToChatProcessor(const SpectreRpcType& rpcType)
+    : WebsocketPacketProcessor(rpcType) {}
 
 void LoginToChatProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
     const auto cfgOpt = LoadVivoxCfg();

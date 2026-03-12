@@ -39,12 +39,12 @@ std::string VivoxTokenGenerator::hmac_sha256_b64url(const std::string& key, cons
         EVP_sha256(),
         key.data(),
         static_cast<int>(key.size()),
-        reinterpret_cast<const unsigned char*>(msg.data()), //NOLINT
+        reinterpret_cast<const unsigned char*>(msg.data()), // NOLINT
         msg.size(),
         hash.data(),
         &len);
 
-    return base64url_encode(std::string(reinterpret_cast<char*>(hash.data()), len)); //NOLINT
+    return base64url_encode(std::string(reinterpret_cast<char*>(hash.data()), len)); // NOLINT
 }
 
 std::string VivoxTokenGenerator::Generate(

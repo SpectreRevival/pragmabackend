@@ -10,7 +10,7 @@ class StaticResponseProcessorHTTP : public HTTPPacketProcessor {
 
   public:
     StaticResponseProcessorHTTP(const std::string& route, const std::shared_ptr<json>& res)
-        : HTTPPacketProcessor(route), staticRes(res) {};
+        : HTTPPacketProcessor(route), staticRes(res){};
 
     void Process(const http::request<http::string_body>& req, tcp::socket& sock) override;
 };
