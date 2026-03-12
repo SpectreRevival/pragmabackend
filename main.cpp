@@ -179,8 +179,7 @@ static void ConnectionAcceptor(unsigned short port) {
 
 bool bStop = false;
 
-void HandleInterrupt(int /*sigint*/)
-{
+void HandleInterrupt(int /*sigint*/) {
     bStop = true;
 }
 
@@ -256,8 +255,7 @@ int main(int argc, char** argv) {
         });
         logger->info("acceptor threads started");
         std::ofstream serverLockFile("./server.lock", std::ios::trunc | std::ios::out);
-        while (!bStop)
-        {
+        while (!bStop) {
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
         serverLockFile.close();
