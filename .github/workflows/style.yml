@@ -28,16 +28,20 @@ jobs:
           sudo apt-get install -y cmake
 
       - name: Get vcpkg commit
+        id: vcpkgcommit
         shell: bash
-        run: git submodule status vcpkg > vcpkgcommit.txt
+        run: |
+          cd vcpkg
+          sha=$(git rev-parse HEAD)
+          echo "sha=$sha" >> $GITHUB_OUTPUT
 
       - name: Cache vcpkg archives directory
         uses: actions/cache@v4
         with:
           path: ~/.cache/vcpkg/archives
-          key: ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}-${{hashFiles('vcpkg.json')}}
+          key: ${{ runner.os }}-vcpkg-${{steps.vcpkgcommit.outputs.sha}}-${{hashFiles('vcpkg.json')}}
           restore-keys: |
-            ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}
+            ${{ runner.os }}-vcpkg-${{steps.vcpkgcommit.outputs.sha}}
           fail-on-cache-miss: true
 
       - name: Configure

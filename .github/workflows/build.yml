@@ -32,15 +32,20 @@ jobs:
           echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > auth.json
 
       - name: Get vcpkg commit
-        run: git submodule status vcpkg > vcpkgcommit.txt
+        id: vcpkgcommit
+        shell: bash
+        run: |
+          cd vcpkg
+          sha=$(git rev-parse HEAD)
+          echo "sha=$sha" >> $GITHUB_OUTPUT
 
       - name: Cache vcpkg archives directory
         uses: actions/cache@v4
         with:
           path: ~/.cache/vcpkg/archives
-          key: ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}-${{hashFiles('vcpkg.json')}}
+          key: ${{ runner.os }}-vcpkg-${{steps.vcpkgcommit.outputs.sha}}-${{hashFiles('vcpkg.json')}}
           restore-keys: |
-            ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}
+            ${{ runner.os }}-vcpkg-${{steps.vcpkgcommit.outputs.sha}}
 
       - name: Configure ${{matrix.build_type}} ${{matrix.os}}
         run: |
@@ -127,8 +132,12 @@ jobs:
             echo "value=$env:LOCALAPPDATA" >> $env:GITHUB_OUTPUT
 
         - name: Get vcpkg commit
-          shell: powershell
-          run: git submodule status vcpkg | Out-File -Encoding utf8 vcpkgcommit.txt
+          id: vcpkgcommit
+          shell: bash
+          run: |
+            cd vcpkg
+            sha=$(git rev-parse HEAD)
+            echo "sha=$sha" >> $GITHUB_OUTPUT
 
         - name: Create auth.json
           shell: bash
@@ -139,9 +148,9 @@ jobs:
           uses: actions/cache@v4
           with:
             path: ${{steps.localappdata.outputs.value}}\vcpkg\archives
-            key: ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}-${{hashFiles('vcpkg.json')}}
+            key: ${{ runner.os }}-vcpkg-${{steps.vcpkgcommit.outputs.sha}}-${{hashFiles('vcpkg.json')}}
             restore-keys: |
-              ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}
+              ${{ runner.os }}-vcpkg-${{steps.vcpkgcommit.outputs.sha}}
 
         - name: Configure and build ${{matrix.build_type}}
           run: cmake . --preset x64-${{matrix.build_type}}-win
