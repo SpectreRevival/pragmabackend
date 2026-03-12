@@ -1,0 +1,1 @@
+{"requestBody":{"crewId":"EBC4C447-00B0-4CA0-995B-915B4AB8A8FC"},"responsePayload":{"divisionData":{"divisionId":"076636a1-5206-4051-b288-ddfa7da1ef39","divisionName":"CHALLENGER Division","divisionType":"CHALLENGER"},"success":true},"rpcType":"MtnCrewServiceRpc.GetDivisionByCrewIdV1Request","testAge":1727818107.609}

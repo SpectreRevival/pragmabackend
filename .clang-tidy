@@ -1,0 +1,61 @@
+# Generated from CLion Inspection settings
+---
+WarningsAsErrors: "*"
+HeaderFilterRegex: '^(?!.*\.pb\.).*$'
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  cppcoreguidelines-*,
+  google-*,
+  hicpp-*,
+  misc-*,
+  modernize-*,
+  mpi-*,
+  openmp-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -cppcoreguidelines-avoid-non-const-global-variables,
+  -misc-use-anonymous-namespace,
+  -readability-braces-around-statements,
+  -modernize-use-trailing-return-type,
+  -hicpp-braces-around-statements,
+  -misc-const-correctness,
+  -cert-err58-cpp,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-narrowing-conversions,
+  -cppcoreguidelines-narrowing-conversions,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -readability-identifier-length,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -modernize-return-braced-init-list,
+  -hicpp-signed-bitwise,
+  -misc-include-cleaner,
+  -readability-qualified-auto,
+  -readability-magic-numbers,
+  -readability-avoid-return-with-void-value,
+  -portability-avoid-pragma-once,
+  -bugprone-throwing-static-initialization
+CheckOptions:
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.FunctionCase
+    value: CamelCase
+
+  - key: readability-identifier-naming.VariableCase
+    value: camelBack
+
+  - key: readability-identifier-naming.MemberCase
+    value: camelBack
+
+  - key: readability-identifier-naming.ParameterCase
+    value: camelBack
+
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case

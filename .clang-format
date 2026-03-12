@@ -1,0 +1,28 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Brace and layout preferences
+BreakBeforeBraces: Attach
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+AllowShortBlocksOnASingleLine: "Empty"
+
+# Include ordering
+IncludeBlocks: Regroup
+SortIncludes: true
+
+# Namespace formatting
+NamespaceIndentation: All
+
+# Align and spacing rules
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+SpaceBeforeParens: ControlStatements
+ColumnLimit: 0
+
+# Type qualifier alignment
+PointerAlignment: Left
+QualifierAlignment: Left

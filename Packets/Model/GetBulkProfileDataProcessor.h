@@ -2,8 +2,8 @@
 #include <PacketProcessor.h>
 
 class GetBulkProfileDataProcessor : public WebsocketPacketProcessor {
-public:
-	GetBulkProfileDataProcessor(SpectreRpcType rpcType);
+  public:
+    explicit GetBulkProfileDataProcessor(const SpectreRpcType& rpcType);
 
-	void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
+    void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

@@ -2,8 +2,8 @@
 #include <PacketProcessor.h>
 
 class SaveOutfitLoadoutProcessor : public WebsocketPacketProcessor {
-public:
-    SaveOutfitLoadoutProcessor(SpectreRpcType rpcType);
+  public:
+    explicit SaveOutfitLoadoutProcessor(SpectreRpcType rpcType);
 
     void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

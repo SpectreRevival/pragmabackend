@@ -5,10 +5,12 @@
 namespace http = boost::beast::http;
 
 class StaticResponseProcessorHTTP : public HTTPPacketProcessor {
-private:
-    std::shared_ptr<json> m_res;
-public:
-    StaticResponseProcessorHTTP(std::string route, std::shared_ptr<json> res) : HTTPPacketProcessor(route), m_res(res) {};
+  private:
+    std::shared_ptr<json> staticRes;
 
-    void Process(http::request<http::string_body> const& req, tcp::socket& sock) override;
+  public:
+    StaticResponseProcessorHTTP(const std::string& route, const std::shared_ptr<json>& res)
+        : HTTPPacketProcessor(route), staticRes(res){};
+
+    void Process(const http::request<http::string_body>& req, tcp::socket& sock) override;
 };

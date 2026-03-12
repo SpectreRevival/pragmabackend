@@ -1,0 +1,7 @@
+{
+  "method": "GET",
+  "path": "/v1/loginqueue/getinqueuev1",
+  "request": "",
+  "response": "{\"token\":\"*\",\"positionInQueue\":0,\"eta\":\"0\",\"pollNextDuration\":1000,\"isAllowedIn\":true}",
+  "testAge": "2025-02-25T13:17:06.4306968-05:00"
+}

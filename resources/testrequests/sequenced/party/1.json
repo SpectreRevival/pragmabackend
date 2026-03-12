@@ -1,0 +1,275 @@
+{
+  "requestBody": {
+    "createRequestExt": {
+      "acceptableRegions": [],
+      "crossPlayPreference": {
+        "platform": "CROSS_PLAY_PLATFORM_PC"
+      },
+      "lobbyMode": "standard_casual",
+      "profile": "",
+      "region": "",
+      "standard": {
+        "mode": "Standard"
+      },
+      "tag": "",
+      "useTeamMmr": false,
+      "version": "173322"
+    },
+    "gameClientVersion": "",
+    "gameServerZoneToPing": {},
+    "playerId": "6dc9d069-97fe-5440-bdbb-eebeec1047e9",
+    "playerJoinRequestExt": {
+      "clientData": "{\r\n\t\"clientPublicKey\": \"\"\r\n}",
+      "crossPlayPreference": {
+        "platform": "ANY_CROSS_PLAY_PLATFORM"
+      },
+      "preferredRegions": [],
+      "preferredTeam": "SPECTATOR",
+      "region": "",
+      "regionPings": {
+        "uscentral-1": 17,
+        "uscentral-2": 33,
+        "useast-1": 50,
+        "uswest-1": 33,
+        "uswest-2": 33
+      },
+      "sharedClientData": "{\r\n\t\"accountIdProvider\": \"STEAM\",\r\n\t\"platformName\": \"STEAM\",\r\n\t\"crossPlayPlatformKind\": \"CROSS_PLAY_PLATFORM_PC\",\r\n\t\"currentProviderAccountId\": \"76561199041068696\",\r\n\t\"crewId\": \"\",\r\n\t\"gamesRemainingUntilCrewJoin\": 0,\r\n\t\"battlePassLevel\": 0\r\n}",
+      "version": "173322"
+    },
+    "preferredGameServerZones": []
+  },
+  "responsePayload": {
+    "party": {
+      "extBroadcastParty": {
+        "chatId": "",
+        "crossPlayPreference": {
+          "platform": "CROSS_PLAY_PLATFORM_PC"
+        },
+        "hasAcceptableRegion": true,
+        "lobbyMode": "standard_casual",
+        "pool": "",
+        "profile": "",
+        "region": "",
+        "removePlayers": [],
+        "standard": {
+          "mode": "Standard"
+        },
+        "tag": "",
+        "tokens": [],
+        "useTeamMmr": false,
+        "version": "173322"
+      },
+      "extPrivatePlayer": {},
+      "inviteCode": "*",
+      "partyId": "*",
+      "partyMembers": [
+        {
+          "displayName": {
+            "discriminator": "*",
+            "displayName": "Ohm"
+          },
+          "ext": {
+            "limitedInstancedInventory": [
+            ],
+            "playerData": {
+              "attackerOutfitLoadout": {
+                "faceAccessoryData": {
+                  "alterationData": [],
+                  "attachmentItemCatalogId": "",
+                  "attachmentItemInstanceId": "",
+                  "itemCatalogId": "",
+                  "itemInstanceId": "",
+                  "itemType": ""
+                },
+                "faceStyleData": {
+                  "alterationData": [],
+                  "attachmentItemCatalogId": "",
+                  "attachmentItemInstanceId": "",
+                  "itemCatalogId": "",
+                  "itemInstanceId": "",
+                  "itemType": ""
+                },
+                "hairData": {
+                  "alterationData": [
+                    {
+                      "alterationId": "Option7",
+                      "channelId": "Color"
+                    }
+                  ],
+                  "attachmentItemCatalogId": "",
+                  "attachmentItemInstanceId": "",
+                  "itemCatalogId": "CharacterCosmeticItemSimple:HairID_Hair_0016",
+                  "itemInstanceId": "*",
+                  "itemType": ""
+                },
+                "headData": {
+                  "alterationData": [
+                    {
+                      "alterationId": "Option5",
+                      "channelId": "SkinTone"
+                    },
+                    {
+                      "alterationId": "Option3",
+                      "channelId": "LipColor"
+                    },
+                    {
+                      "alterationId": "Option6",
+                      "channelId": "EyeColor"
+                    },
+                    {
+                      "alterationId": "Option4",
+                      "channelId": "EyebrowColor"
+                    },
+                    {
+                      "alterationId": "Option5",
+                      "channelId": "Voice"
+                    }
+                  ],
+                  "attachmentItemCatalogId": "",
+                  "attachmentItemInstanceId": "",
+                  "itemCatalogId": "CharacterCosmeticItemHead:HeadID_Face_003",
+                  "itemInstanceId": "*",
+                  "itemType": ""
+                },
+                "loadoutId": "*",
+                "outfitData": {
+                  "alterationData": [
+                    {
+                      "alterationId": "Option1",
+                      "channelId": "Color"
+                    }
+                  ],
+                  "attachmentItemCatalogId": "",
+                  "attachmentItemInstanceId": "",
+                  "itemCatalogId": "CharacterCosmeticItemOutfit:OutfitID_F_Default",
+                  "itemInstanceId": "*",
+                  "itemType": ""
+                },
+                "playerId": "6dc9d069-97fe-5440-bdbb-eebeec1047e9"
+              },
+              "attackerWeaponLoadout": {
+                "loadoutId": "*",
+                "playerId": "6dc9d069-97fe-5440-bdbb-eebeec1047e9"
+              },
+              "banner": {
+                "alterationData": [],
+                "attachmentItemCatalogId": "",
+                "attachmentItemInstanceId": "",
+                "itemCatalogId": "SpectreBannerItemDef:BannerID_Default",
+                "itemInstanceId": "*",
+                "itemType": ""
+              },
+              "defenderOutfitLoadout": {
+                "faceAccessoryData": {
+                  "alterationData": [],
+                  "attachmentItemCatalogId": "",
+                  "attachmentItemInstanceId": "",
+                  "itemCatalogId": "",
+                  "itemInstanceId": "",
+                  "itemType": ""
+                },
+                "faceStyleData": {
+                  "alterationData": [],
+                  "attachmentItemCatalogId": "",
+                  "attachmentItemInstanceId": "",
+                  "itemCatalogId": "",
+                  "itemInstanceId": "",
+                  "itemType": ""
+                },
+                "hairData": {
+                  "alterationData": [
+                    {
+                      "alterationId": "Option5",
+                      "channelId": "Color"
+                    }
+                  ],
+                  "attachmentItemCatalogId": "",
+                  "attachmentItemInstanceId": "",
+                  "itemCatalogId": "CharacterCosmeticItemSimple:HairID_Hair_0020",
+                  "itemInstanceId": "*",
+                  "itemType": ""
+                },
+                "headData": {
+                  "alterationData": [
+                    {
+                      "alterationId": "Option8",
+                      "channelId": "SkinTone"
+                    },
+                    {
+                      "alterationId": "Option2",
+                      "channelId": "LipColor"
+                    },
+                    {
+                      "alterationId": "Option6",
+                      "channelId": "EyeColor"
+                    },
+                    {
+                      "alterationId": "Option4",
+                      "channelId": "EyebrowColor"
+                    },
+                    {
+                      "alterationId": "Option3",
+                      "channelId": "Voice"
+                    }
+                  ],
+                  "attachmentItemCatalogId": "",
+                  "attachmentItemInstanceId": "",
+                  "itemCatalogId": "CharacterCosmeticItemHead:HeadID_Face_002_B",
+                  "itemInstanceId": "*",
+                  "itemType": ""
+                },
+                "loadoutId": "*",
+                "outfitData": {
+                  "alterationData": [
+                    {
+                      "alterationId": "Option1",
+                      "channelId": "Color"
+                    }
+                  ],
+                  "attachmentItemCatalogId": "",
+                  "attachmentItemInstanceId": "",
+                  "itemCatalogId": "CharacterCosmeticItemOutfit:OutfitID_M_Default",
+                  "itemInstanceId": "40268935-F961-4783-934F-C46B3E7DC1DB",
+                  "itemType": ""
+                },
+                "playerId": "6dc9d069-97fe-5440-bdbb-eebeec1047e9"
+              },
+              "defenderWeaponLoadout": {
+                "loadoutId": "*",
+                "playerId": "6dc9d069-97fe-5440-bdbb-eebeec1047e9"
+              },
+              "matchmakingData": {
+                "casualMatchesPlayedCount": 0.0,
+                "casualMatchesWonCount": 0.0,
+                "currentSoloRank": 0.0,
+                "highestTeamRank": 0.0,
+                "matchmakingFlags": 1.0,
+                "primaryGeographicRegion": "",
+                "priorityMatchmakingUntil": "0",
+                "restrictMatchmakingUntil": "0",
+                "secondaryGeographicRegion": "",
+                "soloRankPoints": 0.0
+              }
+            },
+            "preferredTeam": "TEAM0",
+            "rankedModeUnlocked": false,
+            "region": "",
+            "sharedClientData": "{\r\n\t\"accountIdProvider\": \"STEAM\",\r\n\t\"platformName\": \"STEAM\",\r\n\t\"crossPlayPlatformKind\": \"CROSS_PLAY_PLATFORM_PC\",\r\n\t\"currentProviderAccountId\": \"76561199041068696\",\r\n\t\"crewId\": \"\",\r\n\t\"gamesRemainingUntilCrewJoin\": 0,\r\n\t\"battlePassLevel\": 0\r\n}",
+            "version": "173322"
+          },
+          "isLeader": true,
+          "isReady": false,
+          "playerId": "6dc9d069-97fe-5440-bdbb-eebeec1047e9",
+          "socialId": "6dc9d069-97fe-5440-bdbb-eebeec1047e9"
+        }
+      ],
+      "preferredGameServerZones": [
+        "uscentral-1"
+      ],
+      "version": "1"
+    }
+  },
+  "rpcType": "PartyRpc.CreateV1Request",
+  "ignoreReplace": true,
+  "testAge": 1740507431.194
+}

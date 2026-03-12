@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+message IsInPartyResponse {
+    bool isInParty = 1;
+}

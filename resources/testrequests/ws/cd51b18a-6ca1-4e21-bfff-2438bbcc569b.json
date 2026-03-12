@@ -1,0 +1,32 @@
+{
+  "requestBody": {
+    "playerIds": [
+      "250D6BEA-4F0D-4DED-96CC-6E40EC80AFAB"
+    ]
+  },
+  "responsePayload": {
+    "bulkProfileData": [
+      {
+        "banner": {
+          "alterationData": [],
+          "attachmentItemCatalogId": "",
+          "attachmentItemInstanceId": "",
+          "itemCatalogId": "*",
+          "itemInstanceId": "*",
+          "itemType": ""
+        },
+        "crewScore": "0",
+        "currentSoloRank": 0.0,
+        "displayName": {
+          "discriminator": "*",
+          "displayName": "*"
+        },
+        "divisionType": "*",
+        "highestTeamRank": 0.0,
+        "playerId": "250d6bea-4f0d-4ded-96cc-6e40ec80afab"
+      }
+    ]
+  },
+  "rpcType": "MtnPlayerDataServiceRpc.GetBulkProfileDataClientV1Request",
+  "testAge": 1740507459.429
+}

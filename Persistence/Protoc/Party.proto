@@ -1,6 +1,5 @@
 syntax = "proto3";
 import "PartyMember.proto";
-import "DisplayName.proto";
 import "CrossplayPreferences.proto";
 import "CustomGameInfo.proto";
 
@@ -13,8 +12,6 @@ message Party {
 	repeated string preferredGameServerZones = 6;
 	string version = 7;
 }
-
-message BroadcastPrivatePartyExtraInfo {} // no clue what this is supposed to have yet
 
 message BroadcastPartyExtraInfo {
 	string pool = 1;
@@ -30,4 +27,9 @@ message BroadcastPartyExtraInfo {
 	bool useTeamMmr = 11;
 	bool hasAcceptableRegion = 12;
 	CrossplayPreferences crossPlayPreference = 13;
+	repeated string removePlayers = 14;
+}
+
+message BroadcastPrivatePartyExtraInfo {
+
 }

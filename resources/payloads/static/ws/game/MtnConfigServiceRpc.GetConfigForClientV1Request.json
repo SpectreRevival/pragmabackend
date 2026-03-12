@@ -2,6 +2,8 @@
   "config": {
     "mapList": [
       "Junction_P",
+      "ShootingRange_P",
+      "Tutorial_P",
       "Metro_P",
       "Greenbelt_P",
       "Commons_P",

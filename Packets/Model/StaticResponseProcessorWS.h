@@ -2,17 +2,14 @@
 #include <PacketProcessor.h>
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
-#include <filesystem>
-
-namespace fs = std::filesystem;
 
 class StaticResponseProcessorWS : public WebsocketPacketProcessor {
-private:
-    std::shared_ptr<json> m_res;
-public:
-    StaticResponseProcessorWS(SpectreRpcType rpcType, std::shared_ptr<json> res)
-        : WebsocketPacketProcessor(rpcType), m_res(res) {
-    };
+  private:
+    std::shared_ptr<json> staticRes;
+
+  public:
+    StaticResponseProcessorWS(const SpectreRpcType rpcType, const std::shared_ptr<json>& res)
+        : WebsocketPacketProcessor(rpcType), staticRes(res){};
 
     void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };

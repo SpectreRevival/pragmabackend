@@ -1,0 +1,23 @@
+name: release.yml
+on:
+  release:
+    types: [published]
+
+jobs:
+  attach-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: |
+            x64-release-win
+            x64-release-linux
+          path: artifacts/
+
+      - name: Upload assets to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/**/*
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

@@ -1,0 +1,27 @@
+{
+  "requestBody": {
+    "type": "hathora"
+  },
+  "responsePayload": {
+    "endpoints": [
+      {
+        "host": "chicago.ping.hathora.dev",
+        "ipv4": "",
+        "ipv6": "",
+        "port": 80,
+        "regionName": "uscentral-1",
+        "type": "hathora"
+      },
+      {
+        "host": "london.ping.hathora.dev",
+        "ipv4": "",
+        "ipv6": "",
+        "port": 80,
+        "regionName": "eucentral-1",
+        "type": "hathora"
+      }
+    ]
+  },
+  "rpcType": "MtnBeaconServiceRpc.GetBeaconEndpointsV1Request",
+  "testAge": 1740507427.3
+}

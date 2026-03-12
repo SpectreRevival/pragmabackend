@@ -1,0 +1,45 @@
+name: autoformat
+on:
+  pull_request:
+  push:
+    branches: [master]
+jobs:
+  clang-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          fetch-depth: 0
+          ref: ${{github.event.pull_request.head.ref}}
+
+      - name: Install clang-format
+        run: sudo apt-get update && sudo apt-get install -y clang-format
+
+      - name: Run clang-format
+        run: |
+          FILES=$(find . -type f -regex '\./\(Packets\|Persistence\|tests\)/.*\.\(h\|cpp\)$')
+          
+          clang-format -i $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp
+
+      - name: Create diff
+        run: |
+          if ! git diff --quiet; then
+            git diff > clang-format.patch
+            echo "Patch created, apply the patch from the action artifact to fix"
+          else
+            echo "No changes required"
+          fi
+
+      - name: Upload patch if exists
+        uses: actions/upload-artifact@v4
+        if: ${{hashFiles('clang-format.patch') != ''}}
+        with:
+          path: clang-format.patch
+          name: clang-format.patch
+
+      - name: Fail if patch exists
+        if: ${{hashFiles('clang-format.patch') != ''}}
+        run: |
+          exit 1

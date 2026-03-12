@@ -1,0 +1,72 @@
+name: style.yml
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  clang-tidy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install clang-tidy
+        run: |
+          sudo apt update
+          sudo apt install -y clang-tidy clang-tools
+
+      - name: Install compiler
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential ninja-build curl zip unzip tar autoconf autoconf-archive automake libtool linux-libc-dev pkg-config software-properties-common lsb-release
+          sudo curl -fsSL https://apt.kitware.com/keys/kitware-archive-latest.asc -o /usr/share/keyrings/kitware-archive-keyring.asc
+          echo "deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.asc] https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/kitware.list  
+          sudo apt-get update
+          sudo apt-get install -y cmake
+
+      - name: Get vcpkg commit
+        shell: bash
+        run: git submodule status vcpkg > vcpkgcommit.txt
+
+      - name: Cache vcpkg archives directory
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/vcpkg/archives
+          key: ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}-${{hashFiles('vcpkg.json')}}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-${{hashFiles('vcpkgcommit.txt')}}
+          fail-on-cache-miss: true
+
+      - name: Configure
+        run: |
+          /usr/bin/cmake . --preset x64-debug-linux -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+      - name: Generate protos
+        run: cmake --build out/build/x64-debug-linux --target generate_protos
+
+      - name: Run clang tidy
+        run: |
+          FILES=$(find . -type f -regex '\./\(Packets\|Persistence\|tests\)/.*\.\(h\|cpp\)$')
+          
+          run-clang-tidy $FILES main.cpp StaticHTTPPackets.cpp StaticWSPackets.cpp -fix -p out/build/x64-debug-linux -extra-arg=-Werror
+
+      - name: Create diff
+        if: always()
+        run: |
+          if ! git diff --quiet; then
+            git diff > clang-tidy.patch
+            echo "Patch created, apply the patch from the action artifact to fix"
+            echo "Note that manual changes may be required for things that clang-tidy is unable to automatically fix"
+          else
+            echo "No changes required"
+          fi
+
+      - name: Upload patch if exists
+        uses: actions/upload-artifact@v4
+        if: ${{hashFiles('clang-tidy.patch') != ''}}
+        with:
+          path: clang-tidy.patch
+          name: clang-tidy.patch

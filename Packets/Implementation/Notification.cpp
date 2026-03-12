@@ -1,9 +1,9 @@
 #include <Notification.h>
 
-Notification::Notification(SpectreRpcType notificationType) : m_notificationType(notificationType) {
-
+Notification::Notification(const SpectreRpcType notificationType)
+    : notificationType(notificationType) {
 }
 
 const SpectreRpcType& Notification::GetNotificationType() const {
-	return m_notificationType;
+    return notificationType;
 }

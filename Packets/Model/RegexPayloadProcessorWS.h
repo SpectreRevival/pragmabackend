@@ -1,17 +1,18 @@
 #pragma once
-#include <PacketProcessor.h>
-#include <nlohmann/json.hpp>
-#include <unordered_map>
-#include <string>
 #include "Regex.h"
 
-class RegexPayloadProcessorWS : public WebsocketPacketProcessor {
-private:
-	std::unordered_map<regex, std::shared_ptr<json>> m_resMap;
-public:
-	RegexPayloadProcessorWS(SpectreRpcType rpcType, std::unordered_map<regex, std::shared_ptr<json>> resMap)
-		: WebsocketPacketProcessor(rpcType), m_resMap(resMap) {
-	};
+#include <PacketProcessor.h>
+#include <nlohmann/json.hpp>
+#include <string>
+#include <unordered_map>
 
-	void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
+class RegexPayloadProcessorWS : public WebsocketPacketProcessor {
+  private:
+    std::unordered_map<Regex, std::shared_ptr<json>> resMap;
+
+  public:
+    RegexPayloadProcessorWS(const SpectreRpcType& rpcType, const std::unordered_map<Regex, std::shared_ptr<json>>& resMap)
+        : WebsocketPacketProcessor(rpcType), resMap(resMap){};
+
+    void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };
