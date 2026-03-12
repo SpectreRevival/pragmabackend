@@ -15,6 +15,7 @@
 #include <GetBulkProfileDataProcessor.h>
 #include <GetLoginDataProcessor.h>
 #include <GetPlayerDataProcessor.h>
+#include <GetUnreadMessagesProcessor.h>
 #include <HeartbeatProcessor.h>
 #include <Inventory.pb.h>
 #include <IsInPartyHandler.h>
@@ -23,6 +24,7 @@
 #include <PacketProcessor.h>
 #include <PersistenceUtilities.h>
 #include <PlayerDatabase.h>
+#include <ReadMessageProcessor.h>
 #include <SaveOutfitLoadoutProcessor.h>
 #include <SavePlayerDataProcessor.h>
 #include <SaveWeaponLoadoutProcessor.h>
@@ -244,6 +246,10 @@ int main(int argc, char** argv) {
             SpectreRpcType("MultiplayerRpc.InitializePartyV1Request"));
         new IsInPartyHandler(
             SpectreRpcType("MultiplayerRpc.SyncPartyV1Request"));
+        new GetUnreadMessagesProcessor(
+            SpectreRpcType("MtnInboxServiceRpc.GetMessagesClientV1Request"));
+        new ReadMessageProcessor(
+            SpectreRpcType("MtnInboxServiceRpc.MarkMessageAsReadClientV1Request"));
         std::thread gameThread = std::thread([] {
             ConnectionAcceptor(gamePort); // game
         });
