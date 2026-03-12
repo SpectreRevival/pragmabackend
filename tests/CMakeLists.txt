@@ -37,4 +37,4 @@ target_include_directories(TestDeduplicator PUBLIC "${CMAKE_SOURCE_DIR}/Packets/
 target_include_directories(TestDeduplicator PUBLIC "${CMAKE_SOURCE_DIR}/Persistence/Model")
 
 include(GoogleTest)
-gtest_discover_tests(tests)
+gtest_discover_tests(tests DISCOVERY_TIMEOUT 60)
