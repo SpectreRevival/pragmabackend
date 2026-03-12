@@ -58,6 +58,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      - name: Create artifacts dir
+        run: mkdir artifacts
+
       - name: Download Linux artifact ZIP
         run: |
           curl -L \
@@ -70,9 +73,6 @@ jobs:
             -H "Authorization: Bearer ${{ github.token }}" \
             -o artifacts/x64-release-win.zip \
             "${{ steps.artifact_win.outputs.url }}"
-
-      - name: Create artifacts dir
-        run: mkdir artifacts
 
       - name: Upload assets to release
         uses: softprops/action-gh-release@v2
