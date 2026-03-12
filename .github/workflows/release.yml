@@ -34,26 +34,49 @@ jobs:
         env:
           GH_TOKEN: ${{github.token}}
 
+      - name: Get artifact metadata (Linux)
+        id: artifact_linux
+        run: |
+          artifact=$(gh api \
+            repos/${{ github.repository }}/actions/runs/${{ steps.get_run.outputs.run_id }}/artifacts \
+            --jq '.artifacts[] | select(.name=="x64-release-linux")')
+
+          url=$(echo "$artifact" | jq -r '.archive_download_url')
+          echo "url=$url" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Get artifact metadata (Windows)
+        id: artifact_win
+        run: |
+          artifact=$(gh api \
+            repos/${{ github.repository }}/actions/runs/${{ steps.get_run.outputs.run_id }}/artifacts \
+            --jq '.artifacts[] | select(.name=="x64-release-win")')
+
+          url=$(echo "$artifact" | jq -r '.archive_download_url')
+          echo "url=$url" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Download Linux artifact ZIP
+        run: |
+          curl -L \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -o artifacts/x64-release-linux.zip \
+            "${{ steps.artifact_linux.outputs.url }}"
+      - name: Download Windows artifact ZIP
+        run: |
+          curl -L \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -o artifacts/x64-release-win.zip \
+            "${{ steps.artifact_win.outputs.url }}"
+
       - name: Create artifacts dir
         run: mkdir artifacts
-
-      - name: Download x64-release-linux artifact
-        run: |
-          gh run download ${{ steps.get_run.outputs.run_id }} \
-            -n x64-release-linux \
-            -D artifacts/artifact-linux
-        env:
-          GH_TOKEN: ${{github.token}}
-
-      - name: Download x64-release-windows artifact
-        run: |
-          gh run download ${{steps.get_run.outputs.run_id}} -n x64-release-win -D artifats/artifact-win
-        env:
-          GH_TOKEN: ${{github.token}}
 
       - name: Upload assets to release
         uses: softprops/action-gh-release@v2
         with:
-          files: artifacts/**/*
+          files: artifacts/*.zip
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
