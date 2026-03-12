@@ -187,7 +187,7 @@ void HandleInterrupt(int /*sigint*/)
 // the main accept loop
 // binds to 127.0.0.1:443, accepts a connection, spins a thread, repeat
 int main(int argc, char** argv) {
-    signal(2, HandleInterrupt);
+    (void)signal(2, HandleInterrupt);
     if (argc == 4) {
         gamePort = std::stoi(std::string(argv[1]));
         socialPort = std::stoi(std::string(argv[2]));

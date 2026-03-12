@@ -8,7 +8,7 @@ UpdatePartyProcessor::UpdatePartyProcessor(SpectreRpcType rpcType)
 
 namespace {
     void BumpPartyVersion(Party* party) {
-        long long version = 0;
+        int64_t version = 0;
 
         if (!party->version().empty()) {
             try {
