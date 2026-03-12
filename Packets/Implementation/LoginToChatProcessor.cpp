@@ -12,7 +12,7 @@ struct VivoxConfig {
     std::string server;
 };
 
-static VivoxConfig LoadVivoxCfg() {
+static std::optional<VivoxConfig> LoadVivoxCfg() {
     VivoxConfig cfg;
 
     try {
@@ -29,6 +29,7 @@ static VivoxConfig LoadVivoxCfg() {
 
     } catch ([[maybe_unused]] const std::exception& e) {
         spdlog::warn("failed to parse auth.json, probably missing cfg");
+        return std::nullopt;
     }
 
     return cfg;
@@ -37,7 +38,12 @@ static VivoxConfig LoadVivoxCfg() {
 LoginToChatProcessor::LoginToChatProcessor(const SpectreRpcType &rpcType) : WebsocketPacketProcessor(rpcType) {}
 
 void LoginToChatProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
-    const auto cfg = LoadVivoxCfg();
+    const auto cfgOpt = LoadVivoxCfg();
+    if (!cfgOpt.has_value()) {
+        spdlog::warn("vivox not set up, not logging into voice chat");
+        return;
+    }
+    const VivoxConfig& cfg = cfgOpt.value();
     const std::string playerId = sock.GetPlayerId();
 
     const std::shared_ptr<json> response = packet.GetBaseJsonResponse();
