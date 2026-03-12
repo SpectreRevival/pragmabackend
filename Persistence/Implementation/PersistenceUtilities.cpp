@@ -30,6 +30,7 @@ static std::filesystem::path GetAppDataPathLinux() {
         return std::filesystem::path(home) / ".local" / "share";
     }
     spdlog::error("Failed to find XDG_DATA_HOME or HOME directory to save data");
+    throw std::runtime_error("Failed to find XDG_DATA_HOME or HOME directory to save data");
 }
 #endif
 
