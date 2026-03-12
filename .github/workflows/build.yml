@@ -53,31 +53,34 @@ jobs:
         shell: bash
         run: |
           mkdir package
-          cp -r out/build/x64-${{matrix.build_type}}-linux/* package/
-          rm package/*.h
-          rm package/*.cc
+          cp -r out/build/x64-${{matrix.build_type}}-win/* package/
+          rm -f package/*.h
+          rm -f package/*.cc
           rm -rf package/.cmake
+          rm -f package/*.cmake
           rm -rf package/CMakeFiles
-          rm package/*.cmake
+          rm -f package/*.log
           rm -rf package/vcpkg_installed
-          rm package/auth.json
-          rm package/build.ninja
-          rm package/*.cmake
-          rm package/compile_commands.json
-          rm package/CMakeCache.txt
+          rm -f package/auth.json
+          rm -f package/build.ninja
+          rm -f package/compile_commands.json
+          rm -f package/CMakeCache.txt
           rm -rf package/CMakeFiles
-          rm package/*.ilk
-          rm package/*.pdb
-          find . -type d -name CMakeFiles -print0 |
+          rm -f package/*.ilk
+          rm -f package/*.pdb
+          (
+            cd package
+            find . -type d -name CMakeFiles -print0 |
             while IFS= read -r -d '' dir; do
-            parent="$(dirname "$dir")"
-            echo "Processing: $parent"
-            rm -rf $parent/CMakeFiles
-            rm $parent/*.cmake
-            rm $parent/*.ilk
-            rm $parent/*.pdb
-            rm $parent/*.json
-          done
+              parent="$(dirname "$dir")"
+              echo "Processing: $parent"
+              rm -rf $parent/CMakeFiles
+              rm -f $parent/*.cmake
+              rm -f $parent/*.ilk
+              rm -f $parent/*.pdb
+              rm -f $parent/*.json
+            done
+          )
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -127,6 +130,11 @@ jobs:
           shell: powershell
           run: git submodule status vcpkg | Out-File -Encoding utf8 vcpkgcommit.txt
 
+        - name: Create auth.json
+          shell: bash
+          run: |
+            echo "{\"steamApiKey\": \"${{ secrets.STEAM_API_KEY }}\"}" > auth.json
+
         - name: Cache vcpkg archives directory
           uses: actions/cache@v4
           with:
@@ -146,30 +154,33 @@ jobs:
           run: |
             mkdir package
             cp -r out/build/x64-${{matrix.build_type}}-win/* package/
-            rm package/*.h
-            rm package/*.cc
+            rm -f package/*.h
+            rm -f package/*.cc
             rm -rf package/.cmake
+            rm -f package/*.cmake
             rm -rf package/CMakeFiles
-            rm package/*.cmake
+            rm -f package/*.log
             rm -rf package/vcpkg_installed
-            rm package/auth.json
-            rm package/build.ninja
-            rm package/*.cmake
-            rm package/compile_commands.json
-            rm package/CMakeCache.txt
+            rm -f package/auth.json
+            rm -f package/build.ninja
+            rm -f package/compile_commands.json
+            rm -f package/CMakeCache.txt
             rm -rf package/CMakeFiles
-            rm package/*.ilk
-            rm package/*.pdb
+            rm -f package/*.ilk
+            rm -f package/*.pdb
+            (
+            cd package
             find . -type d -name CMakeFiles -print0 |
-              while IFS= read -r -d '' dir; do
+            while IFS= read -r -d '' dir; do
               parent="$(dirname "$dir")"
               echo "Processing: $parent"
               rm -rf $parent/CMakeFiles
-              rm $parent/*.cmake
-              rm $parent/*.ilk
-              rm $parent/*.pdb
-              rm $parent/*.json
+              rm -f $parent/*.cmake
+              rm -f $parent/*.ilk
+              rm -f $parent/*.pdb
+              rm -f $parent/*.json
             done
+            )
 
         - name: Upload artifact
           uses: actions/upload-artifact@v4
