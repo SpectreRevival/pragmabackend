@@ -7,6 +7,42 @@ jobs:
   attach-artifacts:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
+
+      - name: Install GitHub CLI
+        run: sudo apt-get update && sudo apt-get install -y gh jq
+
+      - name: Get workflow ID for build.yml
+        id: get_workflow
+        run: |
+          workflow_id=$(gh workflow list --json name,id \
+            --jq '.[] | select(.name=="build.yml") | .id')
+          echo "workflow_id=$workflow_id" >> $GITHUB_OUTPUT
+
+
+      - name: Get latest successful master run of build.yml
+        id: get_run
+        run: |
+          run_id=$(gh api \
+            repos/${{ github.repository }}/actions/workflows/${{ steps.get_workflow.outputs.workflow_id }}/runs \
+            --jq '.workflow_runs[] | select(.head_branch=="master" and .conclusion=="success") | .id' \
+            | head -n 1)
+          echo "run_id=$run_id" >> $GITHUB_OUTPUT
+
+      - name: Create artifacts dir
+        run: mkdir artifacts
+
+      - name: Download x64-release-linux artifact
+        run: |
+          gh run download ${{ steps.get_run.outputs.run_id }} \
+            -n x64-release-linux \
+            -D artifacts/artifact-linux
+
+      - name: Download x64-release-windows artifact
+        run: |
+          gh run download ${{steps.get_run.outputs.run_id}} -n x64-release-win -D artifats/artifact-win
+
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
