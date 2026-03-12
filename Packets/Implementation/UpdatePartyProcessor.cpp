@@ -19,7 +19,7 @@ namespace {
         }
 
         party->set_version(std::to_string(version + 1));
-     // namespace }
+    }
 } // namespace
 
 void UpdatePartyProcessor::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {

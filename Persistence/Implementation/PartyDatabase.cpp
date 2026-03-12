@@ -25,7 +25,7 @@ static void StripEmptyModeBranches(ordered_json &root) {
     }
 }
 
-PartyDatabase::PartyDatabase(fs::path path) : Database(path, "parties", "PartyID", "TEXT") {
+PartyDatabase::PartyDatabase(const fs::path& path) : Database(path, "parties", "PartyID", "TEXT") {
     sql::Statement colQuery(GetRawRef(), "PRAGMA table_info(" + GetTableName() + ");");
 
     bool hasPartyCode    = false;
