@@ -9,6 +9,8 @@
 #include <ProfileData.pb.h>
 #include <ResourcesUtilities.h>
 #include <WeaponLoadout.pb.h>
+#include <FriendsList.pb.h>
+#include <PlayerPresence.pb.h>
 
 PlayerDatabase::PlayerDatabase(const fs::path& path)
     : Database(path, "players", "PlayerID", "TEXT") {
@@ -18,6 +20,8 @@ PlayerDatabase::PlayerDatabase(const fs::path& path)
     AddPrototype<PlayerData>(FieldKey::PLAYER_DATA, ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultPlayerData.json");
     AddPrototype<ProfileData>(FieldKey::PROFILE_DATA, ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultProfile.json");
     AddPrototype<LegacyPlayerData>(FieldKey::PLAYER_LEGACY_DATA, ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultLegacyData.json");
+    AddPrototype<PlayerPresence>(FieldKey::PLAYER_PRESENCE, ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultPlayerPresence.json");
+    AddPrototype<FriendsList>(FieldKey::FRIENDS_LIST, ResourcesUtilities::GetResourcesFolder() / "payloads" / "ws" / "game" / "DefaultFriendsList.json");
 }
 
 PlayerDatabase PlayerDatabase::inst(PersistenceUtilities::GetSavePath() / "playerdata.sqlite");

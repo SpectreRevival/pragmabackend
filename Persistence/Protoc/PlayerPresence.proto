@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message PlayerPresence {
+    PlayerBasicPresence basicPresence = 1;
+}
+
+enum PlayerBasicPresence {
+    Online = 1;
+}

@@ -29,6 +29,7 @@
 #include <SetReadyProcessor.h>
 #include <SpectreWebsocket.h>
 #include <SpectreWebsocketRequest.h>
+#include <SetPlayerPresenceHandler.h>
 #include <StaticResponseProcessorHTTP.h>
 #include <StaticResponseProcessorWS.h>
 #include <UpdateItemV4Processor.h>
@@ -244,6 +245,8 @@ int main(int argc, char** argv) {
             SpectreRpcType("MultiplayerRpc.InitializePartyV1Request"));
         new IsInPartyHandler(
             SpectreRpcType("MultiplayerRpc.SyncPartyV1Request"));
+        new SetPlayerPresenceHandler(
+            SpectreRpcType("FriendRpc.SetPresenceV1Request"));
         std::thread gameThread = std::thread([] {
             ConnectionAcceptor(gamePort); // game
         });
