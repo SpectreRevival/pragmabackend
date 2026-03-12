@@ -19,6 +19,8 @@ jobs:
           workflow_id=$(gh workflow list --json name,id \
             --jq '.[] | select(.name=="build.yml") | .id')
           echo "workflow_id=$workflow_id" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{github.token}}
 
 
       - name: Get latest successful master run of build.yml
@@ -29,6 +31,8 @@ jobs:
             --jq '.workflow_runs[] | select(.head_branch=="master" and .conclusion=="success") | .id' \
             | head -n 1)
           echo "run_id=$run_id" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{github.token}}
 
       - name: Create artifacts dir
         run: mkdir artifacts
@@ -38,10 +42,14 @@ jobs:
           gh run download ${{ steps.get_run.outputs.run_id }} \
             -n x64-release-linux \
             -D artifacts/artifact-linux
+        env:
+          GH_TOKEN: ${{github.token}}
 
       - name: Download x64-release-windows artifact
         run: |
           gh run download ${{steps.get_run.outputs.run_id}} -n x64-release-win -D artifats/artifact-win
+        env:
+          GH_TOKEN: ${{github.token}}
 
       - name: Download artifacts
         uses: actions/download-artifact@v4
