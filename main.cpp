@@ -54,6 +54,8 @@
 #include <string>
 #include <thread>
 #include <PersistenceUtilities.h>
+#include <filesystem>
+#include <signal.h>
 
 static uint16_t gamePort = 8081;
 static uint16_t socialPort = 8082;
@@ -64,6 +66,7 @@ namespace beast = boost::beast;
 namespace http = beast::http;
 namespace websocket = beast::websocket;
 using tcp = asio::ip::tcp;
+namespace fs = std::filesystem;
 
 static std::shared_ptr<spdlog::logger> logger;
 
@@ -175,9 +178,17 @@ static void ConnectionAcceptor(unsigned short port) {
     }
 }
 
+bool bStop = false;
+
+void HandleInterrupt(int /*sigint*/)
+{
+    bStop = true;
+}
+
 // the main accept loop
 // binds to 127.0.0.1:443, accepts a connection, spins a thread, repeat
 int main(int argc, char** argv) {
+    signal(2, HandleInterrupt);
     if (argc == 4) {
         gamePort = std::stoi(std::string(argv[1]));
         socialPort = std::stoi(std::string(argv[2]));
@@ -245,9 +256,13 @@ int main(int argc, char** argv) {
             ConnectionAcceptor(wsPort); // websockets
         });
         logger->info("acceptor threads started");
-        gameThread.join();
-        socialThread.join();
-        wsThread.join();
+        std::ofstream serverLockFile("./server.lock", std::ios::trunc | std::ios::out);
+        while (!bStop)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        }
+        serverLockFile.close();
+        fs::remove("./server.lock");
     } catch (const std::exception& e) {
         logger->error("unhandled exception caught in main: {}", e.what());
     }

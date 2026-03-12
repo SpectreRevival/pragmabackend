@@ -4,6 +4,9 @@
 #include <thread>
 
 #include "PersistenceUtilities.h"
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 void BackendEnvironment::SetUp() {
 #if defined(_WIN32)
@@ -25,7 +28,13 @@ void BackendEnvironment::SetUp() {
         [](const char* bytes, size_t n) {
             std::cerr << std::string(bytes, n);
         });
-    std::this_thread::sleep_for(std::chrono::seconds(7));
+    while (true)
+    {
+        if (fs::exists(ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() / "server.lock"))
+        {
+            break;
+        }
+    }
 }
 
 void BackendEnvironment::TearDown() {
@@ -35,4 +44,5 @@ void BackendEnvironment::TearDown() {
         server.reset();
     }
     std::filesystem::remove(PersistenceUtilities::GetSavePath() / "playerdata.sqlite");
+    std::filesystem::remove(ResourcesUtilities::GetCurrentExecutablePath().parent_path().parent_path() / "server.lock");
 }
