@@ -1,9 +1,8 @@
+#include <PlayerDatabase.h>
 #include <SetPlayerPresenceHandler.h>
 #include <SetPresenceRequest.pb.h>
-#include <PlayerDatabase.h>
 
 SetPlayerPresenceHandler::SetPlayerPresenceHandler(SpectreRpcType rpcType) : WebsocketPacketProcessor(rpcType) {
-
 }
 
 void SetPlayerPresenceHandler::Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) {
@@ -16,4 +15,11 @@ void SetPlayerPresenceHandler::Process(SpectreWebsocketRequest& packet, SpectreW
     std::shared_ptr<json> response = packet.GetBaseJsonResponse();
     (*response)["payload"]["response"] = "Ok";
     sock.SendPacket(response);
+}
+
+void UpdatePlayerPresence(PlayerPresence& newPresence, const std::string& playerId) {
+    int version = std::strtol(newPresence.version());
+    version++;
+    newPresence.set_version(std::to_string(version));
+    PlayerDatabase::Get().SetField(FieldKey::PLAYER_PRESENCE, newPresence, playerId);
 }

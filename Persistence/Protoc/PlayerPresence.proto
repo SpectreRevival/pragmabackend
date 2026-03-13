@@ -2,9 +2,15 @@ syntax = "proto3";
 
 message PlayerPresence {
     PlayerBasicPresence basicPresence = 1;
+    PlayerPresenceExt ext = 2;
+    string version = 3;
 }
 
 enum PlayerBasicPresence {
     Online = 0;
     Offline = 1;
+}
+
+message PlayerPresenceExt {
+
 }

@@ -4,5 +4,5 @@ import "PlayerPresence.proto";
 message SetPresenceRequest {
     PlayerBasicPresence basicPresence = 1;
     string gameShardId = 2;
-    map<string, string> requestExt = 3;
+    PlayerPresenceExt requestExt = 3;
 }

@@ -7,3 +7,5 @@ class SetPlayerPresenceHandler : public WebsocketPacketProcessor {
 
     void Process(SpectreWebsocketRequest& packet, SpectreWebsocket& sock) override;
 };
+
+static void UpdatePlayerPresence(PlayerPresence& newPresence, const std::string& playerId);

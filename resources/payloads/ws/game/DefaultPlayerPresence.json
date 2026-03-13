@@ -1,3 +1,5 @@
 {
-  "basicPresence": "Offline"
+  "basicPresence": "Offline",
+  "ext": {},
+  "version": "0"
 }

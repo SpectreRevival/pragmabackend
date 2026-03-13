@@ -5,13 +5,10 @@
 class Notification {
   private:
     SpectreRpcType notificationType;
+    const std::string notificationId;
+    std::unique_ptr<pbuf::Message> notificationData;
 
   public:
-    virtual ~Notification() = default;
-    Notification(Notification& other) = default;
-    Notification(Notification&& other) = default;
-    explicit Notification(SpectreRpcType notificationType);
-
-    [[nodiscard]] const SpectreRpcType& GetNotificationType() const;
-    virtual void SendTo(SpectreWebsocket& sock) const = 0;
+    Notification(const SpectreRpcType& notificationType, std::unique_ptr<pbuf::Message> notificationData);
+    const SpectreRpcType& GetNotificationType() const;
 };
