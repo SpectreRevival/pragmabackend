@@ -2,6 +2,7 @@
 // Created by astro on 27/09/2025.
 //
 
+#include "GetFriendsListAndRegisterOnlineHandler.h"
 #include "StaticHTTPPackets.cpp" // NOLINT
 #include "StaticWSPackets.cpp"   // NOLINT
 #include "SubmitProviderIdHandler.h"
@@ -26,10 +27,10 @@
 #include <SaveOutfitLoadoutProcessor.h>
 #include <SavePlayerDataProcessor.h>
 #include <SaveWeaponLoadoutProcessor.h>
+#include <SetPlayerPresenceHandler.h>
 #include <SetReadyProcessor.h>
 #include <SpectreWebsocket.h>
 #include <SpectreWebsocketRequest.h>
-#include <SetPlayerPresenceHandler.h>
 #include <StaticResponseProcessorHTTP.h>
 #include <StaticResponseProcessorWS.h>
 #include <UpdateItemV4Processor.h>
@@ -247,6 +248,9 @@ int main(int argc, char** argv) {
             SpectreRpcType("MultiplayerRpc.SyncPartyV1Request"));
         new SetPlayerPresenceHandler(
             SpectreRpcType("FriendRpc.SetPresenceV1Request"));
+        new GetFriendsListAndRegisterOnlineHandler(
+            SpectreRpcType("FriendRpc.GetFriendListAndRegisterOnlineV1Request")
+            );
         std::thread gameThread = std::thread([] {
             ConnectionAcceptor(gamePort); // game
         });
