@@ -1,4 +1,5 @@
 #include "PlayerDatabase.h"
+#include "SetPlayerPresenceHandler.h"
 
 #include <FriendsList.pb.h>
 #include <GetFriendsListAndRegisterOnlineHandler.h>
@@ -12,6 +13,6 @@ void GetFriendsListAndRegisterOnlineHandler::Process(SpectreWebsocketRequest& pa
     std::unique_ptr<FriendsList> friendsList = PlayerDatabase::Get().GetField<FriendsList>(FieldKey::FRIENDS_LIST, sock.GetPlayerId());
     std::unique_ptr<PlayerPresence> presence = PlayerDatabase::Get().GetField<PlayerPresence>(FieldKey::PLAYER_PRESENCE, sock.GetPlayerId());
     presence->set_basicpresence(Online);
-    PlayerDatabase::Get().SetField(FieldKey::PLAYER_PRESENCE, presence.get(), sock.GetPlayerId());
+    UpdatePlayerPresence(*presence, sock.GetPlayerId());
     sock.SendPacket(*friendsList, packet.GetResponseType(), packet.GetRequestId());
 }

@@ -49,7 +49,6 @@
     "tiny-process-library",
     "qtbase",
     "qthttpserver",
-    "qtimageformats",
-    "qtsvg"
+    "qtmultimedia"
   ]
 }

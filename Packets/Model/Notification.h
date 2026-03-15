@@ -6,9 +6,12 @@ class Notification {
   private:
     SpectreRpcType notificationType;
     const std::string notificationId;
-    std::unique_ptr<pbuf::Message> notificationData;
+    std::string notificationData;
 
   public:
-    Notification(const SpectreRpcType& notificationType, std::unique_ptr<pbuf::Message> notificationData);
+    Notification(const SpectreRpcType& notificationType, const pbuf::Message& notificationData);
+    Notification(const SpectreRpcType& notificationType, const std::string& notificationId, const std::string& notificationData);
     const SpectreRpcType& GetNotificationType() const;
+    const std::string& GetNotificationId() const;
+    const std::string& GetNotificationData() const;
 };

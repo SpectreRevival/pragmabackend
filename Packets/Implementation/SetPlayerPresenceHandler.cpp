@@ -10,7 +10,7 @@ void SetPlayerPresenceHandler::Process(SpectreWebsocketRequest& packet, SpectreW
 
     std::unique_ptr<PlayerPresence> presence = PlayerDatabase::Get().GetField<PlayerPresence>(FieldKey::PLAYER_PRESENCE, sock.GetPlayerId());
     presence->set_basicpresence(req->basicpresence());
-    PlayerDatabase::Get().SetField(FieldKey::PLAYER_PRESENCE, presence.get(), sock.GetPlayerId());
+    UpdatePlayerPresence(*presence, sock.GetPlayerId());
 
     std::shared_ptr<json> response = packet.GetBaseJsonResponse();
     (*response)["payload"]["response"] = "Ok";
@@ -18,8 +18,8 @@ void SetPlayerPresenceHandler::Process(SpectreWebsocketRequest& packet, SpectreW
 }
 
 void UpdatePlayerPresence(PlayerPresence& newPresence, const std::string& playerId) {
-    int version = std::strtol(newPresence.version());
+    int version = std::stoi(newPresence.version());
     version++;
     newPresence.set_version(std::to_string(version));
-    PlayerDatabase::Get().SetField(FieldKey::PLAYER_PRESENCE, newPresence, playerId);
+    PlayerDatabase::Get().SetField(FieldKey::PLAYER_PRESENCE, &newPresence, playerId);
 }
