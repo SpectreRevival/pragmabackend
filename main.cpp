@@ -89,6 +89,8 @@ static void SetupLogger() {
     spdlog::set_default_logger(logger);
 }
 
+std::vector<PlayerConnectionThread*> playerConnections{};
+
 static void ConnectionAcceptor(unsigned short port) {
     try {
         asio::io_context ioc; // we use sync ops but asio still wants an io_context around
@@ -103,7 +105,7 @@ static void ConnectionAcceptor(unsigned short port) {
             tcp::socket sock(ioc);
             acc.accept(sock); // blocks until a client connects
             // each session owns its TLS handshake and stream
-            PlayerConnectionThread pCon(std::move(sock));
+            playerConnections.push_back(new PlayerConnectionThread(std::move(sock)));
         }
     } catch (std::exception& e) {
         logger->error("fatal exception(rip acceptor thread): ");
@@ -116,8 +118,6 @@ bool bStop = false;
 void HandleInterrupt(int /*sigint*/) {
     bStop = true;
 }
-
-std::vector<PlayerConnectionThread*> playerConnections{};
 
 void ShutdownServer() {
     for (PlayerConnectionThread* connection : playerConnections) {

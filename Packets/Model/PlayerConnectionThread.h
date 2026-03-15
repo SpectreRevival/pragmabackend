@@ -4,7 +4,7 @@
 #include <queue>
 #include <memory>
 
-class PlayerConnectionThread : public std::enable_shared_from_this<PlayerConnectionThread> {
+class PlayerConnectionThread {
 private:
     std::string playerId;
     std::queue<std::unique_ptr<Notification>> notificationQueue;

@@ -52,10 +52,11 @@ void PlayerConnectionThread::EnqueueNotification(std::unique_ptr<Notification> n
 void PlayerConnectionThread::HTTPConnectionThread(std::stop_token stopToken) {
     while (!stopToken.stop_requested()) {
         http::async_read(playerConnectionSocket, httpDataBuffer, httpRequest,
-            boost::beast::bind_front_handler(&PlayerConnectionThread::OnHTTPRequestReceive, shared_from_this()));
+            boost::beast::bind_front_handler(&PlayerConnectionThread::OnHTTPRequestReceive, this));
         while (!stopToken.stop_requested()) {
             if (httpMessageReceivedMutex.try_lock() && httpMessageReceived) {
                 httpMessageReceived = false;
+                httpMessageReceivedMutex.unlock();
                 break;
             }
             std::this_thread::yield();
@@ -65,10 +66,11 @@ void PlayerConnectionThread::HTTPConnectionThread(std::stop_token stopToken) {
 
 void PlayerConnectionThread::WebsocketConnectionThread(std::stop_token stopToken) {
     while (!stopToken.stop_requested()) {
-        ws->async_read(websocketDataBuffer, boost::beast::bind_front_handler(&PlayerConnectionThread::OnWebsocketMessageReceive, shared_from_this()));
+        ws->async_read(websocketDataBuffer, boost::beast::bind_front_handler(&PlayerConnectionThread::OnWebsocketMessageReceive, this));
         while (!stopToken.stop_requested()) {
             if (webSocketMessageReceivedMutex.try_lock() && webSocketMessageReceived) {
                 webSocketMessageReceived = false;
+                webSocketMessageReceivedMutex.unlock();
                 break;
             }
             std::this_thread::yield();
