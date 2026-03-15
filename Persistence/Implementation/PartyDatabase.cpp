@@ -50,7 +50,7 @@ PartyDatabase::PartyDatabase(const fs::path& path)
     }
 
     AddPrototype<BroadcastPartyExtraInfo>(FieldKey::PARTY_EXTRA_BROADCAST_INFO);
-    AddPrototype<BroadcastPartyExtraInfo>(FieldKey::PARTY_PRIVATE_EXTRA_BROADCAST_INFO);
+    AddPrototype<BroadcastPrivatePartyExtraInfo>(FieldKey::PARTY_PRIVATE_EXTRA_BROADCAST_INFO);
     AddPrototype<PartyMembers>(FieldKey::PARTY_MEMBERS);
 }
 
@@ -112,8 +112,8 @@ Party PartyDatabase::GetParty(const std::string& partyId) {
         party.mutable_extbroadcastparty()->CopyFrom(*broadcastExtra);
     }
 
-    std::unique_ptr<BroadcastPartyExtraInfo> privateExtra =
-        GetField<BroadcastPartyExtraInfo>(FieldKey::PARTY_PRIVATE_EXTRA_BROADCAST_INFO, partyId);
+    std::unique_ptr<BroadcastPrivatePartyExtraInfo> privateExtra =
+        GetField<BroadcastPrivatePartyExtraInfo>(FieldKey::PARTY_PRIVATE_EXTRA_BROADCAST_INFO, partyId);
     if (privateExtra) {
         party.mutable_extprivateplayer()->CopyFrom(*privateExtra);
     }
