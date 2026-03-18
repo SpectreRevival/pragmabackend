@@ -2,6 +2,8 @@
 // Created by astro on 27/09/2025.
 //
 
+#include "GetFriendsListAndRegisterOnlineHandler.h"
+#include "PlayerConnectionThread.h"
 #include "StaticHTTPPackets.cpp" // NOLINT
 #include "StaticWSPackets.cpp"   // NOLINT
 #include "SubmitProviderIdHandler.h"
@@ -26,6 +28,7 @@
 #include <SaveOutfitLoadoutProcessor.h>
 #include <SavePlayerDataProcessor.h>
 #include <SaveWeaponLoadoutProcessor.h>
+#include <SetPlayerPresenceHandler.h>
 #include <SetReadyProcessor.h>
 #include <SpectreWebsocket.h>
 #include <SpectreWebsocketRequest.h>
@@ -86,72 +89,7 @@ static void SetupLogger() {
     spdlog::set_default_logger(logger);
 }
 
-static std::string StripQueryParams(const std::string& url) {
-    size_t pos = url.find('?');
-    if (pos != std::string::npos) {
-        if (url.at(0) == '/' && url.at(1) == '/') {
-            return url.substr(1, pos);
-        }
-        return url.substr(0, pos);
-    }
-    if (url.at(0) == '/' && url.at(1) == '/') {
-        return url.substr(1);
-    }
-    return url;
-}
-
-static void Session(tcp::socket sock) {
-    try {
-        beast::flat_buffer buffer; // http parser scratch space
-        http::request<http::string_body> req;
-
-        // blocking read
-        http::read(sock, buffer, req);
-
-        // detect websocket upgrade and switch protocols if requested
-        if (websocket::is_upgrade(req)) {
-            logger->info("trying to accept ws handshake");
-            websocket::stream<tcp::socket> ws(std::move(sock));
-            ws.accept(req); // complete ws handshake
-            SpectreWebsocket sock(ws, req);
-            logger->info("upgraded connection with {}:{} to websocket",
-                         ws.next_layer().remote_endpoint().address().to_string(), ws.next_layer().remote_endpoint().port());
-
-            // basic echo loop so clients have something to talk to
-            for (;;) {
-                beast::flat_buffer wsbuf;
-                ws.read(wsbuf); // this blocks until a message arrives or the peer closes
-                SpectreWebsocketRequest req(sock, wsbuf);
-                auto route = WebsocketPacketProcessor::GetProcessorForRpc(req.GetRequestType());
-                if (route == nullptr) {
-                    logger->warn("no packet processor found for WS requestType: " + req.GetRequestType().GetName());
-                    continue;
-                }
-                route->Process(req, sock);
-            }
-        }
-        auto target = StripQueryParams(std::string(req.target())); // remove ?query so routing is stable
-        HTTPPacketProcessor* processor = HTTPPacketProcessor::GetProcessorForRoute(target);
-        if (processor == nullptr) {
-            logger->warn("missing a handler for http route " + target);
-            // send a 404 if no processor found
-            http::response<http::string_body> res;
-            res.version(req.version());
-            res.keep_alive(req.keep_alive());
-            res.result(http::status::not_found);
-            res.set(http::field::content_type, "application/json; charset=UTF-8");
-            res.body() = "{}";
-            res.prepare_payload();
-            http::write(sock, res);
-            return;
-        }
-        processor->Process(req, sock);
-    } catch (std::exception& e) {
-        // any parse error, socket close, or ws close lands here
-        logger->error("session error: ");
-        logger->error(e.what());
-    }
-}
+std::vector<PlayerConnectionThread*> playerConnections{};
 
 static void ConnectionAcceptor(unsigned short port) {
     try {
@@ -167,9 +105,7 @@ static void ConnectionAcceptor(unsigned short port) {
             tcp::socket sock(ioc);
             acc.accept(sock); // blocks until a client connects
             // each session owns its TLS handshake and stream
-            std::thread([s = std::move(sock)]() mutable {
-                Session(std::move(s));
-            }).detach();
+            playerConnections.push_back(new PlayerConnectionThread(std::move(sock)));
         }
     } catch (std::exception& e) {
         logger->error("fatal exception(rip acceptor thread): ");
@@ -179,8 +115,15 @@ static void ConnectionAcceptor(unsigned short port) {
 
 bool bStop = false;
 
-void HandleInterrupt(int /*sigint*/) {
+static void HandleInterrupt(int /*sigint*/) {
     bStop = true;
+}
+
+static void ShutdownServer() {
+    for (PlayerConnectionThread* connection : playerConnections) {
+        spdlog::info("Shutting down connection to {}:{}", connection->GetIPAddress(), connection->GetPort());
+        delete connection;
+    }
 }
 
 // the main accept loop
@@ -244,6 +187,15 @@ int main(int argc, char** argv) {
             SpectreRpcType("MultiplayerRpc.InitializePartyV1Request"));
         new IsInPartyHandler(
             SpectreRpcType("MultiplayerRpc.SyncPartyV1Request"));
+        new SetPlayerPresenceHandler(
+            SpectreRpcType("FriendRpc.SetPresenceV1Request"));
+        new GetFriendsListAndRegisterOnlineHandler(
+            SpectreRpcType("FriendRpc.GetFriendListAndRegisterOnlineV1Request")
+            );
+    } catch (std::exception& e) {
+        spdlog::error("Failed to initialize handlers, exiting...", e.what());
+    }
+    try{
         std::thread gameThread = std::thread([] {
             ConnectionAcceptor(gamePort); // game
         });
@@ -263,5 +215,9 @@ int main(int argc, char** argv) {
     } catch (const std::exception& e) {
         logger->error("unhandled exception caught in main: {}", e.what());
     }
+    spdlog::info("Shutting down server...");
+    ShutdownServer();
+    spdlog::info("Shutting down logging...");
+    spdlog::shutdown();
     return 0;
 }

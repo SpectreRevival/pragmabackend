@@ -1,0 +1,15 @@
+syntax = "proto3";
+import "PlayerPresence.proto";
+
+message PresenceUpdateNotification {
+  PlayerFullPresence newPresence = 1;
+}
+
+message PlayerFullPresence {
+  string playerId = 1;
+  string gameShardId = 2;
+  string gameTitleId = 3;
+  PlayerBasicPresence basicPresence = 4;
+  string version = 5;
+  PlayerPresenceExt ext = 6;
+}

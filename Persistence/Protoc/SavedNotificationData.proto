@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message SavedNotificationData {
+    repeated SavedNotification notificationsToDeliver = 1;
+}
+
+message SavedNotification {
+    string rpcType = 1;
+    string notificationId = 2;
+    string notificationData = 3;
+}

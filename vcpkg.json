@@ -46,6 +46,10 @@
     },
     "sqlitecpp",
     "stduuid",
-    "tiny-process-library"
+    "tiny-process-library",
+    "qtbase",
+    "qthttpserver",
+    "qtmultimedia",
+    "qttranslations"
   ]
 }

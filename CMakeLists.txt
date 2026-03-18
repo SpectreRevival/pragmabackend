@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 project(pragmabackend_core)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(WIN32)
     add_compile_definitions(_WIN32_WINNT=0x0A00) # target at least win10
     add_compile_definitions(_WIN32=1)
@@ -102,7 +103,7 @@ target_sources(pragmabackend_core PRIVATE ${GENERATED_PROTO_SRCS})
 target_include_directories(pragmabackend_core PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(tests)
-
+add_subdirectory(Launcher)
 if(MSVC)
     add_compile_options(/W4 /WX /permissive-)
 else ()
