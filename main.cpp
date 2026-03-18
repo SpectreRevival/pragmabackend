@@ -115,11 +115,11 @@ static void ConnectionAcceptor(unsigned short port) {
 
 bool bStop = false;
 
-void HandleInterrupt(int /*sigint*/) {
+static void HandleInterrupt(int /*sigint*/) {
     bStop = true;
 }
 
-void ShutdownServer() {
+static void ShutdownServer() {
     for (PlayerConnectionThread* connection : playerConnections) {
         spdlog::info("Shutting down connection to {}:{}", connection->GetIPAddress(), connection->GetPort());
         delete connection;

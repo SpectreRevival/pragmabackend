@@ -526,3 +526,5 @@ vcpkg_installed
 /.idea/modules.xml
 /.idea/pragmabackend.iml
 /.idea/vcs.xml
+Launcher/.qtcreator
+Launcher/build

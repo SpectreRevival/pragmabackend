@@ -49,6 +49,7 @@
     "tiny-process-library",
     "qtbase",
     "qthttpserver",
-    "qtmultimedia"
+    "qtmultimedia",
+    "qttranslations"
   ]
 }
